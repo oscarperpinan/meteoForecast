@@ -10,9 +10,12 @@ Retrieve NWP-WRF output from Meteogalicia and OpenMeteo services
               destfile=tmp, method='wget')
 	unzip(tmp, exdir=tempdir())
 		
+	## Install dependencies only if you don't have them already.
 	install.packages(c('raster', 'zoo')
+	## ncdf4 is not available for Windows
 	install.packages('ncdf4')
-	install.packages('ncdf') 
+	## Install ncdf instead if you use Windows
+	## install.packages('ncdf') 
 	install.packages(paste0(tempdir(), '/meteo-master'), repos=NULL, method='source')
 
 # Usage #
