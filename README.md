@@ -1,7 +1,9 @@
 meteo
 =====
 
-Retrieve NWP-WRF output from Meteogalicia and OpenMeteo services
+Retrieve NWP-WRF output from
+[Meteogalicia](http://www.meteogalicia.es/web/modelos/threddsIndex.action)
+and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
 
 # Install #
 
