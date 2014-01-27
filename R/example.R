@@ -1,4 +1,5 @@
 library(sp)
+library(zoo)
 library(raster)
 library(meteo)
 
