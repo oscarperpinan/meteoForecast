@@ -1,8 +1,8 @@
 Package: meteo
 Type: Package
 Title: Retrieve NWP-WRF output from Meteogalicia and OpenMeteo services
-Version: 0.1
-Date: 2014-01-16
+Version: 0.11
+Date: 2014-01-27
 Authors@R: person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@gmail.com", role=c('cre', 'aut'))
 Description: Retrieve NWP-WRF output from Meteogalicia and OpenMeteo services
 License: GPL-3
