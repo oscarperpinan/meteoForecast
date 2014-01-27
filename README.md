@@ -10,7 +10,7 @@ and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
 	tmp <- paste0(tempdir(), '/meteo.zip')
 	download.file('https://github.com/oscarperpinan/meteo/archive/master.zip',
               destfile=tmp, method='wget')
-	unzip(tmp, exdir=tempdir())
+	unzip(tmp, exdir=tempdir(), unzip=getOption('unzip'))
 		
 	## Install dependencies only if you don't have them already.
 	install.packages(c('raster', 'zoo')
