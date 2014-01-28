@@ -10,18 +10,18 @@ and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
     install.packages("devtools")
 	devtools::install_github("meteo", "oscarperpinan")
 
-	<!-- tmp <- paste0(tempdir(), '/meteo.zip') -->
-	<!-- download.file('https://github.com/oscarperpinan/meteo/archive/master.zip', -->
-    <!--           destfile=tmp, method='wget') -->
-	<!-- unzip(tmp, exdir=tempdir(), unzip=getOption('unzip')) -->
-		
-	<!-- ## Install dependencies only if you don't have them already. -->
-	<!-- install.packages(c('raster', 'zoo') -->
-	<!-- install.packages('ncdf4') -->
-	<!-- ## ncdf4 is not available for Windows at CRAN. -->
-	<!-- ## Install ncdf4 from http://cirrus.ucsd.edu/~pierce/ncdf/ or use ncdf instead -->
-	<!-- ## install.packages('ncdf')  -->
-	<!-- install.packages(paste0(tempdir(), '/meteo-master'), repos=NULL, method='source') -->
+<!-- tmp <- paste0(tempdir(), '/meteo.zip') -->
+<!-- download.file('https://github.com/oscarperpinan/meteo/archive/master.zip', -->
+<!--           destfile=tmp, method='wget') -->
+<!-- unzip(tmp, exdir=tempdir(), unzip=getOption('unzip')) -->
+
+<!-- ## Install dependencies only if you don't have them already. -->
+<!-- install.packages(c('raster', 'zoo') -->
+<!-- install.packages('ncdf4') -->
+<!-- ## ncdf4 is not available for Windows at CRAN. -->
+<!-- ## Install ncdf4 from http://cirrus.ucsd.edu/~pierce/ncdf/ or use ncdf instead -->
+<!-- ## install.packages('ncdf')  -->
+<!-- install.packages(paste0(tempdir(), '/meteo-master'), repos=NULL, method='source') -->
 
     
 
