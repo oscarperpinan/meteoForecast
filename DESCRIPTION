@@ -6,5 +6,5 @@ Date: 2014-01-27
 Authors@R: person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@gmail.com", role=c('cre', 'aut'))
 Description: Retrieve NWP-WRF output from Meteogalicia and OpenMeteo services
 License: GPL-3
-Depends: raster, ncdf, sp, zoo
+Depends: raster, ncdf, sp, zoo, rjson
 Suggests: ncdf4, lattice, rasterVis
