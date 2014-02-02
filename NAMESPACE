@@ -1,4 +1,4 @@
 import(raster)
 import(zoo)
-
+importFrom(rjson,  fromJSON)
 export('getPoint', 'getRaster')
