@@ -66,6 +66,7 @@ library(zoo)
 library(raster)
 library(meteo)
 
+
 ## Define locations
 
 st <- data.frame(name=c('Almeria','Granada','Huelva','Malaga','Caceres'),

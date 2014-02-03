@@ -113,7 +113,7 @@ getRaster <-
                                 )
         ## Time index
         hours <- switch(service,
-                        meteogalicia = (seq_length(nlayers(b))) * 3600, 
+                        meteogalicia = (seq_len(nlayers(b))) * 3600, 
                         openmeteo = frames * 3600 
                         )
         tt <- hours + as.numeric(run)*36 + as.POSIXct(day)
