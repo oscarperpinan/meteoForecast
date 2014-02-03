@@ -53,4 +53,5 @@ getPoint <- function(lon, lat, point,
                     vals <- vals[-1, ]
                     zoo(vals, tt)
                 })
+    z
 }
