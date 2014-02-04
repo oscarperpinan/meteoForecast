@@ -8,7 +8,7 @@ and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
 # Install from Github (not on CRAN yet) #
 
     install.packages("devtools")
-	devtools::install_github("meteo", "oscarperpinan")
+    devtools::install_github("meteo", "oscarperpinan")
 
 <!-- tmp <- paste0(tempdir(), '/meteo.zip') -->
 <!-- download.file('https://github.com/oscarperpinan/meteo/archive/master.zip', -->
@@ -73,10 +73,10 @@ and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
     pts <- coordinates(st)
     
     ## Meteogalicia uses Kelvin degrees 
-    MGpoint <- getPoint(pts[3, 1], pts[1, 2], vars='temp', service='meteogalicia')
+    MGpoint <- getPoint(pts[3, 1], pts[3, 2], vars='temp', service='meteogalicia')
     MGpoint <- MGpoint - 273
     ## Openmeteo uses Celsius degrees
-    OMpoint <- getPoint(pts[3, 1], pts[1, 2], vars='temp', service='openmeteo')
+    OMpoint <- getPoint(pts[3, 1], pts[3, 2], vars='temp', service='openmeteo')
     
     xyplot(cbind(MGpoint, OMpoint), superpose=TRUE)
     
