@@ -116,7 +116,7 @@ getRaster <-
                         meteogalicia = (seq_len(nlayers(b))) * 3600, 
                         openmeteo = frames * 3600 
                         )
-        tt <- hours + as.numeric(run)*36 + as.POSIXct(day)
+        tt <- hours + as.numeric(run)*3600 + as.POSIXct(day)
         b <- setZ(b, tt)
         ## Names
         if (missing(names)) names(b) <- format(tt, 'D%Y-%m-%d_H%H')
