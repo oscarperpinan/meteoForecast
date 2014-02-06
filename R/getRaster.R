@@ -1,4 +1,4 @@
-composeURL <- function(var, dd, run, box, frame, service){
+composeURL <- function(var, dd, run, box, timeFrame, service){
     switch(service,
            meteogalicia = {
                mainURL <- 'http://mandeo.meteogalicia.es/thredds/ncss/grid/wrf_2d_'
@@ -9,16 +9,15 @@ composeURL <- function(var, dd, run, box, frame, service){
                       '_', dd,
                       '_', paste0(run, '00'),
                       '.nc4?var=', var,
-                      box)
+                      box, timeFrame)
            },
            openmeteo = {
                mainURL <- 'http://dap.ometfn.net/eu12-pp_'
                run <- match.arg(run, c('00', '06', '12', '18'))
                paste0(mainURL,
                       dd, run,
-                      paste0('_', frame),
-                      '.nc.nc?',var,
-                      box)
+                      paste0('_', timeFrame),
+                      '.nc.nc?',var)
            },
            'unknown'
            )
@@ -27,7 +26,7 @@ composeURL <- function(var, dd, run, box, frame, service){
 getRaster <-
     function(var='swflx',
              day=Sys.Date(), run='00',
-             frames=1:72,
+             frames='complete',
              box, names, remote=TRUE, 
              service='meteogalicia',
              ...){
@@ -47,7 +46,31 @@ getRaster <-
                           '&east=', xmax(ext),
                           '&south=', ymin(ext))
         } else box <- ''
-        
+
+        ## Time Frames
+        stopifnot(frames == 'complete' | is.numeric(frames))
+        frames <-  switch(service,
+                          openmeteo = {
+                              if (frames == 'complete') frames = 1:72
+                              else frames <- seq(1, as.integer(frames), by=1)
+                          },
+                          meteogalicia = {
+                              if (frames == 'complete') frames = ''
+                              else {
+                                  present <- as.POSIXct(paste0(day,
+                                                               as.numeric(run),
+                                                               ':00:00Z'))
+                                  ff <- present + 3600
+                                  lf <- present + as.integer(frames)*3600
+                                  frames <- paste0('&time_start=',
+                                                   format(ff, '%Y-%m-%dT%H:%M:%SZ'),
+                                                   '&time_end=',
+                                                   format(lf, '%Y-%m-%dT%H:%M:%SZ')
+                                                   )
+                                  }
+                              }
+                          )
+
         ## Name of files to be read/stored
         ncFile <- switch(service,
                          meteogalicia = paste0(paste(var, dd, run, 
@@ -65,7 +88,7 @@ getRaster <-
                               ## file with all the time frames
                               meteogalicia = {
                                   completeURL <- composeURL(var, dd, run,
-                                                            box, '', 
+                                                            box, frames, 
                                                             'meteogalicia')
                                   try(download.file(completeURL, ncFile),
                                       silent=TRUE)
