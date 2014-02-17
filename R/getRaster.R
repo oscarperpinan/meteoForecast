@@ -90,7 +90,7 @@ getRaster <-
                                   completeURL <- composeURL(var, dd, run,
                                                             box, frames, 
                                                             'meteogalicia')
-                                  try(download.file(completeURL, ncFile),
+                                  try(download.file(completeURL, ncFile, mode='wb'),
                                       silent=TRUE)
                               },
                               ## OpenMeteo provides a different file
@@ -101,7 +101,7 @@ getRaster <-
                                                                 box, frames[i],
                                                                 'openmeteo')
                                       try(download.file(completeURL,
-                                                        ncFile[i]), 
+                                                        ncFile[i], mode='wb'), 
                                           silent=TRUE)
                                   })
                               )
