@@ -37,7 +37,9 @@ getRaster <-
                       meteogalicia = match.arg(run, c('00', '12')),
                       openmeteo = match.arg(run, c('00', '06', '12', '18'))
                       )
-        dd <- format(as.Date(day), format='%Y%m%d')
+        day <- as.Date(day)
+        dd <- format(day, format='%Y%m%d')
+        day <- as.character(day)
         ## Bounding box: it only works for meteogalicia
         if (!missing(box)) {
             ext <- extent(box)
@@ -139,7 +141,7 @@ getRaster <-
                         meteogalicia = (seq_len(nlayers(b))) * 3600, 
                         openmeteo = frames * 3600 
                         )
-        tt <- hours + as.numeric(run)*3600 + as.POSIXct(day)
+        tt <- hours + as.numeric(run)*3600 + as.POSIXct(day, tz='UTC')
         b <- setZ(b, tt)
         ## Names
         if (missing(names)) names(b) <- format(tt, 'D%Y-%m-%d_H%H')
