@@ -10,46 +10,53 @@ and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
     install.packages("devtools")
     devtools::install_github("meteo", "oscarperpinan")
 
-<!-- tmp <- paste0(tempdir(), '/meteo.zip') -->
-<!-- download.file('https://github.com/oscarperpinan/meteo/archive/master.zip', -->
-<!--           destfile=tmp, method='wget') -->
-<!-- unzip(tmp, exdir=tempdir(), unzip=getOption('unzip')) -->
-
-<!-- ## Install dependencies only if you don't have them already. -->
-<!-- install.packages(c('raster', 'zoo') -->
-<!-- install.packages('ncdf4') -->
-<!-- ## ncdf4 is not available for Windows at CRAN. -->
-<!-- ## Install ncdf4 from http://cirrus.ucsd.edu/~pierce/ncdf/ or use ncdf instead -->
-<!-- ## install.packages('ncdf')  -->
-<!-- install.packages(paste0(tempdir(), '/meteo-master'), repos=NULL, method='source') -->
-
-    
 
 # Usage #
+
+
+-   Load `meteo` (and `rasterVis` for graphics)
 
     library(meteo)
     library(rasterVis)
     
     Sys.setenv(TZ='UTC')
 
-	## Available variables in Meteogalicia
-	data(varsMG)
-	varsMG$Name
+## Variables
 
-    ## Available variables in Meteogalicia
-	data(varsOM)
-	varsOM$Name
+-   Meteogalicia
 
-    ## Retrieve data from meteogalicia
-    MGraster <- getRaster('temp', box=c(-7, -2, 35, 40), service='meteogalicia')
+    data(varsMG)
+    varsMG$Name
+
+-   OpenMeteo
+
+    data(varsOM)
+    varsOM$Name
+
+# Raster Data
+
+## Raster Data from Meteogalicia
+
+    MGraster <- getRaster('temp',
+                          box=c(-7, -2, 35, 40),
+                          service='meteogalicia')
+
     levelplot(MGraster, layers=1:12)
-    levelplot(MGraster, layout=c(1, 1))
-    
-    ## Retrieve data from openmeteo
-    OMraster <- getRaster('temp2m', frames=1:12, service='openmeteo')
+
+
+## Raster Data from OpenMeteo
+
+    OMraster <- getRaster('temp2m',
+                          frames=12,
+                          service='openmeteo')
+
     levelplot(OMraster)
-    
-    ## Extract values for some locations
+
+
+## Extract Values for Some Locations
+
+-   Define Locations
+
     st <- data.frame(name=c('Almeria','Granada','Huelva','Malaga','Caceres'),
                      elev=c(42, 702, 38, 29, 448))
     
@@ -57,39 +64,67 @@ and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
                              c(36.84, 37.18, 37.26, 36.63, 39.47)
                              )
     proj4string(st) <- '+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0'
-    
+
+### Meteogalicia
+
     MGpoints <- extract(MGraster, st)
     MG <- zoo(t(MGpoints), getZ(MGraster))
     names(MG) <- st$name
+
     xyplot(MG, superpose=TRUE)
-    
+
+
+### OpenMeteo
+
     OMpoints <- extract(OMraster, st)
     OM <- zoo(t(OMpoints), getZ(OMraster))
     names(OM) <- st$name
+
     xyplot(OM, superpose=TRUE)
-    
-    
-    ## Retrieve point values from the services
+
+
+# Point Data
+
+## Retrieve Point Data from Meteogalicia
+
     pts <- coordinates(st)
-    
+
+    MGpoint <- getPoint(pts[3, 1], pts[3, 2],
+                        vars='temp',
+                        service='meteogalicia')
     ## Meteogalicia uses Kelvin degrees 
-    MGpoint <- getPoint(pts[3, 1], pts[3, 2], vars='temp', service='meteogalicia')
     MGpoint <- MGpoint - 273
-    ## Openmeteo uses Celsius degrees
-    OMpoint <- getPoint(pts[3, 1], pts[3, 2], vars='temp', service='openmeteo')
-    
+
+## Retrieve Point Data from OpenMeteo
+
+    OMpoint <- getPoint(pts[3, 1], pts[3, 2],
+                        vars='temp',
+                        service='openmeteo')
+
+## Comparison
+
     xyplot(cbind(MGpoint, OMpoint), superpose=TRUE)
-    
-    ## Compare services
+
+
+## A set of locations
+
     comp <- lapply(seq_len(nrow(pts)), function(i){
         myPoint <- pts[i,]
     
-        MG <- getPoint(myPoint[1], myPoint[2], vars='temp', run='00', service='meteogalicia')
+        MG <- getPoint(myPoint[1], myPoint[2],
+                       vars='temp', run='00',
+                       service='meteogalicia')
         MG <- MG - 273
     
-        OM <- getPoint(myPoint[1], myPoint[2], vars='temp', service='openmeteo')
-        
+        OM <- getPoint(myPoint[1], myPoint[2],
+                       vars='temp',
+                       service='openmeteo')
+    
         merge(OM, MG)
     })
-    
+
+## Comparison
+
     xyplot(comp, superpose=TRUE)
+
+
