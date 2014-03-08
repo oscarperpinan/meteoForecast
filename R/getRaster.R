@@ -40,7 +40,7 @@ getRaster <-
         day <- as.Date(day)
         dd <- format(day, format='%Y%m%d')
         day <- as.character(day)
-        ## Bounding box: it only works for meteogalicia
+        ## Bounding box
         if (!missing(box)) {
             ext <- extent(box)
             box <- paste0('&north=', ymax(ext),
@@ -50,29 +50,34 @@ getRaster <-
         } else box <- ''
 
         ## Time Frames
+        frames <- frames[1]
         stopifnot(frames == 'complete' | is.numeric(frames))
         frames <-  switch(service,
                           openmeteo = {
-                              if (frames == 'complete') frames = 1:72
+                              if (frames == 'complete') frames <- 1:72
                               else frames <- seq(1, as.integer(frames), by=1)
                           },
                           meteogalicia = {
-                              if (frames == 'complete') frames = ''
-                              else {
-                                  present <- as.POSIXct(paste0(day,
-                                                               as.numeric(run),
-                                                               ':00:00Z'))
-                                  ff <- present + 3600
-                                  lf <- present + as.integer(frames)*3600
-                                  frames <- paste0('&time_start=',
-                                                   format(ff, '%Y-%m-%dT%H:%M:%SZ'),
-                                                   '&time_end=',
-                                                   format(lf, '%Y-%m-%dT%H:%M:%SZ')
-                                                   )
+                              if (remote) {
+                                  if (frames == 'complete') frames <- ''
+                                  else {
+                                      present <- as.POSIXct(paste0(day,
+                                                                   as.numeric(run),
+                                                                   ':00:00Z'))
+                                      ff <- present + 3600
+                                      lf <- present + as.integer(frames)*3600
+                                      frames <- paste0('&time_start=',
+                                                       format(ff, '%Y-%m-%dT%H:%M:%SZ'),
+                                                       '&time_end=',
+                                                       format(lf, '%Y-%m-%dT%H:%M:%SZ')
+                                                       )
                                   }
+                              } else { ## remote=FALSE
+                                  if (frames == 'complete') frames <- 1:96
+                                  else frames <- seq(1, frames, by=1)
                               }
-                          )
-
+                          })
+        
         ## Name of files to be read/stored
         ncFile <- switch(service,
                          meteogalicia = paste0(paste(var, dd, run, 
@@ -116,6 +121,8 @@ getRaster <-
         
         ## Read files
         suppressWarnings(bNC <- stack(ncFile))
+        ## Use frames with local files from meteogalicia
+        if (remote==FALSE & service=='meteogalicia') bNC <- bNC[[frames]]
         ## Convert into a RasterBrick
         b <- switch(service,
                     meteogalicia = brick(bNC),
@@ -136,15 +143,23 @@ getRaster <-
                                 ## https://forum.openmeteodata.org/index.php?topic=33.msg96#msg96
                                 openmeteo = "+proj=lcc +lon_0=4 +lat_0=47.5 +lat_1=47.5 +lat_2=47.5 +a=6370000. +b=6370000. +no_defs"
                                 )
+        ## Use box specification with local files or openmeteo
+        if (!missing(box) & (remote==FALSE | service=='openmeteo')) {
+            extPol <- as(ext, 'SpatialPolygons')
+            proj4string(extPol) <- '+proj=longlat +ellpps=WGS84'
+            extPol <- spTransform(extPol, CRS(projection(b)))
+            b <- crop(b, extent(extPol))
+        }
         ## Time index
-        hours <- switch(service,
-                        meteogalicia = (seq_len(nlayers(b))) * 3600, 
-                        openmeteo = frames * 3600 
-                        )
-        tt <- hours + as.numeric(run)*3600 + as.POSIXct(day, tz='UTC')
+        hours <- seq_len(nlayers(b))* 3600
+        ## hours <- switch(service,
+        ##                 meteogalicia = (seq_len(nlayers(b))) * 3600, 
+        ##                 openmeteo = frames * 3600 
+        ##                 )
+        tt <- hours + as.numeric(run)*3600 + as.POSIXct(day, tz='UTC') 
         b <- setZ(b, tt)
         ## Names
-        if (missing(names)) names(b) <- format(tt, 'D%Y-%m-%d_H%H')
+        if (missing(names)) names(b) <- format(tt, 'd%Y-%m-%d.h%H')
         ## Here it goes!
         b
     }
