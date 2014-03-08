@@ -5,13 +5,14 @@ Retrieve NWP-WRF output from
 [Meteogalicia](http://www.meteogalicia.es/web/modelos/threddsIndex.action)
 and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
 
-# Install from Github (not on CRAN yet) #
-
-    install.packages("devtools")
-    devtools::install_github("meteo", "oscarperpinan")
 
 
 # Usage #
+
+(Only first time or for updating) Install from Github (not on CRAN yet). 
+
+    install.packages("devtools")
+    devtools::install_github("meteo", "oscarperpinan")
 
 
 Load `meteo` (and `rasterVis` for graphics)
