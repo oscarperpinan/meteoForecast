@@ -14,21 +14,23 @@ and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
 # Usage #
 
 
--   Load `meteo` (and `rasterVis` for graphics)
+Load `meteo` (and `rasterVis` for graphics)
 
     library(meteo)
     library(rasterVis)
-    
+
+Set time zone to UTC
+
     Sys.setenv(TZ='UTC')
 
 ## Variables
 
--   Meteogalicia
+### Meteogalicia
 
     data(varsMG)
     varsMG$Name
 
--   OpenMeteo
+### OpenMeteo
 
     data(varsOM)
     varsOM$Name
@@ -55,7 +57,7 @@ and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
 
 ## Extract Values for Some Locations
 
--   Define Locations
+### Define Locations
 
     st <- data.frame(name=c('Almeria','Granada','Huelva','Malaga','Caceres'),
                      elev=c(42, 702, 38, 29, 448))
@@ -85,7 +87,9 @@ and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
 
 # Point Data
 
-## Retrieve Point Data from Meteogalicia
+## Only one location
+
+### Retrieve Point Data from Meteogalicia
 
     pts <- coordinates(st)
 
@@ -95,13 +99,13 @@ and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
     ## Meteogalicia uses Kelvin degrees 
     MGpoint <- MGpoint - 273
 
-## Retrieve Point Data from OpenMeteo
+### Retrieve Point Data from OpenMeteo
 
     OMpoint <- getPoint(pts[3, 1], pts[3, 2],
                         vars='temp',
                         service='openmeteo')
 
-## Comparison
+### Comparison
 
     xyplot(cbind(MGpoint, OMpoint), superpose=TRUE)
 
@@ -123,7 +127,7 @@ and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
         merge(OM, MG)
     })
 
-## Comparison
+### Comparison
 
     xyplot(comp, superpose=TRUE)
 
