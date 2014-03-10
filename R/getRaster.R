@@ -67,14 +67,20 @@ getRaster <-
                                       ff <- present + 3600
                                       lf <- present + as.integer(frames)*3600
                                       frames <- paste0('&time_start=',
-                                                       format(ff, '%Y-%m-%dT%H:%M:%SZ'),
+                                                       format(ff,
+                                                              '%Y-%m-%dT%H:%M:%SZ'),
                                                        '&time_end=',
-                                                       format(lf, '%Y-%m-%dT%H:%M:%SZ')
+                                                       format(lf,
+                                                              '%Y-%m-%dT%H:%M:%SZ')
                                                        )
                                   }
                               } else { ## remote=FALSE
-                                  if (frames == 'complete') frames <- 1:96
-                                  else frames <- seq(1, frames, by=1)
+                                  maxFrames <- switch(run, '00'=96, '12'=84)
+                                  if (frames == 'complete') {
+                                      frames <- seq(1, maxFrames, 1)
+                                  } else {
+                                      frames <- seq(1, min(frames, maxFrames), by=1)
+                                  }
                               }
                           })
         
@@ -89,7 +95,6 @@ getRaster <-
         if (remote) {
             old <- setwd(tempdir())
             on.exit(setwd(old))
-            
             success <- switch(service,
                               ## Meteogalicia provides a multilayer
                               ## file with all the time frames
@@ -144,18 +149,18 @@ getRaster <-
                                 openmeteo = "+proj=lcc +lon_0=4 +lat_0=47.5 +lat_1=47.5 +lat_2=47.5 +a=6370000. +b=6370000. +no_defs"
                                 )
         ## Use box specification with local files or openmeteo
-        if (!missing(box) & (remote==FALSE | service=='openmeteo')) {
-            extPol <- as(ext, 'SpatialPolygons')
-            proj4string(extPol) <- '+proj=longlat +ellpps=WGS84'
-            extPol <- spTransform(extPol, CRS(projection(b)))
-            b <- crop(b, extent(extPol))
+        if (box!='' & (remote==FALSE | service=='openmeteo')) {
+            if (require(rgdal, quietly=TRUE)) {
+                extPol <- as(ext, 'SpatialPolygons')
+                proj4string(extPol) <- '+proj=longlat +ellps=WGS84'
+                extPol <- spTransform(extPol, CRS(projection(b)))
+                b <- crop(b, extent(extPol))
+                } else {
+                    warning("you need package 'rgdal' to use 'box' with local files or openmeteo")
+                }
         }
         ## Time index
         hours <- seq_len(nlayers(b))* 3600
-        ## hours <- switch(service,
-        ##                 meteogalicia = (seq_len(nlayers(b))) * 3600, 
-        ##                 openmeteo = frames * 3600 
-        ##                 )
         tt <- hours + as.numeric(run)*3600 + as.POSIXct(day, tz='UTC') 
         b <- setZ(b, tt)
         ## Names
