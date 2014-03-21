@@ -45,8 +45,11 @@ getPoint <- function(lon, lat, point,
                     z
                 },
                 openmeteo = {
-                    completeURL <- paste0('http://api.ometfn.net/0.1/forecast/eu12/',
-                                          lat, ',', lon, '/full.json')
+                    baseURL <- 'http://api.ometfn.net/0.1/forecast/eu12/'
+                    completeURL <- paste0(baseURL,
+                                          sprintf('%.1f', lat), ',',
+                                          sprintf('%.1f', lon),
+                                          '/full.json')
                     om <- fromJSON(paste(readLines(completeURL), collapse=''))
                     tt <- as.POSIXct(om$times[-1], origin='1970-01-01', tz='UTC')
                     vals <- do.call(cbind, om[vars])
