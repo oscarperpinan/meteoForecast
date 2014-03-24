@@ -1,4 +1,4 @@
-meteo
+meteoForecast
 =====
 
 Retrieve NWP-WRF output from
