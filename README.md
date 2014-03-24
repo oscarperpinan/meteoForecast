@@ -6,18 +6,17 @@ Retrieve NWP-WRF output from
 and [OpenMeteo](https://openmeteoforecast.org/wiki/Data) services.
 
 
-
 # Usage #
 
 (Only first time or for updating) Install from Github (not on CRAN yet). 
 
     install.packages("devtools")
-    devtools::install_github("meteo", "oscarperpinan")
+    devtools::install_github("meteoForecast", "oscarperpinan")
 
 
-Load `meteo` (and `rasterVis` for graphics)
+Load `meteoForecast` (and `rasterVis` for graphics)
 
-    library(meteo)
+    library(meteoForecast)
     library(rasterVis)
 
 Set time zone to UTC
