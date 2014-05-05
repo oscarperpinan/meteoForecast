@@ -8,7 +8,8 @@ getRaster
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-getRaster(var = "swflx", day = Sys.Date(), run = "00", box = c(-10, 5, 30, 44), names, service = "meteogalicia", ...)
+getRaster(var = "swflx", day = Sys.Date(), run = "00", frames
+='complete', box, names, remote=TRUE, service = "meteogalicia", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -21,10 +22,16 @@ getRaster(var = "swflx", day = Sys.Date(), run = "00", box = c(-10, 5, 30, 44), 
   \item{run}{
 %%     ~~Describe \code{run} here~~
 }
+  \item{frames}{
+%%     ~~Describe \code{run} here~~
+}
   \item{box}{
 %%     ~~Describe \code{box} here~~
 }
   \item{names}{
+%%     ~~Describe \code{names} here~~
+}
+  \item{remote}{
 %%     ~~Describe \code{names} here~~
 }
   \item{service}{
@@ -61,12 +68,6 @@ getRaster(var = "swflx", day = Sys.Date(), run = "00", box = c(-10, 5, 30, 44), 
 }
 \examples{
 \dontrun{
-library(sp)
-library(zoo)
-library(raster)
-library(meteo)
-
-
 ## Define locations
 
 st <- data.frame(name=c('Almeria','Granada','Huelva','Malaga','Caceres'),
