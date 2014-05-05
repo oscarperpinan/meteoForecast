@@ -1,16 +1,35 @@
-composeURL <- function(var, dd, run, box, timeFrame, service){
+composeURL <- function(var, day, run, box, timeFrame, service){
+    day <- as.Date(day)
+    dd <- format(day, format='%Y%m%d')
     switch(service,
            meteogalicia = {
-               mainURL <- 'http://mandeo.meteogalicia.es/thredds/ncss/grid/wrf_2d_'
-               run <- match.arg(run, c('00', '12'))
-               paste0(mainURL, '12km',
-                      '/fmrc/files/', dd,
-                      '/wrf_arw_det_history_d02',
-                      '_', dd,
-                      '_', paste0(run, '00'),
-                      '.nc4?var=', var,
-                      box, timeFrame)
-           },
+               today <- Sys.Date()
+               ## meteogalicia stores 14 days of operational forecasts
+               ## After 14 days the forecasts are moved to the WRF_HIST folder
+               if (today - day <= 14) {
+                   mainURL <- 'http://mandeo.meteogalicia.es/thredds/ncss/grid/wrf_2d_'
+                   run <- match.arg(run, c('00', '12'))
+                   paste0(mainURL, '12km',
+                          '/fmrc/files/', dd,
+                          '/wrf_arw_det_history_d02',
+                          '_', dd,
+                          '_', paste0(run, '00'),
+                          '.nc4?var=', var,
+                          box, timeFrame)
+               } else {
+                   ## Historical forecasts. Only run 0 is available
+                   mainURL <- 'http://mandeo.meteogalicia.es/thredds/ncss/grid/modelos/WRF_HIST/d02/'
+                   year <- format(day, '%Y')
+                   month <- format(day, '%m')
+                   paste0(mainURL,
+                          year, '/',
+                          month, '/',
+                          'wrf_arw_det_history_d02_',
+                          dd,
+                          '_', '0000',
+                          '.nc4?var=', var,
+                          box, timeFrame)
+               }},
            openmeteo = {
                mainURL <- 'http://dap.ometfn.net/eu12-pp_'
                run <- match.arg(run, c('00', '06', '12', '18'))
@@ -39,7 +58,6 @@ getRaster <-
                       )
         day <- as.Date(day)
         dd <- format(day, format='%Y%m%d')
-        day <- as.character(day)
         ## Bounding box
         if (!missing(box)) {
             ext <- extent(box)
@@ -61,7 +79,7 @@ getRaster <-
                               if (remote) {
                                   if (frames == 'complete') frames <- ''
                                   else {
-                                      present <- as.POSIXct(paste0(day,
+                                      present <- as.POSIXct(paste0(as.character(day),
                                                                    as.numeric(run),
                                                                    ':00:00Z'))
                                       ff <- present + 3600
@@ -99,7 +117,7 @@ getRaster <-
                               ## Meteogalicia provides a multilayer
                               ## file with all the time frames
                               meteogalicia = {
-                                  completeURL <- composeURL(var, dd, run,
+                                  completeURL <- composeURL(var, day, run,
                                                             box, frames, 
                                                             'meteogalicia')
                                   try(download.file(completeURL, ncFile, mode='wb'),
@@ -109,7 +127,7 @@ getRaster <-
                               ## for each time frame
                               openmeteo = 
                                   lapply(seq_along(frames), function(i) {
-                                      completeURL <- composeURL(var, dd, run,
+                                      completeURL <- composeURL(var, day, run,
                                                                 box, frames[i],
                                                                 'openmeteo')
                                       try(download.file(completeURL,
