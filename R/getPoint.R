@@ -10,21 +10,14 @@ getPoint <- function(lon, lat, point,
         lon <- coordinates(point)[1]
     }
         
-    dd <- format(as.Date(day), format='%Y%m%d')
-    pp <- paste0('&latitude=', lat, '&longitude=', lon)
     varstr <- paste(vars, collapse=',') 
         
     z <- switch(service,
                 meteogalicia = {
                     if (!pointInMG(lon, lat)) stop('Point outside Meteogalicia region.')
-                    mainURL <- 'http://mandeo.meteogalicia.es/thredds/ncss/grid/wrf_2d_'
-                    run <- match.arg(run, c('00', '12'))
-                    run <- paste0(run, '00')
-                    completeURL <- paste0(mainURL, '12km',
-                                          '/fmrc/files/', dd,
-                                          '/wrf_arw_det_history_d02_',
-                                          dd, '_', run, '.nc4?var=',varstr,
-                                          '&point=true', pp)
+                    completeURL <- composeURL(varstr, day, run,
+                                              c(lon, lat), '',
+                                              service, point=TRUE)
                     tmpfile <- tempfile(fileext='.csv')
                     success <- try(suppressWarnings(download.file(completeURL, tmpfile, quiet=TRUE)), silent=TRUE)
                     if (class(success) == 'try-error')

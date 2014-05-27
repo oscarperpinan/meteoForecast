@@ -1,6 +1,13 @@
-composeURL <- function(var, day, run, box, timeFrame, service){
+composeURL <- function(var, day, run, spatial, timeFrame,
+                       service, point=FALSE){
     day <- as.Date(day)
     dd <- format(day, format='%Y%m%d')
+    if (point) {## getPoint
+        spatial <- paste0('&point=true',
+                          '&longitude=', spatial[1],
+                          '&latitude=', spatial[2])
+
+    }
     switch(service,
            meteogalicia = {
                today <- Sys.Date()
@@ -15,7 +22,7 @@ composeURL <- function(var, day, run, box, timeFrame, service){
                           '_', dd,
                           '_', paste0(run, '00'),
                           '.nc4?var=', var,
-                          box, timeFrame)
+                          spatial, timeFrame)
                } else {
                    ## Historical forecasts. Only run 0 is available
                    mainURL <- 'http://mandeo.meteogalicia.es/thredds/ncss/grid/modelos/WRF_HIST/d02/'
@@ -28,7 +35,7 @@ composeURL <- function(var, day, run, box, timeFrame, service){
                           dd,
                           '_', '0000',
                           '.nc4?var=', var,
-                          box, timeFrame)
+                          spatial, timeFrame)
                }},
            openmeteo = {
                mainURL <- 'http://dap.ometfn.net/eu12-pp_'
