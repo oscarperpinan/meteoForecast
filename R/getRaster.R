@@ -135,7 +135,8 @@ getRaster <-
         }
         ## Time index
         hours <- seq_len(nlayers(b))* 3600
-        tt <- hours + as.numeric(run)*3600 + as.POSIXct(day, tz='UTC') 
+        tt <- hours + as.numeric(run)*3600 + as.POSIXct(day, tz='UTC')
+        attr(tt, 'tzone') <- 'UTC'
         b <- setZ(b, tt)
         ## Names
         if (missing(names)) names(b) <- format(tt, 'd%Y-%m-%d.h%H')
