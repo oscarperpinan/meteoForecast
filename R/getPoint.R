@@ -1,11 +1,11 @@
-getPoint <- function(lon, lat, point, 
+getPoint <- function(lon, lat, point=NULL, 
                      vars='swflx',
                      day=Sys.Date(), run='00',
                      service='meteogalicia'){
     
     service <- match.arg(service, c('meteogalicia', 'openmeteo'))
     
-    if (!missing(point)) {
+    if (!is.null(point)) {
         lat <- coordinates(point)[2]
         lon <- coordinates(point)[1]
     }
