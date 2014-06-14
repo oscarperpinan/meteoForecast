@@ -3,7 +3,7 @@ Type: Package
 Title: Retrieve meteorological forecast from Meteogalicia and OpenMeteo services
 Version: 0.20
 Date: 2014-06-14
-Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@gmail.com", role=c('cre', 'aut')), person("Marcelo", "Almeida", email= "marcelopa@iee.usp.br", role='ctb')
+Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@gmail.com", role=c('cre', 'aut')), person("Marcelo", "Almeida", email= "marcelopa@iee.usp.br", role='ctb'))
 Description: Retrieve meteorological forecast from Meteogalicia and OpenMeteo services
 URL: http://github.com/oscarperpinan/meteoForecast
 License: GPL-3 | file LICENSE
