@@ -10,9 +10,13 @@ getPointDays <- function(lon, lat, point=NULL,
         stopifnot(end > start)
         stopifnot(end > Sys.Date())
         days <- seq(start, end, by='day')
-        lp <- lapply(days, FUN = function(d) getPoint(lon, lat, point, vars,
-                               day = d, run = '00', service=service)[1:24])
-        z <- do.call(rbind, lp)
+        lp <- lapply(days, FUN = function(d) {
+            try(getPoint(lon, lat, point, vars,
+                         day = d, run = '00',
+                         service=service)[1:24])
+        })
+        isOK <- sapply(lp, FUN = function(x) class(x)!='try-error')
+        z <- do.call(rbind, lp[isOK])
         attr(index(z), 'tzone') <- 'UTC'
         z
     }
