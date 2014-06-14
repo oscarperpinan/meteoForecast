@@ -8,16 +8,10 @@ getPoint
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-getPoint(lon, lat, point, vars = "swflx", day = Sys.Date(), run = "00", service = "meteogalicia")
+getPoint(point, vars = "swflx", day = Sys.Date(), run = "00", service = "meteogalicia")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{lon}{
-%%     ~~Describe \code{lon} here~~
-}
-  \item{lat}{
-%%     ~~Describe \code{lat} here~~
-}
   \item{point}{
 %%     ~~Describe \code{point} here~~
 }

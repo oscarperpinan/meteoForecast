@@ -1,23 +1,16 @@
-\name{getPointDays}
-\alias{getPointDays}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\name{getPointRuns}
+\alias{getPointRuns}
+
 \title{
-getPointDays
+getPointRuns
 }
 \description{
-getPointDays
-}
+getPointRuns}
 \usage{
-getPointDays(point = NULL, vars = "swflx", start = Sys.Date(), end, service = "meteogalicia")
+getPointRuns(point, vars = "swflx", start = Sys.Date() - 1, end = Sys.Date(), service = "meteogalicia")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{lon}{
-%%     ~~Describe \code{lon} here~~
-}
-  \item{lat}{
-%%     ~~Describe \code{lat} here~~
-}
   \item{point}{
 %%     ~~Describe \code{point} here~~
 }
@@ -48,7 +41,7 @@ getPointDays(point = NULL, vars = "swflx", start = Sys.Date(), end, service = "m
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Marcelo Almeida, Oscar Perpiñán
 }
 \note{
 %%  ~~further notes~~

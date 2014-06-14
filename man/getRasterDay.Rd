@@ -1,37 +1,34 @@
-\name{getPointDays}
-\alias{getPointDays}
+\name{getRasterDay}
+\alias{getRasterDay}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-getPointDays
+%%  ~~function to do ... ~~
 }
 \description{
-getPointDays
+%%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-getPointDays(point = NULL, vars = "swflx", start = Sys.Date(), end, service = "meteogalicia")
+getRasterDay(var = "swflx", day = Sys.Date(), remote = TRUE, service = "meteogalicia", dataDir = ".", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{lon}{
-%%     ~~Describe \code{lon} here~~
+  \item{var}{
+%%     ~~Describe \code{var} here~~
 }
-  \item{lat}{
-%%     ~~Describe \code{lat} here~~
+  \item{day}{
+%%     ~~Describe \code{day} here~~
 }
-  \item{point}{
-%%     ~~Describe \code{point} here~~
-}
-  \item{vars}{
-%%     ~~Describe \code{vars} here~~
-}
-  \item{start}{
-%%     ~~Describe \code{start} here~~
-}
-  \item{end}{
-%%     ~~Describe \code{end} here~~
+  \item{remote}{
+%%     ~~Describe \code{remote} here~~
 }
   \item{service}{
 %%     ~~Describe \code{service} here~~
+}
+  \item{dataDir}{
+%%     ~~Describe \code{dataDir} here~~
+}
+  \item{\dots}{
+%%     ~~Describe \code{\dots} here~~
 }
 }
 \details{
@@ -48,7 +45,7 @@ getPointDays(point = NULL, vars = "swflx", start = Sys.Date(), end, service = "m
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Marcelo Almeida, Oscar Perpiñán
 }
 \note{
 %%  ~~further notes~~
