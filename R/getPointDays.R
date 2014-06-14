@@ -8,6 +8,7 @@ getPointDays <- function(lon, lat, point=NULL,
     } else {
         end <- as.Date(end)
         stopifnot(end > start)
+        stopifnot(end > Sys.Date())
         days <- seq(start, end, by='day')
         lp <- lapply(days, FUN = function(d) getPoint(lon, lat, point, vars,
                                day = d, run = '00', service=service)[1:24])
