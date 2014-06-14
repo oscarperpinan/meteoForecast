@@ -8,6 +8,7 @@ getRasterDays <- function(var = 'swflx',
     } else {
         end <- as.Date(end)
         stopifnot(end > start)
+        stopifnot(end > Sys.Date())
         days <- seq(start, end, by='day')
         lr <- lapply(days, FUN = function(d) {
             try(getRaster(var,
