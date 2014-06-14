@@ -1,20 +1,25 @@
 getRasterDays <- function(var = 'swflx',
                           start = Sys.Date(), end,
-                          box, remote = TRUE,
-                          service = 'meteogalicia'){
+                          remote = TRUE, dataDir = '.',
+                          ...){
+
+    if(!remote) {
+        old <- setwd(dataDir)
+        on.exit(setwd(old))
+    }
+
     start <- as.Date(start)
     if (missing(end)) {
-        getRaster(var, day = start, run='00', box = box, remote = remote, service = service)
+        getRaster(var, day = start, run='00', ...)
     } else {
         end <- as.Date(end)
         stopifnot(end > start)
-        stopifnot(end > Sys.Date())
+        stopifnot(end <= Sys.Date())
         days <- seq(start, end, by='day')
         lr <- lapply(days, FUN = function(d) {
-            try(getRaster(var,
-                          day = d, run = '00', frames = 24,
-                          box = box, remote = remote,
-                          service=service))
+            try(getRaster(var, day = d,
+                          run = '00', frames = 24,
+                          remote = remote, ...))
         })
         isOK <- sapply(lr, FUN = function(x) class(x)!='try-error')
         s <- stack(lr[isOK])
