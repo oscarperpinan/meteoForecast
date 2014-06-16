@@ -3,4 +3,5 @@ import(zoo)
 importFrom(rjson,  fromJSON)
 export('getPoint', 'getRaster',
        'getRasterDay', 'getRasterDays',
-       'getPointDays', 'getPointRuns')
+       'getPointDays', 'getPointRuns',
+       'checkDays')
