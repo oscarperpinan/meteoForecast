@@ -1,4 +1,6 @@
 import(raster)
 import(zoo)
 importFrom(rjson,  fromJSON)
-export('getPoint', 'getRaster', 'getPointDays', 'getRasterDays')
+export('getPoint', 'getRaster',
+       'getRasterDay', 'getRasterDays',
+       'getPointDays', 'getPointRuns')
