@@ -8,13 +8,14 @@ checkDays <- function(start, end, vars,
 
     start <- as.Date(start)
     end <- as.Date(end)
-
+ 
     stopifnot(start < end)
     stopifnot(end <= Sys.Date())
     
     seqDays <- seq(start, end, by='day')
   
     if(remote){
+        ## Historic data of MG begins on 2008-01-01
         return(seqDays[seqDays >= '2008-01-01'])
     } else {
         ## The possibilities for src can be expanded in the future
