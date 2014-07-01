@@ -1,6 +1,4 @@
-### Creat a zoo object with all the predictions for each day.
-
-getPointRuns <- function(point, vars = 'swflx',
+getPointRuns <- function(point, var = 'swflx',
                          start = Sys.Date() - 1,
                          end = Sys.Date(),
                          service = 'meteogalicia'){
@@ -31,8 +29,8 @@ getPointRuns <- function(point, vars = 'swflx',
     zl <- lapply(seq_len(N), FUN=function(i){
         run <- as.character(rd[i, 'Run'])
         day <- as.Date(rd[i, 'Day'])
-
-        vals <- try(getPoint(point, vars = vars, day = day,
+        ## Only one variable is allowed
+        vals <- try(getPoint(point, vars = var[1], day = day,
                              run = run, service = service),
                     silent = FALSE)
     })
@@ -47,10 +45,10 @@ getPointRuns <- function(point, vars = 'swflx',
     ## Joining elements of zl into a zoo object limited by fd and ld
     z <- do.call(cbind, zl)
     names(z) <- paste(rdFiltered$Day, rdFiltered$Run, sep='_')
-    z <- window(z, start=as.POSIXct(fd)+3600, end=as.POSIXct(ld+1))
+    z <- window(z, start = as.POSIXct(fd)+3600, end = as.POSIXct(ld+1))
   
     ## Day index of time series
-    dayIndex <- as.Date(as.POSIXct(index(z))-3600)
+    dayIndex <- as.Date(as.POSIXct(index(z)) - 3600)
     ## Forecast run day
     dayForecast <- as.Date(format(names(z)))
     ## Matrix of time differences (in days) between dayIndex and dayForecast
