@@ -9,10 +9,9 @@ getPoint <- function(point, vars='swflx',
             if (require(rgdal, quietly=TRUE)) 
                 point <- spTransform(point, CRS('+proj=longlat +ellps=WGS84'))
             else stop('`rgdal` is needed if `point` is projected.')
-        } else {
-            lat <- coordinates(point)[2]
-            lon <- coordinates(point)[1]
         }
+        lat <- coordinates(point)[2]
+        lon <- coordinates(point)[1]
     } else { ## point is a numeric of length 2
         lat <- point[2]
         lon <- point[1]
