@@ -7,7 +7,7 @@ getPointRuns
 \description{
 getPointRuns}
 \usage{
-getPointRuns(point, vars = "swflx", start = Sys.Date() - 1, end = Sys.Date(), service = "meteogalicia")
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

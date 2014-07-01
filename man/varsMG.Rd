@@ -1,13 +1,17 @@
 \name{varsMG}
 \alias{varsMG}
+\alias{varsOM}
 \docType{data}
 \title{
-varsMG
+variables
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~
 }
-\usage{data(varsMG)}
+\usage{
+data(varsMG)
+data(varsOM)
+}
 \format{
   A data frame with 45 observations on the following 3 variables.
   \describe{
@@ -27,5 +31,6 @@ varsMG
 }
 \examples{
 data(varsMG)
+data(varsOM)
 }
 \keyword{datasets}
