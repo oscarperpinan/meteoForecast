@@ -1,4 +1,4 @@
-\name{varsMG}
+\name{variables}
 \alias{varsMG}
 \alias{varsOM}
 \docType{data}
@@ -6,31 +6,27 @@
 variables
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of the dataset. ~~
+variables
 }
 \usage{
 data(varsMG)
 data(varsOM)
 }
 \format{
-  A data frame with 45 observations on the following 3 variables.
-  \describe{
-    \item{\code{Name}}{a factor with levels \code{cape} \code{cfh} \code{cfl} \code{cfm} \code{cft} \code{cin} \code{conv_prec} \code{dir} \code{HGT500} \code{HGT850} \code{HGTlev1} \code{HGTlev2} \code{HGTlev3} \code{land_use} \code{lat} \code{lhflx} \code{lon} \code{lwflx} \code{lwm} \code{meteograms} \code{mod} \code{mslp} \code{pbl_height} \code{prec} \code{rh} \code{shflx} \code{snowlevel} \code{snow_prec} \code{sst} \code{swflx} \code{T500} \code{T850} \code{temp} \code{topo} \code{u} \code{ulev1} \code{ulev2} \code{ulev3} \code{v} \code{visibility} \code{vlev1} \code{vlev2} \code{vlev3} \code{weasd} \code{wind_gust}}
-    \item{\code{Description}}{}
-    \item{\code{Units}}{}
-  }
+  \code{Name}, \code{Description} and \code{Units} of the variables
+  available in the MeteoGalicia (\code{varsMG}) and OpenMeteo
+  (\code{varsOM}) services.
+
 }
-\details{
-%%  ~~ If necessary, more details than the __description__ above ~~
-}
+
 \source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
+  \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
+  \url{https://openmeteoforecast.org/wiki/Main_Page}
 }
-\references{
-%%  ~~ possibly secondary sources and usages ~~
-}
+
 \examples{
 data(varsMG)
 data(varsOM)
 }
+
 \keyword{datasets}

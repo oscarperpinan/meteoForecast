@@ -1,25 +1,22 @@
-\name{meteo-package}
-\alias{meteo-package}
-\alias{meteo}
+\name{meteoForecast-package}
+\alias{meteoForecast-package}
+\alias{meteoForecast}
 \docType{package}
 \title{
-meteo
+meteoForecast
 }
 \description{
+  meteoForecast
 }
 \details{
-\tabular{ll}{
-Package: \tab meteo\cr
-Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2014-01-16\cr
-License: \tab What license is it under?\cr
-}
 
 }
 \author{
+  Oscar Perpiñán, with contributions from Marcelo Almeida
 }
 \references{
+  \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
+  \url{https://openmeteoforecast.org/wiki/Main_Page}
 }
 
 \keyword{ package }
