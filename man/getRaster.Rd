@@ -20,7 +20,7 @@ getRasterDay(var = "swflx", day = Sys.Date(),
              dataDir = ".", ...)
 
 getRasterDays(var = "swflx", start = Sys.Date(), end,
-              box, remote = TRUE, service = "meteogalicia")
+              remote = TRUE, dataDir = ".", ...)
 
 
 checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
@@ -69,7 +69,7 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   \item{dataDir}{Character, path of the folder where files are stored
     (if \code{remote = 'FALSE'})}
   
-  \item{\dots}{Not used.}
+  \item{\dots}{Additional arguments. Not used in \code{getRaster}.}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~

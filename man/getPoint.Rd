@@ -10,9 +10,10 @@ getPoint
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-getPoint(point, vars = "swflx", day = Sys.Date(), run = "00", service = "meteogalicia")
+getPoint(point, vars = "swflx", day = Sys.Date(), run = "00",
+         service = "meteogalicia")
 
-getPointDays(point = NULL, vars = "swflx", start = Sys.Date(), end,
+getPointDays(point, vars = "swflx", start = Sys.Date(), end,
              service = "meteogalicia")
 
 getPointRuns(point, var = "swflx", start = Sys.Date() - 1, end = Sys.Date(),
