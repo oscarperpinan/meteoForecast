@@ -4,11 +4,10 @@
 \alias{getPointRuns}
 
 \title{
-getPoint
+Get outputs of the NWP models run by MeteoGalicia and OpenMeteo for a
+single location.
 }
-\description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+
 \usage{
 getPoint(point, vars = "swflx", day = Sys.Date(), run = "00",
          service = "meteogalicia")
@@ -16,7 +15,8 @@ getPoint(point, vars = "swflx", day = Sys.Date(), run = "00",
 getPointDays(point, vars = "swflx", start = Sys.Date(), end,
              service = "meteogalicia")
 
-getPointRuns(point, var = "swflx", start = Sys.Date() - 1, end = Sys.Date(),
+getPointRuns(point, var = "swflx", start = Sys.Date() - 1,
+             end = Sys.Date(),
              service = "meteogalicia") 
 
 
@@ -47,8 +47,11 @@ getPointRuns(point, var = "swflx", start = Sys.Date() - 1, end = Sys.Date(),
 }
 
 \details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
+These functions download data from the MeteoGalicia and OpenMeteo
+servers using the NetCDF Subset Service. The result is returned as a
+\code{zoo} time series object, with one or more csv files stored in the
+temporary folder (as defined by \code{tempdir()}).  }
 
 \value{
   
@@ -81,12 +84,39 @@ getPointRuns(point, var = "swflx", start = Sys.Date() - 1, end = Sys.Date(),
 \author{Oscar Perpiñán Lamigueiro with contributions from Marcelo Almeida}
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{getRaster}}
 }
 
 \examples{
+  ## temperature (Kelvin) forecast from meteogalicia
+  tempK <- getPoint(c(0, 40), vars = 'temp')
+  ## Cell does not coincide exactly with request
+  attr(tempK, 'lat')
+  attr(tempK, 'lon')
+  ## Units conversion
+  tempC <- tempK - 273
+  xyplot(tempC)
+
+
+  ## Multiple variables
+  vars <- getPoint(c(0, 40), vars = c('swflx', 'temp'))
+  xyplot(vars)
+
+  ## Time sequence
+  radDays <- getPointDays(c(0, 40), start = '2013-01-01',
+                          end = '2013-01-15')
+  
+  xyplot(radDays)
+
+  ## Variability between runs
+  radRuns <- getPointRuns(c(0, 40), start = '2013-01-01',
+                          end = '2013-01-15')
+  xyplot(radRuns, superpose = TRUE)
+  
+  ## variability around the average
+  radAv <- rowMeans(radRuns)
+  radVar <- sweep(radRuns, 1, radAv)
+  xyplot(radVar, superpose = TRUE)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{spatial}
+\keyword{time series}
