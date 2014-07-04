@@ -1,3 +1,4 @@
+## http://www.unidata.ucar.edu/software/thredds/current/tds/reference/NetcdfSubsetServiceReference.html
 composeURL <- function(var, day, run, spatial, timeFrame,
                        service, point=FALSE){
     day <- as.Date(day)
