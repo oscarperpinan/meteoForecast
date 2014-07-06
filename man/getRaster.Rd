@@ -3,9 +3,15 @@
 \alias{getRasterDay}
 \alias{getRasterDays}
 \alias{checkDays}
+\encoding{UTF-8}
 
-\title{
-Get outputs of the NWP models run by MeteoGalicia and OpenMeteo
+\title{NWP forecasts for a region}
+
+\description{
+
+  The \code{getRaster*} functions get outputs of the NWP models run by
+  MeteoGalicia and OpenMeteo for an area.
+
 }
 
 \usage{
@@ -115,6 +121,7 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
 
 \references{
   \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
+
   \url{https://openmeteoforecast.org/wiki/Main_Page}
 }
 
@@ -124,9 +131,7 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   
 }
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+
 \examples{
 \dontrun{
 library(rasterVis)

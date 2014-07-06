@@ -2,10 +2,16 @@
 \alias{getPoint}
 \alias{getPointDays}
 \alias{getPointRuns}
+\encoding{UTF-8}
 
-\title{
-Get outputs of the NWP models run by MeteoGalicia and OpenMeteo for a
-single location.
+\title{NWP forecasts for a location}
+
+
+\description{
+
+  The \code{getPoint*} functions get outputs of the NWP models run by
+  MeteoGalicia and OpenMeteo for a single location.
+
 }
 
 \usage{
@@ -78,6 +84,7 @@ temporary folder (as defined by \code{tempdir()}).  }
 
 \references{
   \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
+
   \url{https://openmeteoforecast.org/wiki/Main_Page}
 }
 
@@ -88,6 +95,7 @@ temporary folder (as defined by \code{tempdir()}).  }
 }
 
 \examples{
+\dontrun{
   ## temperature (Kelvin) forecast from meteogalicia
   tempK <- getPoint(c(0, 40), vars = 'temp')
   ## Cell does not coincide exactly with request
@@ -95,6 +103,8 @@ temporary folder (as defined by \code{tempdir()}).  }
   attr(tempK, 'lon')
   ## Units conversion
   tempC <- tempK - 273
+
+  library(lattice)
   xyplot(tempC)
 
 
@@ -117,6 +127,7 @@ temporary folder (as defined by \code{tempdir()}).  }
   radAv <- rowMeans(radRuns)
   radVar <- sweep(radRuns, 1, radAv)
   xyplot(radVar, superpose = TRUE)
+}
 }
 \keyword{spatial}
 \keyword{time series}

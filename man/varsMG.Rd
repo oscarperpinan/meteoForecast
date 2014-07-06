@@ -1,12 +1,12 @@
-\name{variables}
+\name{Forecast variables}
 \alias{varsMG}
 \alias{varsOM}
 \docType{data}
 \title{
-variables
+Forecast Variables
 }
 \description{
-variables
+Variables available in the MeteoGalicia and OpenMeteo services.
 }
 \usage{
 data(varsMG)
@@ -21,6 +21,7 @@ data(varsOM)
 
 \source{
   \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
+
   \url{https://openmeteoforecast.org/wiki/Main_Page}
 }
 
