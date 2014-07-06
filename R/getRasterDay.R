@@ -1,5 +1,3 @@
-### Creat a raster object for a specific day and variable from a
-### defined source. Only the first frames from each run are used.
 
 getRasterDay <- function(var = 'swflx', day = Sys.Date(),
                          remote = TRUE, service = 'meteogalicia',

@@ -3,14 +3,13 @@
 \alias{getRasterDay}
 \alias{getRasterDays}
 \alias{checkDays}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
-getRaster
+Get outputs of the NWP models run by MeteoGalicia and OpenMeteo
 }
-\description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+
 \usage{
+
 getRaster(var = "swflx", day = Sys.Date(), run = "00",
           frames = 'complete', box, names,
           remote = TRUE, service = "meteogalicia", ...)
@@ -71,23 +70,58 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   
   \item{\dots}{Additional arguments. Not used in \code{getRaster}.}
 }
+
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+  
+  \code{getRaster} downloads data from the MeteoGalicia and OpenMeteo
+  servers using the NetCDF Subset Service. The result is returned as a
+  \code{RasterBrick} object, with one or more NetCDF files stored in the
+  temporary folder (as defined by \code{tempdir()}). Each frame or layer
+  of the \code{RasterBrick} corresponds to a certain hour of the
+  forecast.
+
+  \code{getRasterDays} uses \code{getRaster} to download the results
+  cast each day comprised between \code{start} and \code{end}, subset
+  the first 24 frames of each result, and bind them together to produce
+  a \code{RasterBrick}. Therefore, each frame of this \code{RasterBrick}
+  is a forecast for an hour of the day when the forecast was cast.
+
+  \code{getRasterDay} is a simple wrapper around \code{getRaster} that
+  downloads only the first frames of each run. It is implemented only
+  for \code{run = '00'} and \code{service = 'meteogalicia'}, so it
+  retrieves the first 24 frames corresponding to \code{day}.
+
+
+  \code{checkDays} explores a local folder for NetCDF files
+  corresponding to a time sequence. It returns a \code{Date} vector
+  comprising the days corresponding to the available files. If
+  \code{remote = FALSE} it only checks that \code{start} is after
+  2008-01-01 (when the historic data of MeteoGalicia begins.)
+
 }
+
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+
+  The \code{getRaster*} functions return a \code{RasterBrick} with a
+  layer for each hour of the NWP forecast.
+
+  The time zone of the time index of this \code{RasterBrick}, stored in
+  its \code{z} slot (accesible with \code{\link{getZ}}) is UTC.
+
+  Both MeteoGalicia and OpenMeteo use the Lambert Conic Conformal
+  projection.
+
 }
+
 \references{
   \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
   \url{https://openmeteoforecast.org/wiki/Main_Page}
 }
 
 \author{
-Oscar Perpiñán with contributions from Marcelo Almeida.
+
+  Oscar Perpiñán with contributions from Marcelo Almeida.
+  
 }
 
 \seealso{
@@ -95,10 +129,28 @@ Oscar Perpiñán with contributions from Marcelo Almeida.
 }
 \examples{
 \dontrun{
+library(rasterVis)
+
 ## Retrieve raster data
 wrf <- getRaster('temp', '2014-01-25', '00', remote=TRUE)
 
-## Define locations
+levelplot(wrf, layers = 10:19)
+
+hovmoller(wrf)
+## Day sequence of cloud cover
+wrfDays <- getRasterDays('cft',
+                         start = '2014-01-01',
+                         end = '2014-01-05',
+                         box = c(-2, 35, 2, 40))
+
+levelplot(wrfDays, layers = 10:19)
+
+## animation
+levelplot(wrfDays, layout = c(1, 1), par.settings = BTCTheme)
+
+## Hövmoller graphic
+hovmoller(wrfDays, par.settings = BTCTheme, contour = TRUE, cuts = 10)
+## Extract data at some locations
 
 st <- data.frame(name=c('Almeria','Granada','Huelva','Malaga','Caceres'),
                elev=c(42, 702, 38, 29, 448))
@@ -113,6 +165,8 @@ proj4string(st) <- '+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0'
 vals <- extract(wrf, st)
 vals <- zoo(t(vals), getZ(wrf))
 names(vals) <- st$name
+
+xyplot(vals)
 }
 }
 
