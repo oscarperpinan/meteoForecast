@@ -11,6 +11,6 @@ importFrom(rjson,
            fromJSON)
 
 export('getPoint', 'getRaster',
-       'getRasterDay', 'getRasterDays',
+       'getRasterDays',
        'getPointDays', 'getPointRuns',
        'checkDays')

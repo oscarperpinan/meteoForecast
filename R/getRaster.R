@@ -2,8 +2,9 @@ getRaster <-
     function(var='swflx',
              day=Sys.Date(), run='00',
              frames='complete',
-             box, names, remote=TRUE, 
+             box, names, remote=TRUE,
              service='meteogalicia',
+             dataDir = '.',
              ...){
 
         service <- match.arg(service, c('meteogalicia', 'openmeteo'))
@@ -95,9 +96,11 @@ getRaster <-
                 stop('Data not found. Check the date and variables name')
             } else { ## Download Successful!
                 message('File(s) available at ', tempdir())
-            }
-        } ## End of Remote
-        
+            } ## End of Remote
+        } else {
+            old <- setwd(dataDir)
+            on.exit(setwd(old))
+        }
         ## Read files
         suppressWarnings(bNC <- stack(ncFile))
         ## Use frames with local files from meteogalicia

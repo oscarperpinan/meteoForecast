@@ -29,13 +29,11 @@ getPoint <- function(point, vars='swflx',
                     success <- try(suppressWarnings(download.file(completeURL, tmpfile, quiet=TRUE)), silent=TRUE)
                     if (class(success) == 'try-error')
                         stop('Data not found. Check the date and variables name.\nURL: ', completeURL)
-                    z <- read.zoo(tmpfile, tz='UTC',
-                                  header=TRUE, sep=',', dec='.', fill=TRUE,
-                                  format='%Y-%m-%dT%H:%M:%SZ')
-                        
-                    lat <- as.numeric(z$lat[1])
-                    lon <- as.numeric(z$lon[1])
-                    z <- z[, -c(1, 2)]
+                    z <- read.csv(tmpfile)
+                    idx <- as.POSIXct(z[,1], format='%Y-%m-%dT%H:%M:%SZ')
+                    lat <- as.numeric(z[1, 2])
+                    lon <- as.numeric(z[1, 3])
+                    z <- zoo(z[, -c(1, 2, 3)], idx)
         
                     names(z) <- vars
                     attr(z, 'lat') <- lat

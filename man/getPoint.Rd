@@ -65,14 +65,15 @@ temporary folder (as defined by \code{tempdir()}).  }
   series with a column for each variable included in \code{vars}.
 
   The time series returned by \code{getPoint} starts at 01UTC of
-  \code{day} if \code{run = '00'} or 13UTC if \code{run = '12'}, and
-  spans over 4 days (96 hours).
+  \code{day} if \code{run = '00'} or 13UTC if \code{run = '12'}. It
+  spans over 4 days (96 hours) if \code{run = '00'} or 84 hours if
+  \code{run = '12'}.
 
   The time series returned by \code{getPointDays} starts at 01UTC of
   \code{start} and finishes at 00UTC of \code{end + 1}. Each day
   comprised in the time period is constructed with the forecast outputs
-  corresponding to that day. Therefore, only the first 24 values
-  obtained with \code{getPoint} are used for each day.
+  corresponding to the 00UTC run of that day. Therefore, only the first
+  24 values obtained with \code{getPoint} are used for each day.
 
   The time series returned by \code{getPointRuns} starts at 01UTC of
   \code{start} and finishes at 00UTC of \code{end + 1}. It has 4

@@ -19,10 +19,11 @@
 
 }
 
-\details{ 
-  \code{getRaster}, \code{getRasterDay}, and \code{getRasterDays} get
-  data inside a bounding box and provide a multilayer raster data using
-  the \code{RasterBrick} class defined in the package \code{raster}.
+\details{
+
+  \code{getRaster} and \code{getRasterDays} get data inside a bounding
+  box and provide a multilayer raster data using the \code{RasterBrick}
+  class defined in the package \code{raster}.
 
   \code{getPoint}, \code{getPointDays}, and \code{getPointRuns} get data
   for a certain location and produce a time series using the \code{zoo}

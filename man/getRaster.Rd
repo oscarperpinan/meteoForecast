@@ -1,6 +1,5 @@
 \name{getRaster}
 \alias{getRaster}
-\alias{getRasterDay}
 \alias{getRasterDays}
 \alias{checkDays}
 \encoding{UTF-8}
@@ -18,11 +17,8 @@
 
 getRaster(var = "swflx", day = Sys.Date(), run = "00",
           frames = 'complete', box, names,
-          remote = TRUE, service = "meteogalicia", ...)
-
-getRasterDay(var = "swflx", day = Sys.Date(),
-             remote = TRUE, service = "meteogalicia",
-             dataDir = ".", ...)
+          remote = TRUE, service = "meteogalicia",
+          dataDir = ".", ...)
 
 getRasterDays(var = "swflx", start = Sys.Date(), end,
               remote = TRUE, dataDir = ".", ...)
@@ -51,7 +47,7 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
     (frames) to retrieve. If \code{frames = 'complete'}, the full set of
     frames is downloaded. The meteogalicia service produces 96 hourly
     forecasts (frames) with \code{run='00'} and 84 frames with
-    \code{run='84'}.}
+    \code{run='12'}.}
   
   \item{box}{The bounding box. A \code{\link{Extent}} or an object that
     can be coerced to that class with \code{\link{extent}}: a 2x2 matrix
@@ -61,7 +57,7 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   
   \item{names}{Character. Names of the layers of the resulting
     \code{RasterBrick}. If missing, a predefined vector is assigned the
-    a combination of day and hour.}
+    combination of day and hour.}
   
   \item{remote}{Logical. If \code{TRUE} (default) data is downloaded
     from the remote service. If \code{FALSE} the \code{RasterBrick} is
@@ -87,22 +83,18 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   forecast.
 
   \code{getRasterDays} uses \code{getRaster} to download the results
-  cast each day comprised between \code{start} and \code{end}, subset
-  the first 24 frames of each result, and bind them together to produce
-  a \code{RasterBrick}. Therefore, each frame of this \code{RasterBrick}
-  is a forecast for an hour of the day when the forecast was cast.
+  cast each day comprised between \code{start} and \code{end} using the
+  00UTC run. Then it subsets the first 24 frames of each result, and
+  binds them together to produce a \code{RasterBrick}. Therefore, each
+  frame of this \code{RasterBrick} is a forecast for an hour of the day
+  when the forecast was cast.
 
-  \code{getRasterDay} is a simple wrapper around \code{getRaster} that
-  downloads only the first frames of each run. It is implemented only
-  for \code{run = '00'} and \code{service = 'meteogalicia'}, so it
-  retrieves the first 24 frames corresponding to \code{day}.
-
-
-  \code{checkDays} explores a local folder for NetCDF files
-  corresponding to a time sequence. It returns a \code{Date} vector
-  comprising the days corresponding to the available files. If
-  \code{remote = FALSE} it only checks that \code{start} is after
-  2008-01-01 (when the historic data of MeteoGalicia begins.)
+  \code{checkDays} explores a local folder looking for NetCDF files
+  corresponding to a time sequence and a set of variables. It returns a
+  \code{Date} vector comprising the days with files available for the
+  requested variables. If \code{remote = TRUE} it only checks that
+  \code{start} is after 2008-01-01 (first date of the archived forecasts
+  of MeteoGalicia.)
 
 }
 
@@ -123,6 +115,8 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
 
   \url{https://openmeteoforecast.org/wiki/Main_Page}
+
+  \url{https://openmeteoforecast.org/wiki/OPeNDAP_Server}
 }
 
 \author{

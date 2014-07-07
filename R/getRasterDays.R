@@ -19,7 +19,8 @@ getRasterDays <- function(var = 'swflx',
         lr <- lapply(days, FUN = function(d) {
             try(getRaster(var, day = d,
                           run = '00', frames = 24,
-                          remote = remote, ...))
+                          remote = remote, dataDir = '.',
+                          ...))
         })
         isOK <- sapply(lr, FUN = function(x) class(x)!='try-error')
         s <- stack(lr[isOK])
