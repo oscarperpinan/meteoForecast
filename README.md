@@ -1,7 +1,8 @@
 meteoForecast
 =====
 
-[![DOI](https://zenodo.org/badge/1928/oscarperpinan/meteoForecast.png)](http://dx.doi.org/10.5281/zenodo.10775)
+
+[![DOI](https://zenodo.org/badge/1928/oscarperpinan/meteoForecast.png)](http://dx.doi.org/10.5281/zenodo.10781)
 
   The Weather Research and Forecasting (WRF) Model is a numerical
   weather prediction (NWP) system. NWP refers to the simulation and
