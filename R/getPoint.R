@@ -31,8 +31,8 @@ getPoint <- function(point, vars='swflx',
                         stop('Data not found. Check the date and variables name.\nURL: ', completeURL)
                     z <- read.csv(tmpfile)
                     idx <- as.POSIXct(z[,1], format='%Y-%m-%dT%H:%M:%SZ')
-                    lat <- as.numeric(z[1, 2])
-                    lon <- as.numeric(z[1, 3])
+                    lat <- as.numeric(as.character(z[1, 2]))
+                    lon <- as.numeric(as.character(z[1, 3]))
                     z <- zoo(z[, -c(1, 2, 3)], idx)
         
                     names(z) <- vars
