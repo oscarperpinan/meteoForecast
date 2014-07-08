@@ -1,0 +1,99 @@
+* meteoForecast
+
+[[http://dx.doi.org/10.5281/zenodo.10781][https://zenodo.org/badge/1928/oscarperpinan/meteoForecast.png]]
+
+  The Weather Research and Forecasting (WRF) Model is a numerical
+  weather prediction (NWP) system. NWP refers to the simulation and
+  prediction of the atmosphere with a computer model, and WRF is a set
+  of software for this.
+  
+  =meteoForecast= downloads data from the [[http://www.meteogalicia.es/web/modelos/threddsIndex.action][Meteogalicia]] and [[https://openmeteoforecast.org/wiki/Main_Page][OpenMeteo]]
+  NWP-WRF services using the NetCDF Subset Service.
+
+
+** Installation
+
+The development version is available at GitHub:
+#+begin_src R
+    ## install.packages("devtools")
+    devtools::install_github("meteoForecast", "oscarperpinan")
+#+end_src
+
+The stable version is available at [[http://cran.r-project.org/web/packages/meteoForecast/][CRAN]]:
+
+ #+begin_src R
+    install.packages('meteoForecast')
+ #+end_src
+
+** Usage
+
+*** Raster Data
+
+- =getRaster= gets a forecast output inside a bounding box and
+  provides a multilayer raster data using the =RasterBrick= class
+  defined in the package =raster=.
+
+  #+begin_src R
+    wrf <- getRaster('temp', '2014-01-25', '00', remote=TRUE)
+  #+end_src
+
+  #+begin_src R
+    library(rasterVis)
+    levelplot(wrf, layers = 10:19)
+  #+end_src
+
+-  =getRasterDays= uses =getRaster= to download the results
+  cast each day comprised between =start= and =end= using the
+  00UTC run. 
+
+   #+begin_src R
+     wrfDays <- getRasterDays('cft',
+                           start = '2014-01-01',
+                           end = '2014-01-05',
+                           box = c(-2, 35, 2, 40))
+     
+     levelplot(wrfDays, layout = c(1, 1), par.settings = BTCTheme)
+   #+end_src
+
+
+*** Point Data
+  =getPoint=, =getPointDays=, and =getPointRuns= get data for a
+  certain location and produce a time series using the =zoo= class.
+
+- =getPoint=
+  #+begin_src R
+    ## temperature (Kelvin) forecast from meteogalicia
+    tempK <- getPoint(c(0, 40), vars = 'temp')
+    ## Cell does not coincide exactly with request
+    attr(tempK, 'lat')
+    attr(tempK, 'lon')
+    ## Units conversion
+    tempC <- tempK - 273
+  #+end_src
+  
+  #+begin_src R
+    library(lattice)
+    xyplot(tempC)
+  #+end_src
+
+- =getPointDays=
+  #+begin_src R
+    ## Time sequence
+    radDays <- getPointDays(c(0, 40), start = '2013-01-01',
+                            end = '2013-01-15')
+    
+    xyplot(radDays)
+  #+end_src
+
+- =getPointRuns=
+  #+begin_src R
+    ## Variability between runs
+    radRuns <- getPointRuns(c(0, 40), start = '2013-01-01',
+                            end = '2013-01-15')
+    xyplot(radRuns, superpose = TRUE)
+    
+    ## variability around the average
+    radAv <- rowMeans(radRuns)
+    radVar <- sweep(radRuns, 1, radAv)
+    xyplot(radVar, superpose = TRUE)
+  #+end_src
