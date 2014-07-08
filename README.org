@@ -60,7 +60,8 @@ data(varsOM)
 
   #+begin_src R
     library(rasterVis)
-    levelplot(wrf, layers = 10:19)
+    
+    levelplot(wrf, layers = 10:21)
   #+end_src
 
 [[file:figs/wrf.png]]
