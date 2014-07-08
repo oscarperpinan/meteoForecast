@@ -8,7 +8,12 @@
   of software for this.
   
   =meteoForecast= downloads data from the [[http://www.meteogalicia.es/web/modelos/threddsIndex.action][Meteogalicia]] and [[https://openmeteoforecast.org/wiki/Main_Page][OpenMeteo]]
-  NWP-WRF services using the NetCDF Subset Service.
+  NWP-WRF services using the NetCDF Subset Service.  The default
+  service choice is MeteoGalicia. The use of the OpenMeteo service is
+  still experimental, and some functions are not fully implemented for
+  it. The MeteoGalicia service produces forecasts for the geographical
+  area comprised approximately between 21.58W and 33.63E, 6.36N and
+  49.57N.
 
 
 ** Installation
@@ -27,6 +32,20 @@ The stable version is available at [[http://cran.r-project.org/web/packages/mete
 
 ** Usage
 
+#+begin_src R
+  library(meteoForecast)
+#+end_src
+
+Load =varsMG= and =varsOM= to know about the variables available in
+the MeteoGalicia and OpenMeteo services:
+
+#+begin_src R
+data(varsMG)
+
+data(varsOM)
+#+end_src
+
+
 *** Raster Data
 
 - =getRaster= gets a forecast output inside a bounding box and
@@ -37,10 +56,14 @@ The stable version is available at [[http://cran.r-project.org/web/packages/mete
     wrf <- getRaster('temp', '2014-01-25', '00', remote=TRUE)
   #+end_src
 
+  #+RESULTS:
+
   #+begin_src R
     library(rasterVis)
     levelplot(wrf, layers = 10:19)
   #+end_src
+
+[[file:figs/wrf.png]]
 
 -  =getRasterDays= uses =getRaster= to download the results
   cast each day comprised between =start= and =end= using the
@@ -52,8 +75,12 @@ The stable version is available at [[http://cran.r-project.org/web/packages/mete
                            end = '2014-01-05',
                            box = c(-2, 35, 2, 40))
      
-     levelplot(wrfDays, layout = c(1, 1), par.settings = BTCTheme)
+     hovmoller(wrfDays, par.settings = BTCTheme,
+               interpolate = TRUE, panel = panel.levelplot.raster)
    #+end_src
+
+[[file:figs/wrfDays.png]]
+
 
 
 *** Point Data
@@ -72,9 +99,12 @@ The stable version is available at [[http://cran.r-project.org/web/packages/mete
   #+end_src
   
   #+begin_src R
-    library(lattice)
     xyplot(tempC)
   #+end_src
+
+
+[[file:figs/tempC.png]]
+
 
 - =getPointDays=
   #+begin_src R
@@ -85,15 +115,29 @@ The stable version is available at [[http://cran.r-project.org/web/packages/mete
     xyplot(radDays)
   #+end_src
 
+
+[[file:figs/radDays.png]]
+
+
 - =getPointRuns=
   #+begin_src R
     ## Variability between runs
     radRuns <- getPointRuns(c(0, 40), start = '2013-01-01',
                             end = '2013-01-15')
     xyplot(radRuns, superpose = TRUE)
-    
+  #+end_src
+
+
+[[file:figs/radRuns.png]]
+
+
+  #+begin_src R
     ## variability around the average
     radAv <- rowMeans(radRuns)
     radVar <- sweep(radRuns, 1, radAv)
     xyplot(radVar, superpose = TRUE)
   #+end_src
+
+
+[[file:figs/radVar.png]]
+
