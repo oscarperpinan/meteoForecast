@@ -2,7 +2,7 @@ getPoint <- function(point, vars='swflx',
                      day=Sys.Date(), run='00',
                      service='meteogalicia'){
     
-    service <- match.arg(service, c('meteogalicia', 'openmeteo'))
+    service <- match.arg(service, c('meteogalicia', 'openmeteo', 'gfs'))
     
     if (is(point, 'SpatialPoints')) {
         if (!isLonLat(point)) {
@@ -24,11 +24,15 @@ getPoint <- function(point, vars='swflx',
                     if (!pointInMG(lon, lat)) stop('Point outside Meteogalicia region.')
                     completeURL <- composeURL(varstr, day, run,
                                               c(lon, lat), '',
-                                              service, point=TRUE)
+                                              'meteogalicia',
+                                              point=TRUE)
                     tmpfile <- tempfile(fileext='.csv')
-                    success <- try(suppressWarnings(download.file(completeURL, tmpfile, quiet=TRUE)), silent=TRUE)
+                    success <- try(suppressWarnings(download.file(completeURL,
+                                                                  tmpfile, quiet=TRUE)),
+                                   silent=TRUE)
                     if (class(success) == 'try-error')
-                        stop('Data not found. Check the date and variables name.\nURL: ', completeURL)
+                        stop('Data not found. Check the date and variables name.\nURL: ',
+                             completeURL)
                     z <- read.csv(tmpfile)
                     idx <- as.POSIXct(z[,1], format='%Y-%m-%dT%H:%M:%SZ')
                     lat <- as.numeric(as.character(z[1, 2]))
@@ -53,6 +57,35 @@ getPoint <- function(point, vars='swflx',
                     vals <- do.call(cbind, om[vars])
                     vals <- vals[-1, ]
                     zoo(vals, tt)
+                },
+                gfs = {
+                    frames <- seq(0, 192, by = 3)
+                    gfsFiles <- lapply(frames, FUN = function(tt){
+                        completeURL <- composeURL(varstr, day, run,
+                                                  c(lon, lat), tt, 
+                                                  'gfs', point=TRUE)
+                        tmpfile <- tempfile(fileext='.csv')
+                        success <- try(suppressWarnings(download.file(completeURL,
+                                                                      tmpfile, quiet=TRUE)),
+                                       silent=TRUE)
+                        if (class(success) == 'try-error'){
+                            message('Data not found. Check the date and variables name.\nURL: ',
+                                 completeURL)
+                            NULL
+                        } else tmpfile
+                    })
+                    ## remove NULL elements
+                    gfsFiles <- do.call(c, gfsFiles)
+                    z <- do.call("rbind", lapply(gfsFiles, read.csv, header = TRUE))
+                    idx <- as.POSIXct(z[,1], format='%Y-%m-%dT%H:%M:%SZ')
+                    lat <- as.numeric(as.character(z[1, 2]))
+                    lon <- as.numeric(as.character(z[1, 3]))
+                    z <- zoo(z[, -c(1, 2, 3)], idx)
+        
+                    names(z) <- vars
+                    attr(z, 'lat') <- lat
+                    attr(z, 'lon') <- lon
+                    message('Files available at ', tempdir())
+                    z
                 })
-    z
 }
