@@ -2,7 +2,8 @@ getPoint <- function(point, vars='swflx',
                      day=Sys.Date(), run='00',
                      service='meteogalicia'){
     
-    service <- match.arg(service, c('meteogalicia', 'openmeteo', 'gfs'))
+    service <- match.arg(service, c('meteogalicia', 'openmeteo',
+                                    'gfs', 'nam', 'rap'))
     ## Extract longitude-latitude
     if (is(point, 'SpatialPoints')) {
         if (!isLonLat(point)) {
@@ -20,7 +21,9 @@ getPoint <- function(point, vars='swflx',
     fun <- switch(service,
                   meteogalicia = 'pointMG',
                   openmeteo = 'pointOM',
-                  gfs = 'pointGFS')
+                  gfs = 'pointGFS',
+                  nam = 'pointNAM',
+                  rap = 'pointRAP')
     ## Ok, use it.
     z <- do.call(fun, list(lon = lon, lat = lat,
                            vars = vars,
