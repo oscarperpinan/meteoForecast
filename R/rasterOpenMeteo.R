@@ -15,15 +15,19 @@ rasterOM <- function(var, day=Sys.Date(), run='00',
     if (remote) {
         ## OpenMeteo provides a different file
         ## for each time frame
+        pb <- txtProgressBar(style = 3, max = length(frames))
         success <- lapply(seq_along(frames), function(i) {
             completeURL <- composeURL(var, day, run,
                                       box, frames[i],
                                       'openmeteo')
             try(suppressWarnings(download.file(completeURL,
                                                ncFile[i],
+                                               quiet = TRUE,
                                                mode='wb')), 
                 silent=TRUE)
+            setTxtProgressBar(pb, i)
         })
+        close(pb)
         isOK <- sapply(success, function(x) !inherits(x, "try-error"))
         if (any(!isOK)) {
             warning('Data not found. Check the date and variables name')
@@ -32,7 +36,7 @@ rasterOM <- function(var, day=Sys.Date(), run='00',
         } ## End of Remote
     } else {}
     ## Read files
-    suppressWarnings(bNC <- stack(ncFile))
+    suppressWarnings(capture.output(bNC <- stack(ncFile)))
     ## https://forum.openmeteodata.org/index.php?topic=33.msg96#msg96
     b <- brick(nrow=309, ncol=495,
                nl=length(frames),

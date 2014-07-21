@@ -12,14 +12,17 @@ rasterGFS <- function(var, day = Sys.Date(), run = '00',
     if (remote) {
         ## GFS provides a different file
         ## for each time frame
+        pb <- txtProgressBar(style = 3, max = length(frames))
         success <- lapply(seq_along(frames), function(i) {
             completeURL <- composeURL(var, day, run,
                                       box, frames[i],
                                       'gfs')
-            try(download.file(completeURL,
+            try(download.file(completeURL, quiet = TRUE,
                               ncFile[i], mode='wb'), 
                 silent=TRUE)
+            setTxtProgressBar(pb, i)
         })
+        close(pb)
         isOK <- sapply(success, function(x) !inherits(x, "try-error"))
         if (any(!isOK)) {
             warning('Data not found. Check the date and variables name')

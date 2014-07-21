@@ -32,7 +32,7 @@ rasterRAP <- function(var, day = Sys.Date(), run = '00',
         } ## End of Remote
     } else {}
     ## Read files
-    suppressWarnings(bNC <- stack(ncFile))
+    suppressWarnings(capture.output(bNC <- stack(ncFile)))
     ## Convert into a RasterBrick
     b <- brick(bNC)
     ## Get values in memory to avoid problems with time index and

@@ -54,7 +54,7 @@ rasterMG <- function(var='swflx',
         } ## End of Remote
     } else {}
     ## Read files
-    suppressWarnings(bNC <- stack(ncFile))
+    suppressWarnings(capture.output(bNC <- stack(ncFile)))
     ## Use frames with local files from meteogalicia
     if (remote==FALSE) bNC <- bNC[[frames]]
     ## Convert into a RasterBrick
