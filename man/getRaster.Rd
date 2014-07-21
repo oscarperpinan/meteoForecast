@@ -63,8 +63,8 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
     from the remote service. If \code{FALSE} the \code{RasterBrick} is
     produced with the files available in the local folder.}
   
-  \item{service}{Character, which service to use, 'meteogalicia' or
-    'openmeteo'. Please note that the support for the 'openmeteo'
+  \item{service}{Character, which service to use, 'meteogalicia', 'gfs',
+    or 'openmeteo'. Please note that the support for the 'openmeteo'
     service is still experimental and limited.}
   
   \item{dataDir}{Character, path of the folder where files are stored
@@ -75,12 +75,12 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
 
 \details{
   
-  \code{getRaster} downloads data from the MeteoGalicia and OpenMeteo
-  servers using the NetCDF Subset Service. The result is returned as a
-  \code{RasterBrick} object, with one or more NetCDF files stored in the
-  temporary folder (as defined by \code{tempdir()}). Each frame or layer
-  of the \code{RasterBrick} corresponds to a certain hour of the
-  forecast.
+  \code{getRaster} downloads data from the MeteoGalicia, NCDC, or
+  OpenMeteo servers using the NetCDF Subset Service. The result is
+  returned as a \code{RasterBrick} object, with one or more NetCDF files
+  stored in the temporary folder (as defined by \code{tempdir()}). Each
+  frame or layer of the \code{RasterBrick} corresponds to a certain hour
+  of the forecast.
 
   \code{getRasterDays} uses \code{getRaster} to download the results
   cast each day comprised between \code{start} and \code{end} using the
@@ -107,7 +107,7 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   its \code{z} slot (accesible with \code{\link{getZ}}) is UTC.
 
   Both MeteoGalicia and OpenMeteo use the Lambert Conic Conformal
-  projection.
+  projection. GFS files use longitude-latitude coordinates.
 
 }
 
@@ -117,6 +117,8 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   \url{https://openmeteoforecast.org/wiki/Main_Page}
 
   \url{https://openmeteoforecast.org/wiki/OPeNDAP_Server}
+
+  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/gfs-004/catalog.html}
 }
 
 \author{

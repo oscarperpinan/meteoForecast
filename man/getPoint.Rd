@@ -10,7 +10,7 @@
 \description{
 
   The \code{getPoint*} functions get outputs of the NWP models run by
-  MeteoGalicia and OpenMeteo for a single location.
+  MeteoGalicia, NCDC (GFS), OpenMeteo for a single location.
 
 }
 
@@ -32,29 +32,31 @@ getPointRuns(point, var = "swflx", start = Sys.Date() - 1,
   \item{point}{Coordinates of the location. It can be a
     \code{SpatialPoints} or a \code{numeric} of length 2.}
 
-  \item{var, vars}{Character. The name of the variables to retrieve. Inspect
-    \code{\link{varsMG}} and \code{\link{varsOM}} to know what variables
-    are available in each service. \code{getPointRuns} only allows for
-    one variable.}
+  \item{var, vars}{Character. The name of the variables to
+    retrieve. Inspect \code{\link{varsMG}}, \code{\link{varsOM}}, and
+    \code{\link{varsGFS}} to know what variables are available in each
+    service. \code{getPointRuns} only works with one variable.}
 
   \item{day}{Date or character}
   
   \item{run}{Character. The meteogalicia service executes the model at
-    OOUTC and 12UTC. Therefore \code{run} can be '00' or '12'.}
+    OOUTC and 12UTC. Therefore \code{run} can be '00' or '12'. With
+    OpenMeteo and GFS \code{run} can be '00', '06', '12', and '18'. 
+    }
   
   \item{start}{Date or character. First day of the time period to retrieve.}
   
   \item{end}{Date or character. Last day of the time period to retrieve.}
 
-  \item{service}{Character, which service to use, 'meteogalicia' or
-    'openmeteo'. Please note that the support for the 'openmeteo'
-    service is still experimental and limited.}
+  \item{service}{Character, which service to use, 'meteogalicia', 'gfs',
+    or 'openmeteo'. Please note that the support for the 'gfs' and
+    'openmeteo' services is still experimental and limited.}
 
 }
 
 \details{
 
-These functions download data from the MeteoGalicia and OpenMeteo
+These functions download data from the MeteoGalicia, NCDC, OpenMeteo
 servers using the NetCDF Subset Service. The result is returned as a
 \code{zoo} time series object, with one or more csv files stored in the
 temporary folder (as defined by \code{tempdir()}).  }
@@ -87,6 +89,8 @@ temporary folder (as defined by \code{tempdir()}).  }
   \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
 
   \url{https://openmeteoforecast.org/wiki/Main_Page}
+
+  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/gfs-004/catalog.html}
 }
 
 \author{Oscar Perpiñán Lamigueiro with contributions from Marcelo Almeida}
