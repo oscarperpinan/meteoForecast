@@ -23,13 +23,18 @@ composeURL <- function(var, day, run, spatial, timeFrame,
     } else spatial <- ''
     ## Multiple variables are allowed if point=TRUE
     if (point) var <- paste(var, collapse=',') else var <- var[1]
- 
-    switch(service,
-           meteogalicia = urlMG(var, day, run, spatial, timeFrame),
-           openmeteo = urlOM(var, day, run, spatial, timeFrame),
-           gfs = urlGFS(var, day, run, spatial, timeFrame),
-           'unknown'
-           )
+    
+    fun <- switch(service,
+                  meteogalicia = 'urlMG',
+                  openmeteo = 'urlOM',
+                  gfs = 'urlGFS',
+                  nam = 'urlNAM',
+                  rap = 'urlRAP',
+                  stop('Unknown service'))
+
+    do.call(fun, list(var = var, day = day, run = run,
+                      spatial = spatial, timeFrame = timeFrame))
+
 }
 
 ##################################################################
@@ -74,6 +79,31 @@ urlGFS <- function(var, day, run, spatial, timeFrame) {
     timeFrame <- sprintf('%03d', timeFrame)
     paste0(mainURL, Ym, '/', ymd(day), '/',
            'gfs_4_', ymd(day), '_', run, '_', timeFrame,
+           '.grb2?var=', var, spatial)
+}
+
+##################################################################
+## North American Mesoscale Forecast System (NAM) 
+##################################################################
+urlNAM <- function(var, day, run, spatial, timeFrame) {
+    Ym <- format(day, format='%Y%m')
+    mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/nam218/'
+    run <- paste0(run, '00')
+    timeFrame <- sprintf('%03d', timeFrame)
+    paste0(mainURL, Ym, '/', ymd(day), '/',
+           'nam_218_', ymd(day), '_', run, '_', timeFrame,
+           '.grb?var=', var, spatial)
+}
+##################################################################
+## Rapid Refresh (RAP) 
+##################################################################
+urlRAP <- function(var, day, run, spatial, timeFrame) {
+    Ym <- format(day, format='%Y%m')
+    mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/rap130/'
+    run <- paste0(run, '00')
+    timeFrame <- sprintf('%03d', timeFrame)
+    paste0(mainURL, Ym, '/', ymd(day), '/',
+           'rap_130_', ymd(day), '_', run, '_', timeFrame,
            '.grb2?var=', var, spatial)
 }
 

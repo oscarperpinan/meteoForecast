@@ -8,6 +8,8 @@ getRaster <- function(var='swflx',
     
     service <- match.arg(service, c('meteogalicia',
                                     'gfs',
+                                    'nam',
+                                    'rap',
                                     'openmeteo'))
 
     stopifnot(frames == 'complete' | is.numeric(frames))
@@ -23,7 +25,9 @@ getRaster <- function(var='swflx',
     fun <- switch(service,
                   meteogalicia = 'rasterMG',
                   openmeteo = 'rasterOM',
-                  gfs = 'rasterGFS')
+                  gfs = 'rasterGFS',
+                  nam = 'rasterNAM',
+                  rap = 'rasterRAP')
 
     b <- do.call(fun, list(var = var, day = as.Date(day),
                            run = run, frames = frames[1],
