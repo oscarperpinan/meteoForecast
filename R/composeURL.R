@@ -21,7 +21,9 @@ composeURL <- function(var, day, run, spatial, timeFrame,
                               '&south=', ymin(ext))
         }
     } else spatial <- ''
-
+    ## Multiple variables are allowed if point=TRUE
+    if (point) var <- paste(var, collapse=',') else var <- var[1]
+ 
     switch(service,
            meteogalicia = urlMG(var, day, run, spatial, timeFrame),
            openmeteo = urlOM(var, day, run, spatial, timeFrame),
