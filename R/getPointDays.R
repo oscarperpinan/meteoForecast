@@ -10,11 +10,18 @@ getPointDays <- function(point,
         stopifnot(end > start)
         stopifnot(end <= Sys.Date())
         days <- seq(start, end, by='day')
+        pb <- txtProgressBar(style = 3,
+                             min = as.numeric(start),
+                             max = as.numeric(end))
         lp <- lapply(days, FUN = function(d) {
-            try(getPoint(point, vars,
+            setTxtProgressBar(pb, as.numeric(d))
+            try(suppressMessages(
+                getPoint(point, vars,
                          day = d, run = '00',
                          service=service)[1:24])
+                )
         })
+        close(pb)
         isOK <- sapply(lp, FUN = function(x) class(x)!='try-error')
         z <- do.call(rbind, lp[isOK])
         attr(index(z), 'tzone') <- 'UTC'
