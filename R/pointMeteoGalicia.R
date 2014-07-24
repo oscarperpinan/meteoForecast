@@ -1,14 +1,7 @@
-pointInMG <-
-    function(lon, lat){
-        box <- extent(-21.57982593066231, 6.358561301098035,
-                      33.63652645596269, 49.56899908853894)
-        isInside(lon, lat, box)
-    }
-
 pointMG <- function(lon, lat, vars,
                     day=Sys.Date(), run='00'){
     
-    if (!pointInMG(lon, lat)) stop('Point outside Meteogalicia region.')
+    if (!isInside(lon, lat, bbMG)) stop('Point outside Meteogalicia region.')
 
     completeURL <- composeURL(vars, day, run,
                               c(lon, lat), '',
@@ -16,8 +9,9 @@ pointMG <- function(lon, lat, vars,
                               point=TRUE)
 
     tmpfile <- tempfile(fileext='.csv')
-    success <- try(suppressWarnings(download.file(completeURL,
-                                                  tmpfile, quiet=TRUE)),
+    success <- try(suppressWarnings(
+        download.file(completeURL,
+                      tmpfile, quiet=TRUE)),
                    silent=TRUE)
 
     if (class(success) == 'try-error')

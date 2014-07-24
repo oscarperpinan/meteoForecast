@@ -1,14 +1,17 @@
 pointRAP <- function(lon, lat, vars,
                      day=Sys.Date(), run='00'){
 
+    if (!isInside(lon, lat, bbRAP)) stop('Point outside RAP region.')
+
     frames <- seq(0, 18, by = 1)
     files <- lapply(frames, FUN = function(tt){
         completeURL <- composeURL(vars, day, run,
                                   c(lon, lat), tt, 
                                   'rap', point=TRUE)
         tmpfile <- tempfile(fileext='.csv')
-        success <- try(suppressWarnings(download.file(completeURL,
-                                                      tmpfile, quiet=TRUE)),
+        success <- try(suppressWarnings(
+            download.file(completeURL,
+                          tmpfile, quiet=TRUE)),
                        silent=TRUE)
         if (class(success) == 'try-error') NULL else tmpfile
     })
