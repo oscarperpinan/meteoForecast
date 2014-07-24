@@ -1,7 +1,8 @@
 rasterMG <- function(var='swflx',
                      day=Sys.Date(), run='00',
                      frames='complete',
-                     box = NULL, names = NULL, remote=TRUE) {
+                     box = NULL, names = NULL,
+                     remote=TRUE) {
     ## Model initialization time
     run <- match.arg(run, c('00', '12'))
     ## Time Frames
@@ -42,11 +43,10 @@ rasterMG <- function(var='swflx',
         completeURL <- composeURL(var, day, run,
                                   box, frames, 
                                   'meteogalicia')
-        success <- try(suppressWarnings(download.file(completeURL,
-                                                      ncFile,
-                                                      mode='wb')),
+        message('Downloading data from ', completeURL)
+        success <- try(download.file(completeURL, ncFile,
+                                     mode='wb', quiet = TRUE),
                        silent=TRUE)
-
         if (class(success) == 'try-error') {
             stop('Data not found. Check the date and variables name')
         } else { ## Download Successful!
