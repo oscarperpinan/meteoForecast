@@ -12,6 +12,8 @@
   
   New services will be added gradually, using [[https://github.com/oscarperpinan/mds/wiki][this collection]] of
   meteorological data sources as reference.
+  
+  This package has been developed in the framework of the European Project [[http://www.pvcrops.eu/project-deliverables][PVCROPS]].
 
 ** Installation
 
