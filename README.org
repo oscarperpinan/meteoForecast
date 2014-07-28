@@ -2,20 +2,15 @@
 
 [[http://dx.doi.org/10.5281/zenodo.10781][https://zenodo.org/badge/1928/oscarperpinan/meteoForecast.png]]
 
-  The Weather Research and Forecasting (WRF) Model is a numerical
-  weather prediction (NWP) system. NWP refers to the simulation and
-  prediction of the atmosphere with a computer model, and WRF is a set
-  of software for this.
+  =meteoForecast= is a package to access outputs from Numerical Weather Prediction models both in raster format and as a time series for a location.
+  The current version works with these services:
+  - [[http://www.emc.ncep.noaa.gov/index.php?branch=GFS][GFS]]
+  - [[http://www.meteogalicia.es/web/modelos/threddsIndex.action][MeteoGalicia]]
+  - [[https://openmeteoforecast.org/][OpenMeteo]]
+  - [[http://www.ncdc.noaa.gov/data-access/model-data/model-datasets/north-american-mesoscale-forecast-system-nam][NAM]]
+  - [[http://www.ncdc.noaa.gov/data-access/model-data/model-datasets/rapid-refresh-rap][RAP]]
   
-  =meteoForecast= downloads data from the [[http://www.meteogalicia.es/web/modelos/threddsIndex.action][Meteogalicia]] and [[https://openmeteoforecast.org/wiki/Main_Page][OpenMeteo]]
-  NWP-WRF services using the NetCDF Subset Service.  The default
-  service choice is MeteoGalicia. The use of the OpenMeteo service is
-  still experimental, and some functions are not fully implemented for
-  it. The MeteoGalicia service produces forecasts for the geographical
-  area comprised approximately between 21.58W and 33.63E, 6.36N and
-  49.57N.
-
-  I will add new services gradually, using [[https://github.com/oscarperpinan/mds/wiki][this collection]] of
+  New services will be added gradually, using [[https://github.com/oscarperpinan/mds/wiki][this collection]] of
   meteorological data sources as reference.
 
 ** Installation
@@ -38,13 +33,16 @@ The stable version is available at [[http://cran.r-project.org/web/packages/mete
   library(meteoForecast)
 #+end_src
 
-Load =varsMG= and =varsOM= to know about the variables available in
-the MeteoGalicia and OpenMeteo services:
+Load =varsMG=, =varsOM= and =varsGFS= to know about the variables available in
+each service:
 
 #+begin_src R
 data(varsMG)
-
+head(varsMG)
 data(varsOM)
+head(varsOM)
+data(varsGFS)
+head(varsGFS)
 #+end_src
 
 
