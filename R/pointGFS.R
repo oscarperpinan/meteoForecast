@@ -22,7 +22,7 @@ pointGFS <- function(lon, lat, vars,
     ## remove NULL elements
     gfsFiles <- do.call(c, gfsFiles)
     z <- do.call("rbind", lapply(gfsFiles, read.csv, header = TRUE))
-    idx <- as.POSIXct(z[,1], format='%Y-%m-%dT%H:%M:%SZ')
+    idx <- as.POSIXct(z[,1], format='%Y-%m-%dT%H:%M:%SZ', tz = 'UTC')
     lat <- as.numeric(as.character(z[1, 2]))
     lon <- as.numeric(as.character(z[1, 3]))
     z <- zoo(z[, -c(1, 2, 3)], idx)

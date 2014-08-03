@@ -20,7 +20,7 @@ pointMG <- function(lon, lat, vars,
 
     z <- read.csv(tmpfile)
 
-    idx <- as.POSIXct(z[,1], format='%Y-%m-%dT%H:%M:%SZ')
+    idx <- as.POSIXct(z[,1], format='%Y-%m-%dT%H:%M:%SZ', tz = 'UTC')
     lat <- as.numeric(as.character(z[1, 2]))
     lon <- as.numeric(as.character(z[1, 3]))
 
