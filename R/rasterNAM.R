@@ -17,15 +17,17 @@ rasterNAM <- function(var, day = Sys.Date(), run = '00',
             completeURL <- composeURL(var, day, run,
                                       box, frames[i],
                                       'nam')
+            setTxtProgressBar(pb, i)            
             try(download.file(completeURL, quiet = TRUE,
                               ncFile[i], mode='wb'), 
                 silent=TRUE)
-            setTxtProgressBar(pb, i)
         })
         close(pb)
         isOK <- sapply(success, function(x) !inherits(x, "try-error"))
         if (any(!isOK)) {
-            warning('Data not found. Check the date and variables name')
+            warning('Some data not found. Check the date and variables name')
+            ncFile <- ncFile[isOK]
+            frames <- frames[isOK]
         } else { ## Download Successful!
             message('File(s) available at ', tempdir())
         } ## End of Remote
