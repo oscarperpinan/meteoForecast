@@ -33,9 +33,9 @@ data(varsRAP)
 
   \url{http://nomads.ncdc.noaa.gov/thredds/catalog/gfs-004/catalog.html}
 
-  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/gfs-004/catalog.html}
+  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/rap130/catalog.html}
 
-  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/gfs-004/catalog.html}
+  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/nam218/catalog.html}
 }
 
 \examples{
