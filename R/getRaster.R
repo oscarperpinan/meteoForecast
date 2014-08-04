@@ -4,6 +4,7 @@ getRaster <- function(var='swflx',
                       box, names, remote=TRUE,
                       service='meteogalicia',
                       dataDir = '.',
+                      use00H = FALSE,
                       ...){
     
     service <- match.arg(service, c('meteogalicia',
@@ -33,7 +34,7 @@ getRaster <- function(var='swflx',
                            run = run, frames = frames[1],
                            box = if (missing(box)) NULL else box,
                            names = if (missing(names))  NULL else names,
-                           remote = remote))
+                           remote = remote, use00H = use00H))
 
 }
 

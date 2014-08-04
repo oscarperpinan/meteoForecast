@@ -1,50 +1,31 @@
 rasterGFS <- function(var, day = Sys.Date(), run = '00',
                       frames = 'complete',
-                      box = NULL, names = NULL, remote = TRUE) {
+                      box = NULL, names = NULL, remote = TRUE,
+                      use00H = FALSE) {
     ## Model initialization time
     run <- match.arg(run, c('00', '06', '12', '18'))
-    ## Time Frames: GFS first frame is 0 hours since RUN
-    if (frames == 'complete') frames <- seq(0, 192, by = 3)
-    else frames <- seq(0, length = min(65, as.integer(frames)), by = 3)
+    ## Model Time resolution
+    tRes <- 3
+    ## Time Frames: GFS first frame is 0 hours since RUN for some
+    ## variables. This 00H "forecast" is only used is use00H = TRUE
+    ff <- ifelse(use00H, 0, tRes)
+    ## Forecast horizon, last time frame
+    lf <- 192
+    frames <-  makeFrames(frames, ff, lf, tRes)
     ## Name of files to be read/stored
-    ncFile <- paste0(paste(var, ymd(day), run, frames,
-                           sep='_'), '.nc')
+    ncFile <- nameFiles(var, day, run, frames)
     if (remote) {
-        ## GFS provides a different file
-        ## for each time frame
-        pb <- txtProgressBar(style = 3, max = length(frames))
-        success <- lapply(seq_along(frames), function(i) {
-            completeURL <- composeURL(var, day, run,
-                                      box, frames[i],
-                                      'gfs')
-            setTxtProgressBar(pb, i)
-            try(download.file(completeURL, quiet = TRUE,
-                              ncFile[i], mode='wb'), 
-                silent=TRUE)
-        })
-        close(pb)
-        isOK <- sapply(success, function(x) !inherits(x, "try-error"))
+        isOK <- downloadRaster(var, day, run, box,
+                               frames, ncFile, 'gfs')
         if (any(!isOK)) {
             warning('Some data not found. Check the date and variables name')
             ncFile <- ncFile[isOK]
             frames <- frames[isOK]
-        } else { ## Download Successful!
-            message('File(s) available at ', tempdir())
-        } ## End of Remote
-    } else {}
-    ## Read files
-    suppressWarnings(bNC <- stack(ncFile))
-    ## Convert into a RasterBrick
-    b <- brick(bNC)
-    ## Get values in memory to avoid problems with time index and
-    ## projection
-    b[] <- getValues(bNC)
-    ## Time index
-    tt <- frames * 3600 + as.numeric(run) * 3600 + as.POSIXct(day, tz='UTC')
-    attr(tt, 'tzone') <- 'UTC'
-    b <- setZ(b, tt)
-    ## Names
-    if (is.null(names)) names(b) <- format(tt, 'd%Y-%m-%d.h%H')
+            } else {} ## Download Successful!
+    } else {} ## End of remote
+    b <- readFiles(ncFile)
+    ## Add time index and names
+    b <- timeIndex(b, frames, run, day, names)
     ## Here it goes!
     b
 }

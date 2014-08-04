@@ -8,8 +8,8 @@
 
 \description{
 
-  The \code{getRaster*} functions get outputs of the NWP models run by
-  MeteoGalicia and OpenMeteo for an area.
+  The \code{getRaster*} functions get outputs of the NWP models for a
+  region.
 
 }
 
@@ -18,7 +18,7 @@
 getRaster(var = "swflx", day = Sys.Date(), run = "00",
           frames = 'complete', box, names,
           remote = TRUE, service = "meteogalicia",
-          dataDir = ".", ...)
+          dataDir = ".", use00H = FALSE, ...)
 
 getRasterDays(var = "swflx", start = Sys.Date(), end,
               remote = TRUE, dataDir = ".", ...)
@@ -31,13 +31,15 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
 \arguments{
   
   \item{var, vars}{Character. The name of the variable (or variables in
-    \code{checkDays}) to retrieve. Inspect \code{\link{varsMG}} and
-    \code{\link{varsOM}} to know what variables are available in each service.}
+    \code{checkDays}) to retrieve. Inspect the help page of
+    \code{\link{varsMG}} to know what variables are available in each
+    service.}
   
   \item{day}{Date or character}
   
-  \item{run}{Character. The meteogalicia service executes the model at
-    OOUTC and 12UTC. Therefore \code{run} can be '00' or '12'.}
+  \item{run}{Character. For example, the meteogalicia service executes
+    the model at OOUTC and 12UTC. Therefore \code{run} can be '00' or
+    '12'.}
   
   \item{start}{Date or character. First day of the time period to retrieve.}
   
@@ -45,8 +47,8 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   
   \item{frames}{Numeric. It defines the number of hourly forecasts
     (frames) to retrieve. If \code{frames = 'complete'}, the full set of
-    frames is downloaded. The meteogalicia service produces 96 hourly
-    forecasts (frames) with \code{run='00'} and 84 frames with
+    frames is downloaded. For example, the meteogalicia service produces
+    96 hourly forecasts (frames) with \code{run='00'} and 84 frames with
     \code{run='12'}.}
   
   \item{box}{The bounding box. A \code{\link{Extent}} or an object that
@@ -64,23 +66,30 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
     produced with the files available in the local folder.}
   
   \item{service}{Character, which service to use, 'meteogalicia', 'gfs',
-    or 'openmeteo'. Please note that the support for the 'openmeteo'
+    'openmeteo', 'nam' or 'rap'. Note that the support for the 'openmeteo'
     service is still experimental and limited.}
-  
-  \item{dataDir}{Character, path of the folder where files are stored
-    (if \code{remote = 'FALSE'})}
+
+  \item{use00H}{Logical. Only used when \code{service} is 'gfs', 'nam',
+  or 'rap'. If \code{FALSE} (default), the first frame of each run or
+  00H "forecast" is not considered. This first frame is only produced
+  for some variables. Therefore, with \code{use00H = TRUE} fewer frames
+  that the number defined with \code{frames} could be obtained for some
+  variables.)}
+
+\item{dataDir}{Character, path of the folder where files are stored (if
+  \code{remote = 'FALSE'})}
   
   \item{\dots}{Additional arguments. Not used in \code{getRaster}.}
 }
 
 \details{
   
-  \code{getRaster} downloads data from the MeteoGalicia, NCDC, or
-  OpenMeteo servers using the NetCDF Subset Service. The result is
-  returned as a \code{RasterBrick} object, with one or more NetCDF files
-  stored in the temporary folder (as defined by \code{tempdir()}). Each
-  frame or layer of the \code{RasterBrick} corresponds to a certain hour
-  of the forecast.
+  \code{getRaster} downloads data from the MeteoGalicia, NCDC (GFS, RAP,
+  and NAM), or OpenMeteo servers using the NetCDF Subset Service. The
+  result is returned as a \code{RasterBrick} object, with one or more
+  NetCDF files stored in the temporary folder (as defined by
+  \code{tempdir()}). Each frame or layer of the \code{RasterBrick}
+  corresponds to a certain hour of the forecast.
 
   \code{getRasterDays} uses \code{getRaster} to download the results
   cast each day comprised between \code{start} and \code{end} using the
@@ -95,7 +104,6 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   requested variables. If \code{remote = TRUE} it only checks that
   \code{start} is after 2008-01-01 (first date of the archived forecasts
   of MeteoGalicia.)
-
 }
 
 \value{
@@ -106,7 +114,7 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   The time zone of the time index of this \code{RasterBrick}, stored in
   its \code{z} slot (accesible with \code{\link{getZ}}) is UTC.
 
-  Both MeteoGalicia and OpenMeteo use the Lambert Conic Conformal
+  MeteoGalicia, OpenMeteo, NAM, and RAP use the Lambert Conic Conformal
   projection. GFS files use longitude-latitude coordinates.
 
 }
@@ -119,6 +127,11 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
   \url{https://openmeteoforecast.org/wiki/OPeNDAP_Server}
 
   \url{http://nomads.ncdc.noaa.gov/thredds/catalog/gfs-004/catalog.html}
+
+  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/rap130/catalog.html}
+
+  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/nam218/catalog.html}
+
 }
 
 \author{
