@@ -27,15 +27,15 @@ data(varsRAP)
 }
 
 \source{
-  \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
+  varsMG: \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
 
-  \url{https://openmeteoforecast.org/wiki/Main_Page}
+  varsOM: \url{https://openmeteoforecast.org/wiki/Main_Page}
 
-  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/gfs-004/catalog.html}
+  varsGFS: \url{http://nomads.ncdc.noaa.gov/thredds/catalog/gfs-004/catalog.html}
 
-  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/rap130/catalog.html}
+  varsNAM: \url{http://nomads.ncdc.noaa.gov/thredds/catalog/nam218/catalog.html}
 
-  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/nam218/catalog.html}
+  varsRAP: \url{http://nomads.ncdc.noaa.gov/thredds/catalog/rap130/catalog.html}
 }
 
 \examples{
