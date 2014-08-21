@@ -12,7 +12,7 @@ before_install:
   - ./travis-tool.sh bootstrap
 install:
   - sudo apt-get update -qq	
-  - sudo apt-get install -y libnetcdf-dev netcdf-bin libgdal1 libproj
+  - sudo apt-get install -y libnetcdf-dev netcdf-bin libgdal-dev libproj-dev
   - ./travis-tool.sh install_deps
 
 script: ./travis-tool.sh run_tests
