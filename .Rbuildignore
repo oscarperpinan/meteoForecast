@@ -1,3 +1,4 @@
 .projectile
 figs
 README.org
+^\.travis\.yml$
