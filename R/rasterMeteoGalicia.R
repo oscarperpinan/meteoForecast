@@ -2,7 +2,7 @@ rasterMG <- function(var='swflx',
                      day=Sys.Date(), run='00',
                      frames='complete',
                      box = NULL, names = NULL,
-                     remote=TRUE) {
+                     remote=TRUE, ...) {
     ## Model initialization time
     run <- match.arg(run, c('00', '12'))
     ## Time Frames
