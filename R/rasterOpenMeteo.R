@@ -1,6 +1,6 @@
 rasterOM <- function(var, day=Sys.Date(), run='00',
                      frames='complete',
-                     box = NULL, names = NULL, remote=TRUE) {
+                     box = NULL, names = NULL, remote=TRUE, ...) {
     
     run <- match.arg(run, c('00', '06', '12', '18'))
 

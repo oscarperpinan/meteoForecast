@@ -1,8 +1,10 @@
-getRaster <- function(var='swflx',
-                      day=Sys.Date(), run='00',
-                      frames='complete',
-                      box, names, remote=TRUE,
-                      service='meteogalicia',
+getRaster <- function(var = 'swflx',
+                      day = Sys.Date(), run = '00',
+                      frames = 'complete', box,
+                      resolution = NULL,
+                      names,
+                      remote = TRUE, 
+                      service = 'meteogalicia',
                       dataDir = '.',
                       use00H = FALSE,
                       ...){
@@ -33,6 +35,7 @@ getRaster <- function(var='swflx',
     b <- do.call(fun, list(var = var, day = as.Date(day),
                            run = run, frames = frames[1],
                            box = if (missing(box)) NULL else box,
+                           resolution = resolution,
                            names = if (missing(names))  NULL else names,
                            remote = remote, use00H = use00H))
 

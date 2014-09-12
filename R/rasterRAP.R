@@ -1,7 +1,7 @@
 rasterRAP <- function(var, day = Sys.Date(), run = '00',
                       frames = 'complete',
                       box = NULL, names = NULL, remote = TRUE,
-                      use00H = FALSE) {
+                      use00H = FALSE, ...) {
     ## Model initialization time
     ## RAP is initialized each hour!
     run <- match.arg(run, sprintf('%02d', 0:23))
@@ -17,7 +17,8 @@ rasterRAP <- function(var, day = Sys.Date(), run = '00',
     ncFile <- nameFiles(var, day, run, frames)
     if (remote) {
         isOK <- downloadRaster(var, day, run, box,
-                               frames, ncFile, 'rap')
+                               frames, ncFile,
+                               service = 'rap')
         if (any(!isOK)) {
             warning('Some data not found. Check the date and variables name')
             ncFile <- ncFile[isOK]

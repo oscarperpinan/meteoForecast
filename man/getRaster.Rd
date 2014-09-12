@@ -16,16 +16,16 @@
 \usage{
 
 getRaster(var = "swflx", day = Sys.Date(), run = "00",
-          frames = 'complete', box, names,
-          remote = TRUE, service = "meteogalicia",
+          frames = 'complete', box, resolution,
+          names, remote = TRUE, service = "meteogalicia",
           dataDir = ".", use00H = FALSE, ...)
 
 getRasterDays(var = "swflx", start = Sys.Date(), end,
               remote = TRUE, dataDir = ".", ...)
 
 
-checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
-          dataDir = '.')
+checkDays(start, end, vars, remote = FALSE,
+          service = 'meteogalicia', dataDir = '.')
 }
 
 \arguments{
@@ -56,7 +56,11 @@ checkDays(start, end, vars, remote = FALSE, service = 'meteogalicia',
     (first row: xmin, xmax; second row: ymin, ymax), vector (length=4;
     order= xmin, xmax, ymin, ymax) or list (with at least two elements,
     with names 'x' and 'y'). }
-  
+
+  \item{resolution}{Numeric. Resolution in kilometers of the
+  raster. Valid choices are 4, 12, and 36. It is only used with
+  \code{service = 'meteogalicia'}.}
+
   \item{names}{Character. Names of the layers of the resulting
     \code{RasterBrick}. If missing, a predefined vector is assigned the
     combination of day and hour.}

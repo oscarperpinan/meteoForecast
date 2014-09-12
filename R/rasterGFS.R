@@ -1,7 +1,7 @@
 rasterGFS <- function(var, day = Sys.Date(), run = '00',
                       frames = 'complete',
                       box = NULL, names = NULL, remote = TRUE,
-                      use00H = FALSE) {
+                      use00H = FALSE, ...) {
     ## Model initialization time
     run <- match.arg(run, c('00', '06', '12', '18'))
     ## Model Time resolution
@@ -16,7 +16,8 @@ rasterGFS <- function(var, day = Sys.Date(), run = '00',
     ncFile <- nameFiles(var, day, run, frames)
     if (remote) {
         isOK <- downloadRaster(var, day, run, box,
-                               frames, ncFile, 'gfs')
+                               frames, ncFile,
+                               service = 'gfs')
         if (any(!isOK)) {
             warning('Some data not found. Check the date and variables name')
             ncFile <- ncFile[isOK]

@@ -1,7 +1,9 @@
 rasterMG <- function(var='swflx',
                      day=Sys.Date(), run='00',
                      frames='complete',
-                     box = NULL, names = NULL,
+                     box = NULL,
+                     resolution = 12,
+                     names = NULL,
                      remote=TRUE, ...) {
     ## Model initialization time
     run <- match.arg(run, c('00', '12'))
@@ -41,8 +43,8 @@ rasterMG <- function(var='swflx',
         ## Meteogalicia provides a multilayer
         ## file with all the time frames
         completeURL <- composeURL(var, day, run,
-                                  box, frames, 
-                                  'meteogalicia')
+                                  box, frames, resolution,
+                                  service = 'meteogalicia')
         message('Downloading data from ', completeURL)
         success <- try(download.file(completeURL, ncFile,
                                      mode='wb', quiet = TRUE),

@@ -3,8 +3,8 @@
 ##################################################################
 ## Main Function
 ##################################################################
-composeURL <- function(var, day, run, spatial, timeFrame,
-                       service, point=FALSE){
+composeURL <- function(var, day, run, spatial, timeFrame, resolution = NULL,
+                       service, point = FALSE){
 
     if (!is.null(spatial)) {
         ## Bounding Box or Long-Lat
@@ -33,35 +33,51 @@ composeURL <- function(var, day, run, spatial, timeFrame,
                   stop('Unknown service'))
 
     do.call(fun, list(var = var, day = day, run = run,
-                      spatial = spatial, timeFrame = timeFrame))
+                      spatial = spatial,
+                      timeFrame = timeFrame,
+                      resolution = resolution))
 
 }
 
 ##################################################################
 ## MeteoGalicia
 ##################################################################
-urlMG <- function(var, day, run, spatial, timeFrame){
+urlMG <- function(var, day, run, spatial, timeFrame, resolution, ...){
     today <- Sys.Date()
+    ## Resolution default value 
+    if (is.null(resolution)) resolution <- 12
+    ## Valid choices in Meteogalicia
+    resChoices <- c(36, 12, 4)
+    idxRes <- match(resolution, resChoices)
+    if (is.na(idxRes)) {
+        resolution <- 12
+        idxRes <- 2
+        message('Valid choices for `resolution` are 4, 12 and 36. Resorting to default value, 12.')
+    }
+    resolution <- sprintf('%02dkm', resolution)
     ## meteogalicia stores 14 days of operational forecasts
     ## After 14 days the forecasts are moved to the WRF_HIST folder
     if (today - day <= 14) {
         mainURL <- 'http://mandeo.meteogalicia.es/thredds/ncss/grid/wrf_2d_'
-        paste0(mainURL, '12km',
+        paste0(mainURL,
+               resolution,
                '/fmrc/files/', ymd(day),
-               '/wrf_arw_det_history_d02',
+               '/wrf_arw_det_history_d0', idxRes,
                '_', ymd(day),
                '_', paste0(run, '00'),
                '.nc4?var=', var,
                spatial, timeFrame)
     } else {
         ## Historical forecasts. Only run 0 is available
-        mainURL <- 'http://mandeo.meteogalicia.es/thredds/ncss/grid/modelos/WRF_HIST/d02/'
+        mainURL <- paste0('http://mandeo.meteogalicia.es/thredds/ncss/grid/modelos/WRF_HIST/')
         year <- format(day, '%Y')
         month <- format(day, '%m')
         paste0(mainURL,
+               paste0('d0', idxRes, '/'),
                year, '/',
-                          month, '/',
-               'wrf_arw_det_history_d02_',
+               month, '/',
+               'wrf_arw_det_history_',
+               paste0('d0', idxRes, '_'),
                ymd(day),
                '_', '0000',
                '.nc4?var=', var,
@@ -72,7 +88,7 @@ urlMG <- function(var, day, run, spatial, timeFrame){
 ##################################################################
 ## Global Forecast
 ##################################################################
-urlGFS <- function(var, day, run, spatial, timeFrame) {
+urlGFS <- function(var, day, run, spatial, timeFrame, ...) {
     Ym <- format(day, format='%Y%m')
     mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/gfs-004/'
     run <- paste0(run, '00')
@@ -85,7 +101,7 @@ urlGFS <- function(var, day, run, spatial, timeFrame) {
 ##################################################################
 ## North American Mesoscale Forecast System (NAM) 
 ##################################################################
-urlNAM <- function(var, day, run, spatial, timeFrame) {
+urlNAM <- function(var, day, run, spatial, timeFrame, ...) {
     Ym <- format(day, format='%Y%m')
     mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/nam218/'
     run <- paste0(run, '00')
@@ -97,7 +113,7 @@ urlNAM <- function(var, day, run, spatial, timeFrame) {
 ##################################################################
 ## Rapid Refresh (RAP) 
 ##################################################################
-urlRAP <- function(var, day, run, spatial, timeFrame) {
+urlRAP <- function(var, day, run, spatial, timeFrame, ...) {
     Ym <- format(day, format='%Y%m')
     mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/rap130/'
     run <- paste0(run, '00')
@@ -110,7 +126,7 @@ urlRAP <- function(var, day, run, spatial, timeFrame) {
 ##################################################################
 ## OpenMeteo
 ##################################################################
-urlOM <- function(var, day, run, spatial, timeFrame) {
+urlOM <- function(var, day, run, spatial, timeFrame, ...) {
     mainURL <- 'http://dap.ometfn.net/eu12-pp_'
     paste0(mainURL,
            ymd(day), run,

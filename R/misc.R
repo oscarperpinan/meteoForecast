@@ -69,7 +69,7 @@ downloadRaster <- function(var, day, run, box,
     success <- lapply(seq_along(frames), function(i) {
         completeURL <- composeURL(var, day, run,
                                   box, frames[i],
-                                  service)
+                                  service = service)
         setTxtProgressBar(pb, i)
         try(download.file(completeURL, quiet = TRUE,
                           ncFile[i], mode='wb'), 
