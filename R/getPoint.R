@@ -1,5 +1,6 @@
 getPoint <- function(point, vars='swflx',
                      day=Sys.Date(), run='00',
+                     resolution = NULL,
                      service='meteogalicia'){
     
     service <- match.arg(service, c('meteogalicia', 'openmeteo',
@@ -28,5 +29,6 @@ getPoint <- function(point, vars='swflx',
     z <- do.call(fun, list(lon = lon, lat = lat,
                            vars = vars,
                            day = as.Date(day),
-                           run = run))
+                           run = run,
+                           resolution = resolution))
 }

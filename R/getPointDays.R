@@ -1,6 +1,7 @@
 getPointDays <- function(point,
                          vars = 'swflx',
                          start = Sys.Date(), end,
+                         resolution = NULL,
                          service = 'meteogalicia'){
     start <- as.Date(start)
     if (missing(end)) {
@@ -18,6 +19,7 @@ getPointDays <- function(point,
             try(suppressMessages(
                 getPoint(point, vars,
                          day = d, run = '00',
+                         resolution = resolution,
                          service=service)[1:24])
                 )
         })

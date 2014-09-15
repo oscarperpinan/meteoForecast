@@ -1,5 +1,5 @@
 pointOM <- function(lon, lat, vars,
-                    day=Sys.Date(), run='00'){
+                    day=Sys.Date(), run='00', ...){
 
     if (!isInside(lon, lat, bbOM)) stop('Point outside OpenMeteo region.')
 

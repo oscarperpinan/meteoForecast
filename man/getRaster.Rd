@@ -16,7 +16,7 @@
 \usage{
 
 getRaster(var = "swflx", day = Sys.Date(), run = "00",
-          frames = 'complete', box, resolution,
+          frames = 'complete', box, resolution = NULL,
           names, remote = TRUE, service = "meteogalicia",
           dataDir = ".", use00H = FALSE, ...)
 

@@ -1,12 +1,22 @@
 pointMG <- function(lon, lat, vars,
-                    day=Sys.Date(), run='00'){
+                    day=Sys.Date(), run='00',
+                    resolution = 12){
     
-    if (!isInside(lon, lat, bbMG)) stop('Point outside Meteogalicia region.')
 
     completeURL <- composeURL(vars, day, run,
                               c(lon, lat), '',
-                              'meteogalicia',
+                              resolution = resolution,
+                              service = 'meteogalicia',
                               point=TRUE)
+    ## Resolution default value 
+    if (is.null(resolution)) resolution <- 12
+    ## Valid choices in Meteogalicia
+    resChoices <- c(36, 12, 4)
+    idxRes <- match(resolution, resChoices)
+    if (is.na(idxRes)) idxRes <- 2
+    bbMG <- switch(idxRes, `1` = bbMG36, `2` = bbMG12, `3` = bbMG4)
+    
+    if (!isInside(lon, lat, bbMG)) stop('Point outside Meteogalicia region.')
 
     tmpfile <- tempfile(fileext='.csv')
     success <- try(suppressWarnings(

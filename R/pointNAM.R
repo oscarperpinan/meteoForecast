@@ -1,12 +1,13 @@
 pointNAM <- function(lon, lat, vars,
-                     day=Sys.Date(), run='00'){
+                     day=Sys.Date(), run='00', ...){
     if (!isInside(lon, lat, bbNAM)) stop('Point outside NAM region.')
 
     frames <- seq(0, 84, by = 1)
     files <- lapply(frames, FUN = function(tt){
         completeURL <- composeURL(vars, day, run,
                                   c(lon, lat), tt, 
-                                  'nam', point=TRUE)
+                                  service = 'nam',
+                                  point=TRUE)
         tmpfile <- tempfile(fileext='.csv')
         success <- try(suppressWarnings(
             download.file(completeURL,

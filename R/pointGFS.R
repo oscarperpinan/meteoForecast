@@ -5,14 +5,15 @@ pointInGFS <-
     }
 
 pointGFS <- function(lon, lat, vars,
-                     day=Sys.Date(), run='00'){
+                     day=Sys.Date(), run='00', ...){
     if (!pointInGFS(lon, lat)) stop('Point outside GFS region.')
     
     frames <- seq(0, 192, by = 3)
     gfsFiles <- lapply(frames, FUN = function(tt){
         completeURL <- composeURL(vars, day, run,
                                   c(lon, lat), tt, 
-                                  'gfs', point=TRUE)
+                                  service = 'gfs',
+                                  point=TRUE)
         tmpfile <- tempfile(fileext='.csv')
         success <- try(suppressWarnings(download.file(completeURL,
                                                       tmpfile, quiet=TRUE)),

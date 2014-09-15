@@ -16,14 +16,14 @@
 
 \usage{
 getPoint(point, vars = "swflx", day = Sys.Date(), run = "00",
-         service = "meteogalicia")
+         resolution = NULL, service = "meteogalicia")
 
 getPointDays(point, vars = "swflx", start = Sys.Date(), end,
-             service = "meteogalicia")
+             resolution = NULL, service = "meteogalicia")
 
-getPointRuns(point, var = "swflx", start = Sys.Date() - 1,
-             end = Sys.Date(),
-             service = "meteogalicia") 
+getPointRuns(point, var = "swflx",
+             start = Sys.Date() - 1, end = Sys.Date(),
+             resolution = NULL, service = "meteogalicia") 
 
 
 }
@@ -47,6 +47,10 @@ getPointRuns(point, var = "swflx", start = Sys.Date() - 1,
   \item{start}{Date or character. First day of the time period to retrieve.}
   
   \item{end}{Date or character. Last day of the time period to retrieve.}
+
+  \item{resolution}{Numeric. Resolution in kilometers of the
+  raster. Valid choices are 4, 12, and 36. It is only used with
+  \code{service = 'meteogalicia'}.}
 
   \item{service}{Character, which service to use, 'meteogalicia', 'gfs',
     or 'openmeteo'. Please note that the support for the 'gfs' and
