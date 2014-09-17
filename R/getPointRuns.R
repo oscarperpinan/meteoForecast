@@ -6,7 +6,7 @@ getPointRuns <- function(point, var = 'swflx',
 
     start <- as.Date(start)
     end <- as.Date(end)
-    stopifnot(end > start)
+    stopifnot(end >= start)
     stopifnot(end <= Sys.Date())
     seqDays <- seq(start, end, by='day')
         
