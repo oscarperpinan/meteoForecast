@@ -16,11 +16,13 @@ getRasterDays <- function(var = 'swflx',
         stopifnot(end >= start)
         stopifnot(end <= Sys.Date())
         days <- seq(start, end, by='day')
-        pb <- txtProgressBar(style = 3,
-                             min = as.numeric(start),
-                             max = as.numeric(end))
+        ## Progress bar is only enabled if end > start
+        havePB <- (end > start)
+        if (havePB) pb <- txtProgressBar(style = 3,
+                                         min = as.numeric(start),
+                                         max = as.numeric(end))
         lr <- lapply(days, FUN = function(d) {
-            setTxtProgressBar(pb, as.numeric(d))
+            if (havePB) setTxtProgressBar(pb, as.numeric(d))
             try(suppressMessages(
                 getRaster(var, day = d,
                           run = '00', frames = 24,
@@ -29,7 +31,7 @@ getRasterDays <- function(var = 'swflx',
                           ...)
                 ))
         })
-        close(pb)
+        if (havePB) close(pb)
         isOK <- sapply(lr, FUN = function(x) class(x)!='try-error')
         s <- stack(lr[isOK])
         tt <- do.call(c, lapply(lr[isOK], getZ))
