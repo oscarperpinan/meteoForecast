@@ -6,8 +6,10 @@ getPointRuns <- function(point, var = 'swflx',
 
     start <- as.Date(start)
     end <- as.Date(end)
+    
     stopifnot(end >= start)
-    stopifnot(end <= Sys.Date())
+    if(!(start == end)) stopifnot(end <= Sys.Date())
+    
     seqDays <- seq(start, end, by='day')
         
     ## Number of days comprised in the forecast
@@ -20,6 +22,7 @@ getPointRuns <- function(point, var = 'swflx',
 
     seqInit <- seq(fd - (da - 1), fd - 1, by='day')
     seqDaysExt <- c(seqInit, seqDays)
+    if(start == Sys.Date()+1) seqDaysExt <- seqDaysExt[-4]
   
     ## The possibilities for service can be expanded in the future
     runs <- switch(service, meteogalicia = '00')
@@ -68,6 +71,7 @@ getPointRuns <- function(point, var = 'swflx',
         zoo(coredata(z)[idx], tt)
     })
     zz <- do.call(cbind, zzl)
+    if(start == Sys.Date()+1) dayDifRun <- dayDifRun[-4,]
     names(zz) <- with(dayDifRun, paste0('D', -dif, '_', run))
     attr(index(zz), 'tzone') <- 'UTC'
     return(zz)

@@ -11,6 +11,20 @@ getRasterDays <- function(var = 'swflx',
     start <- as.Date(start)
     if (missing(end)) {
         getRaster(var, day = start, run='00', ...)
+    } else if(start == Sys.Date()+1) {
+        lr <- try(suppressMessages(getRaster(var, day = start-1,
+                                             run = '00', frames = 48,
+                                             remote = remote,
+                                             dataDir = '.',
+                                             ...)
+                  ))
+        if(class(lr)!='try-error'){
+            lr <- subset(lr, 25:48)
+            tt <- getZ(lr)
+            attr(tt, 'tzone') <- 'UTC'
+            s <- setZ(lr, tt)
+            s
+        }
     } else {
         end <- as.Date(end)
         stopifnot(end >= start)
