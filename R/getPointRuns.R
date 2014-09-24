@@ -8,12 +8,11 @@ getPointRuns <- function(point, var = 'swflx',
     end <- as.Date(end)
     
     stopifnot(end >= start)
-    if(!(start == end)) stopifnot(end <= Sys.Date())
-    
+    ##if(start != end) stopifnot(end <= Sys.Date())
     seqDays <- seq(start, end, by='day')
         
     ## Number of days comprised in the forecast
-    ## Adjusted for Meteogalicia
+    ## Adjusted for Meteogalicia (96hours)
     da <- 4
 
     rng <- range(seqDays)
@@ -22,10 +21,10 @@ getPointRuns <- function(point, var = 'swflx',
 
     seqInit <- seq(fd - (da - 1), fd - 1, by='day')
     seqDaysExt <- c(seqInit, seqDays)
-    if(start == Sys.Date()+1) seqDaysExt <- seqDaysExt[-4]
+    seqDaysExt <- seqDaysExt[seqDaysExt <= Sys.Date()]
   
     ## The possibilities for service can be expanded in the future
-    runs <- switch(service, meteogalicia = '00')
+    runs <- '00'
   
     rd <- expand.grid(Run=runs, Day=seqDaysExt)
     N <- nrow(rd)
@@ -58,20 +57,23 @@ getPointRuns <- function(point, var = 'swflx',
     dayForecast <- as.Date(format(names(z)))
     ## Matrix of time differences (in days) between dayIndex and dayForecast
     dayDif <- outer(dayIndex, dayForecast, '-')
+    dayDif[is.na(z)] <- NA
     ## Combinations of day differences and runs (0='00', 1='12')
-    dayDifRun <- expand.grid(run=runs, dif=(da-1):0)
+    dayDifRun <- expand.grid(run = runs,
+                             dif = seq(as.numeric(max(dayDif, na.rm = TRUE)),
+                                 as.numeric(min(dayDif, na.rm = TRUE)), -1)
+                             )
     ## Matrix with run indication for each cell
     tagRun <- do.call(rbind, rep(list(as.character(rdFiltered[,1])), nrow(z)))
     ## Extract cells corresponding to each time distance and run
     zzl <- lapply(seq_len(nrow(dayDifRun)), FUN=function(i){
         day <- dayDifRun[i, 'dif']
         run <- dayDifRun[i, 'run']
-        idx <- (dayDif == day) & (tagRun == run)
+        idx <- (dayDif == day) & (!is.na(dayDif)) & (tagRun == run)
         tt <- index(z)[apply(idx, 1, any)]
         zoo(coredata(z)[idx], tt)
     })
     zz <- do.call(cbind, zzl)
-    if(start == Sys.Date()+1) dayDifRun <- dayDifRun[-4,]
     names(zz) <- with(dayDifRun, paste0('D', -dif, '_', run))
     attr(index(zz), 'tzone') <- 'UTC'
     return(zz)
