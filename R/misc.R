@@ -69,17 +69,18 @@ nameFiles <- function(var, day, run, frames){
 downloadRaster <- function(var, day, run, box,
                            frames, ncFile,
                            service){
-    pb <- txtProgressBar(style = 3, max = length(frames))
+    hasPB <- length(frames) > 1
+    if (hasPB) pb <- txtProgressBar(style = 3, max = length(frames))
     success <- lapply(seq_along(frames), function(i) {
         completeURL <- composeURL(var, day, run,
                                   box, frames[i],
                                   service = service)
-        setTxtProgressBar(pb, i)
+        if (hasPB) setTxtProgressBar(pb, i)
         try(download.file(completeURL, quiet = TRUE,
                           ncFile[i], mode='wb'), 
             silent=TRUE)
     })
-    close(pb)
+    if (hasPB) close(pb)
     message('File(s) available at ', tempdir())
     isOK <- sapply(success, function(x) !inherits(x, "try-error"))
     if (!any(isOK)) stop('No data could be downloaded. Check variables, date, and service status.')
