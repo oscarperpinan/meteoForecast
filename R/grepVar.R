@@ -4,10 +4,11 @@ grepVar <- function(x, service, complete = FALSE){
                    openmeteo = 'varsOM',
                    gfs = 'varsGFS',
                    nam = 'varsNAM',
-                   rap = 'varsRAP')
+                   rap = 'varsRAP',
+                       stop('Unknown service.'))
     do.call(data, list(varsFile))
     vars <- eval(parse(text = varsFile))
-    idx <- grep(x, vars$name, ignore.case=TRUE)
+    idx <- grep(x, vars$label, ignore.case=TRUE)
     if (isTRUE(complete)) vars[idx,]
-    else vars$name[idx]
+    else as.character(vars$name[idx])
 }

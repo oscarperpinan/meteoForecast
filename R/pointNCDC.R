@@ -1,13 +1,26 @@
-pointRAP <- function(lon, lat, vars,
-                     day=Sys.Date(), run='00', ...){
+pointGFS <- function(lon, lat, vars, day = Sys.Date(), run = '00', ...){
+    pointNCDC(lon = lon, lat = lat, vars = vars,
+              day = day, run = run, service = 'gfs', ...)
+}
 
-    if (!isInside(lon, lat, bbRAP)) stop('Point outside RAP region.')
+pointNAM <- function(lon, lat, vars, day = Sys.Date(), run = '00', ...){
+    pointNCDC(lon = lon, lat = lat, vars = vars,
+              day = day, run = run, service = 'nam', ...)
+}
 
-    frames <- seq(0, 18, by = 1)
+pointRAP <- function(lon, lat, vars, day = Sys.Date(), run = '00', ...){
+    pointNCDC(lon = lon, lat = lat, vars = vars,
+              day = day, run = run, service = 'rap', ...)
+}
+
+pointNCDC <- function(lon, lat, vars, day, run, service, ...){
+    if (!isInside(lon, lat, mfExtent[[service]])) stop('Point outside ', toupper(service), ' region.')
+
+    frames <- seq(0, horizon[[service]], by = tRes[[service]])
     files <- lapply(frames, FUN = function(tt){
         completeURL <- composeURL(vars, day, run,
                                   c(lon, lat), tt, 
-                                  service = 'rap',
+                                  service = service,
                                   point=TRUE)
         tmpfile <- tempfile(fileext='.csv')
         success <- try(suppressWarnings(

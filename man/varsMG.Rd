@@ -4,23 +4,40 @@
 \alias{varsGFS}
 \alias{varsNAM}
 \alias{varsRAP}
+\alias{grepVars}
 
 \docType{data}
 \title{
 Forecast Variables
 }
 \description{
-Variables available in each model.
-}
+Variables available in each model. The \code{grepVar} function is a
+wrapper around \code{grep} to search for variables.}
+
 \usage{
+grepVar(x, service, complete = FALSE)
 data(varsMG)
 data(varsOM)
 data(varsGFS)
 data(varsNAM)
 data(varsRAP)
 }
+
+\arguments{
+
+
+\item{x}{character string to be matched in the \code{description} column
+  of the corresponding \code{vars*} file.}
+\item{service}{Character, to choose from 'meteogalicia', 'openmeteo',
+  'gfs', 'nam', and 'rap'}
+
+\item{complete}{Logical, if \code{FALSE} (default) only the \code{name}
+  column is returned. If \code{TRUE} the three columns are provided.}
+}
+
 \format{
-  Each \code{data.frame} contains three columns with the information
+  Each \code{data.frame} contains three columns, \code{name},
+  \code{label}, and \code{description}, with the information
   about the variables available in each service. Use the elements of the
   \code{name} column to choose a variable with the argument \code{var}
   of \code{\link{getRaster}} and \code{\link{getPoint}}.
@@ -39,6 +56,9 @@ data(varsRAP)
 }
 
 \examples{
+
+grepVar('cloud', service = 'gfs', complete = TRUE)
+
 data(varsMG)
 head(varsMG)
 

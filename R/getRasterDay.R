@@ -1,7 +1,6 @@
-
 getRasterDay <- function(var = 'swflx', day = Sys.Date(),
-                         remote = TRUE, service = 'meteogalicia',
-                         dataDir = '.', ...){
+                         remote = TRUE, dataDir = '.',
+                         ...){
   
   day <- as.Date(day)
   today <- Sys.Date()
@@ -15,7 +14,7 @@ getRasterDay <- function(var = 'swflx', day = Sys.Date(),
   ## need.
   if (day > today) {
       r <- getRaster(var = var, day = today,
-                     frames = 'complete', service = service,
+                     frames = 'complete',
                      remote = remote, ...)
       idx <- which(day == as.Date(getZ(r)))
       r[[idx]]
@@ -23,7 +22,7 @@ getRasterDay <- function(var = 'swflx', day = Sys.Date(),
       ## If the day is in the past, use `getRaster` to obtain only the
       ## 24 frames that correspond to that day.
       r <- getRaster(var = var, day = day,
-                     frames = 24, service = service,
+                     frames = 24, 
                      remote = remote, ...)
       r
   }
