@@ -14,7 +14,10 @@ pointMG <- function(lon, lat, vars,
     resChoices <- c(36, 12, 4)
     idxRes <- match(resolution, resChoices)
     if (is.na(idxRes)) idxRes <- 2
-    bbMG <- switch(idxRes, `1` = bbMG36, `2` = bbMG12, `3` = bbMG4)
+    bbMG <- switch(idxRes,
+                   `1` = mfExtent[['meteogalicia36']],
+                   `2` = mfExtent[['meteogalicia12']],
+                   `3` = mfExtent[['meteogalicia4']])
     
     if (!isInside(lon, lat, bbMG)) stop('Point outside Meteogalicia region.')
 

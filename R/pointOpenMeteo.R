@@ -1,7 +1,7 @@
 pointOM <- function(lon, lat, vars,
                     day=Sys.Date(), run='00', ...){
 
-    if (!isInside(lon, lat, bbOM)) stop('Point outside OpenMeteo region.')
+    if (!isInside(lon, lat, mfExtent[['openmeteo']])) stop('Point outside OpenMeteo region.')
 
     baseURL <- 'http://api.ometfn.net/0.1/forecast/eu12/'
     completeURL <- paste0(baseURL,

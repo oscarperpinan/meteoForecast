@@ -1,33 +1,29 @@
-
 getRasterDay <- function(var = 'swflx', day = Sys.Date(),
-                         remote = TRUE, service = 'meteogalicia',
-                         dataDir = '.', ...){
+                         remote = TRUE, dataDir = '.',
+                         ...){
   
-  ## The possibilities for src can be expanded in the future
-  runs <- switch(service, meteogalicia = '00')
-  
-  ## Time difference between runs
-  delta <- 24
-  ## Specific for runs '00' of meteogalicia
-  
+  day <- as.Date(day)
+  today <- Sys.Date()
+
   if(!remote) {
       old <- setwd(dataDir)
       on.exit(setwd(old))
   }
-  
-  ### Read the first "delta" frames from each run to compose a list (zl)
-  zl <- lapply(runs, FUN=function(run){
-               r <- try(getRaster(var, day, run=run, frames=delta,
-                              service=service, remote=remote, ...))
-               })
-  isOK <- sapply(zl, FUN = function(x) class(x)!='try-error')
-  
-  ### RasterBrick joining the elements of the list (zl)
-  z <- brick(stack(zl[isOK]))
-  
-  ### Adding time index
-  tt <- do.call(c, lapply(zl[isOK], getZ))
-  attr(tt, 'tzone') <- 'UTC'
-  z <- setZ(z, tt)
-  
+  ## If I need a day in the future, I have to download the most recent
+  ## file (today) and extract the frames that correspond to the day we
+  ## need.
+  if (day > today) {
+      r <- getRaster(var = var, day = today,
+                     frames = 'complete',
+                     remote = remote, ...)
+      idx <- which(day == as.Date(getZ(r)))
+      r[[idx]]
+  } else {
+      ## If the day is in the past, use `getRaster` to obtain only the
+      ## 24 frames that correspond to that day.
+      r <- getRaster(var = var, day = day,
+                     frames = 24, 
+                     remote = remote, ...)
+      r
+  }
 }

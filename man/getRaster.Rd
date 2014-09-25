@@ -1,6 +1,7 @@
 \name{getRaster}
 \alias{getRaster}
 \alias{getRasterDays}
+\alias{getRasterDay}
 \alias{checkDays}
 \encoding{UTF-8}
 
@@ -23,6 +24,8 @@ getRaster(var = "swflx", day = Sys.Date(), run = "00",
 getRasterDays(var = "swflx", start = Sys.Date(), end,
               remote = TRUE, dataDir = ".", ...)
 
+getRasterDay(var = "swflx", day = Sys.Date(),
+              remote = TRUE, dataDir = ".", ...)
 
 checkDays(start, end, vars, remote = FALSE,
           service = 'meteogalicia', dataDir = '.')
@@ -32,7 +35,7 @@ checkDays(start, end, vars, remote = FALSE,
   
   \item{var, vars}{Character. The name of the variable (or variables in
     \code{checkDays}) to retrieve. Inspect the help page of
-    \code{\link{varsMG}} to know what variables are available in each
+    \code{\link{grepVars}} to know what variables are available in each
     service.}
   
   \item{day}{Date or character}
@@ -95,6 +98,13 @@ checkDays(start, end, vars, remote = FALSE,
   \code{tempdir()}). Each frame or layer of the \code{RasterBrick}
   corresponds to a certain hour of the forecast.
 
+  \code{getRasterDay} uses \code{getRaster} to download the results
+  corresponding to a certain \code{day}. If the \code{day} is in the
+  future, the most recent forecast is downloaded with \code{getRaster},
+  and the corresponding frames are extracted. If the \code{day} is in
+  the past, \code{getRaster} is used to download the corresponding
+  frames of the forecast produced that day.
+  
   \code{getRasterDays} uses \code{getRaster} to download the results
   cast each day comprised between \code{start} and \code{end} using the
   00UTC run. Then it subsets the first 24 frames of each result, and
