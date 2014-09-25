@@ -40,6 +40,9 @@ rasterGFS <- function(var, day = Sys.Date(), run = '00',
         b <- eastRaster
     } else {
         b <- merge(eastRaster, rotate(westRaster))
+        ## `merge` drops the z-slot and the names
+        b <- setZ(b, getZ(eastRaster))
+        names(b) <- names(eastRaster)
     }
     b
 }
