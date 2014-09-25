@@ -17,7 +17,7 @@ mfProj <- list(gfs = "+proj=longlat +datum=WGS84",
 ## Extracted from their WMS pages
 
 mfExtent <- list(
-    gfs = extent(0, 360, -90, 90),
+    gfs = extent(-180, 180, -90, 90),
     nam = extent(-153.03033819796906, -49.27221021871827,
         12.11335916285993, 57.369653102840736),
     rap = extent(-139.96990801797577, -57.26853769473695,

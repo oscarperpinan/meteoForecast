@@ -37,7 +37,11 @@ rasterNCDC <- function(var, day, run,
 }
 
 ## Individual functions
-rasterGFS <- function(var, day = Sys.Date(), run = '00',
+
+## GFS needs its own function because of longitudes definition. Here
+## we define the basic function, but there is another `rasterGFS`
+## function.
+rasterGFSBasic <- function(var, day = Sys.Date(), run = '00',
                       frames = 'complete',
                       box = NULL, names = NULL, remote = TRUE,
                       use00H = FALSE,
