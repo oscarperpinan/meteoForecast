@@ -4,7 +4,7 @@
 \alias{varsGFS}
 \alias{varsNAM}
 \alias{varsRAP}
-\alias{grepVars}
+\alias{grepVar}
 
 \docType{data}
 \title{
