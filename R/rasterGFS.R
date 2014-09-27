@@ -36,11 +36,11 @@ rasterGFS <- function(var, day = Sys.Date(), run = '00',
     if (is.null(eastExt) & is.null(westExt))
         stop(' incorrect box definition.')
     if (is.null(eastExt)) {
-        b <- rotate(westRaster)
+        b <- shift(westRaster, -360)
     } else if (is.null(westExt)) {
         b <- eastRaster
     } else {
-        b <- merge(eastRaster, rotate(westRaster))
+        b <- merge(eastRaster, shift(westRaster, -360))
         ## `merge` drops the z-slot and the names
         b <- setZ(b, getZ(eastRaster))
         names(b) <- names(eastRaster)
