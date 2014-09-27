@@ -19,9 +19,15 @@ pointRAP <- function(lon, lat, vars, day = Sys.Date(), run = '00', ...){
 }
 
 pointNCDC <- function(lon, lat, vars, day, run, service, ...){
-    if (!isInside(lon, lat, mfExtent[[service]])) stop('Point outside ', toupper(service), ' region.')
-
-    frames <- seq(0, horizon[[service]], by = tRes[[service]])
+    ## initialization variables
+    ext <- mfExtent(service)
+    horizon <- mfHorizon(service)
+    tRes <- mfTRes(service)
+    ## Check if it's inside the service region
+    if (!isInside(lon, lat, ext))
+        stop('Point outside ', toupper(service), ' region.')
+    ## Ok, download data
+    frames <- seq(0, horizon, by = tRes)
     files <- lapply(frames, FUN = function(tt){
         completeURL <- composeURL(vars, day, run,
                                   c(lon, lat), tt, 

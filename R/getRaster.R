@@ -4,17 +4,12 @@ getRaster <- function(var = 'swflx',
                       resolution = NULL,
                       names,
                       remote = TRUE, 
-                      service = 'meteogalicia',
+                      service = mfService(),
                       dataDir = '.',
                       use00H = FALSE,
                       ...){
-    
-    service <- match.arg(service, c('meteogalicia',
-                                    'gfs',
-                                    'nam',
-                                    'rap',
-                                    'openmeteo'))
 
+    service <- matchService(service)
     stopifnot(frames == 'complete' | is.numeric(frames))
     ## Set working directory depending on 'remote'
     if (remote) {

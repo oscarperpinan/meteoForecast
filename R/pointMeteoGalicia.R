@@ -11,15 +11,16 @@ pointMG <- function(lon, lat, vars,
     ## Resolution default value 
     if (is.null(resolution)) resolution <- 12
     ## Valid choices in Meteogalicia
-    resChoices <- c(36, 12, 4)
+    resChoices <- c(4, 12, 36)
     idxRes <- match(resolution, resChoices)
     if (is.na(idxRes)) idxRes <- 2
-    bbMG <- switch(idxRes,
-                   `1` = mfExtent[['meteogalicia36']],
-                   `2` = mfExtent[['meteogalicia12']],
-                   `3` = mfExtent[['meteogalicia4']])
+    extMG <- get("extents", envir = .mfEnv)[[
+                                c('meteogalicia4',
+                                  'meteogalicia12',
+                                  'meteogalicia3')]]
     
-    if (!isInside(lon, lat, bbMG)) stop('Point outside Meteogalicia region.')
+    if (!isInside(lon, lat, extMG[idxRes]))
+        stop('Point outside Meteogalicia region.')
 
     tmpfile <- tempfile(fileext='.csv')
     success <- try(suppressWarnings(

@@ -16,14 +16,14 @@
 
 \usage{
 getPoint(point, vars = "swflx", day = Sys.Date(), run = "00",
-         resolution = NULL, service = "meteogalicia")
+         resolution = NULL, service = mfService())
 
 getPointDays(point, vars = "swflx", start = Sys.Date(), end,
-             resolution = NULL, service = "meteogalicia")
+             resolution = NULL, service = mfService())
 
 getPointRuns(point, var = "swflx",
              start = Sys.Date() - 1, end = Sys.Date(),
-             resolution = NULL, service = "meteogalicia") 
+             resolution = NULL, service = mfService()) 
 
 
 }

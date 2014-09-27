@@ -2,11 +2,17 @@ rasterOM <- function(var, day=Sys.Date(), run='00',
                      frames='complete',
                      box = NULL, names = NULL, remote=TRUE, ...) {
     
-    run <- match.arg(run, runs[['openmeteo']])
+    ## Init variables of the model
+    runs <- mfRuns('openmeteo')
+    tRes <- mfTRes('openmeteo')
+    proj <- mfProj4('openmeteo')
+    horizon <- mfProj4('openmeteo')
 
+    ## Time of model initialization
+    run <- match.arg(run, runs)
     ## Time Frames
-    if (frames == 'complete') frames <- seq(1, horizon[['openmeteo']], tRes[['openmeteo']])
-    else frames <- seq(1, as.integer(frames), tRes[['openmeteo']])
+    if (frames == 'complete') frames <- seq(1, horizon, tRes)
+    else frames <- seq(1, as.integer(frames), tRes)
         
     ## Name of files to be read/stored
     ncFile <- paste0(paste(var, ymd(day), run, frames, 
@@ -48,7 +54,7 @@ rasterOM <- function(var, day=Sys.Date(), run='00',
     ## Projection parameters are either not well defined in the NetCDF
     ## files or incorrectly read by raster:
     ## https://forum.openmeteodata.org/index.php?topic=33.msg96#msg96
-    projection(b) <- mfProj[['openmeteo']]
+    projection(b) <- proj
     ## Use box specification
     if (!is.null(box)) {
         if (require(rgdal, quietly=TRUE)) {

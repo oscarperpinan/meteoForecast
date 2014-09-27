@@ -1,7 +1,7 @@
 
 checkDays <- function(start, end, vars,
                       remote = FALSE,
-                      service = 'meteogalicia',
+                      service = mfService(),
                       dataDir = '.'){
     if (service != 'meteogalicia')
         stop(' implemented only for `meteogalicia` service.')

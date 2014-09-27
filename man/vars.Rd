@@ -8,7 +8,7 @@
 
 \docType{data}
 \title{
-Forecast Variables
+Forecast Variables available in each model.
 }
 \description{
 Variables available in each model. The \code{grepVar} function is a

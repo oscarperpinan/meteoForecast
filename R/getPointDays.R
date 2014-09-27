@@ -2,7 +2,7 @@ getPointDays <- function(point,
                          vars = 'swflx',
                          start = Sys.Date(), end,
                          resolution = NULL,
-                         service = 'meteogalicia'){
+                         service = mfService()){
     start <- as.Date(start)
     if (missing(end)) {
         getPoint(point, vars, day = start, run='00', service=service)

@@ -1,10 +1,11 @@
-getPoint <- function(point, vars='swflx',
-                     day=Sys.Date(), run='00',
+getPoint <- function(point, vars = 'swflx',
+                     day = Sys.Date(), run = '00',
                      resolution = NULL,
-                     service='meteogalicia'){
+                     service = mfService()){
+
     
-    service <- match.arg(service, c('meteogalicia', 'openmeteo',
-                                    'gfs', 'nam', 'rap'))
+    service <- matchService(service)
+
     ## Extract longitude-latitude
     if (is(point, 'SpatialPoints')) {
         if (!isLonLat(point)) {

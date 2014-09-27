@@ -5,8 +5,10 @@ rasterMG <- function(var='swflx',
                      resolution = 12,
                      names = NULL,
                      remote=TRUE, ...) {
+
     ## Model initialization time
-    run <- match.arg(run, runs[['meteogalicia']])
+    run <- match.arg(run, mfRuns('meteogalicia'))
+                     
     ## Time Frames
     if (remote) {
         ## MeteoGalicia implements netCDF Time Subset. Therefore,
@@ -67,7 +69,7 @@ rasterMG <- function(var='swflx',
     ## Projection parameters are either not well defined in the
     ## NetCDF files or incorrectly read by raster.
     ## Provided by gdalsrsinfo
-    projection(b) <- mfProj[["meteogalicia"]]
+    projection(b) <- mfProj4('meteogalicia')
 
     ## Use box specification with local files
     if (!is.null(box) & remote==FALSE){

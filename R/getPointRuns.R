@@ -2,7 +2,7 @@ getPointRuns <- function(point, var = 'swflx',
                          start = Sys.Date() - 1,
                          end = Sys.Date(),
                          resolution = NULL,
-                         service = 'meteogalicia'){
+                         service = mfService()){
 
     start <- as.Date(start)
     end <- as.Date(end)

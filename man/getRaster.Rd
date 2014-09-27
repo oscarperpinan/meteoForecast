@@ -18,7 +18,7 @@
 
 getRaster(var = "swflx", day = Sys.Date(), run = "00",
           frames = 'complete', box, resolution = NULL,
-          names, remote = TRUE, service = "meteogalicia",
+          names, remote = TRUE, service = mfService(),
           dataDir = ".", use00H = FALSE, ...)
 
 getRasterDays(var = "swflx", start = Sys.Date(), end,
@@ -28,14 +28,14 @@ getRasterDay(var = "swflx", day = Sys.Date(),
               remote = TRUE, dataDir = ".", ...)
 
 checkDays(start, end, vars, remote = FALSE,
-          service = 'meteogalicia', dataDir = '.')
+          service = mfService(), dataDir = '.')
 }
 
 \arguments{
   
   \item{var, vars}{Character. The name of the variable (or variables in
     \code{checkDays}) to retrieve. Inspect the help page of
-    \code{\link{grepVars}} to know what variables are available in each
+    \code{\link{grepVar}} to know what variables are available in each
     service.}
   
   \item{day}{Date or character}
@@ -54,11 +54,12 @@ checkDays(start, end, vars, remote = FALSE,
     96 hourly forecasts (frames) with \code{run='00'} and 84 frames with
     \code{run='12'}.}
   
-  \item{box}{The bounding box. A \code{\link{Extent}} or an object that
-    can be coerced to that class with \code{\link{extent}}: a 2x2 matrix
-    (first row: xmin, xmax; second row: ymin, ymax), vector (length=4;
-    order= xmin, xmax, ymin, ymax) or list (with at least two elements,
-    with names 'x' and 'y'). }
+  \item{box}{The bounding box, defined using longitude and latitude
+    values. A \code{\link{Extent}} or an object that can be coerced to
+    that class with \code{\link{extent}}: a 2x2 matrix (first row: xmin,
+    xmax; second row: ymin, ymax), vector (length=4; order= xmin, xmax,
+    ymin, ymax) or list (with at least two elements, with names 'x' and
+    'y'). }
 
   \item{resolution}{Numeric. Resolution in kilometers of the
   raster. Valid choices are 4, 12, and 36. It is only used with

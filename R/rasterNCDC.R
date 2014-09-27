@@ -3,16 +3,21 @@
 rasterNCDC <- function(var, day, run,
                        frames, box, names, remote,
                        use00H, service, ...){
-    ## Model initialization time
-    run <- match.arg(run, runs[[service]])
+    ## Init variables of the model
+    runs <- mfRuns(service)
+    tRes <- mfTRes(service)
+    proj <- mfProj4(service)
+    horizon <- mfHorizon(service)
+    ## Initialization time of the model
+    run <- match.arg(run, runs)
     ## Time Frames: first frame is 0 hours since RUN for some
     ## variables. This 00H "forecast" is only used is use00H =
     ## TRUE. If not, the first frame corresponds with the time
     ## resolution of the service, `tRes`.
-    ff <- ifelse(use00H, 0, tRes[[service]])
+    ff <- ifelse(use00H, 0, tRes)
     ## Forecast horizon, last time frame
-    lf <- horizon[[service]]
-    frames <-  makeFrames(frames, ff, lf, tRes[[service]])
+    lf <- horizon
+    frames <-  makeFrames(frames, ff, lf, tRes)
     ## Name of files to be read/stored
     ncFile <- nameFiles(var, day, run, frames)
     if (remote) {
@@ -29,7 +34,7 @@ rasterNCDC <- function(var, day, run,
     b <- readFiles(ncFile)
     ## Projection parameters are either not well defined in the
     ## NetCDF files or incorrectly read by raster.
-    if (service != 'gfs') b <- projectBrick(b, mfProj[[service]], box, remote)
+    if (service != 'gfs') b <- projectBrick(b, proj, box, remote)
     ## Add time index and names
     b <- timeIndex(b, frames, run, day, names)
     ## Result
@@ -40,7 +45,7 @@ rasterNCDC <- function(var, day, run,
 
 ## GFS needs its own function because of longitudes definition. Here
 ## we define the basic function, but there is another `rasterGFS`
-## function.
+## function that calls rasterGFSBasic
 rasterGFSBasic <- function(var, day = Sys.Date(), run = '00',
                       frames = 'complete',
                       box = NULL, names = NULL, remote = TRUE,

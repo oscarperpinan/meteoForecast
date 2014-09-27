@@ -3,12 +3,12 @@ rasterGFS <- function(var, day = Sys.Date(), run = '00',
                       box = NULL, names = NULL, remote = TRUE,
                       use00H = FALSE, ...) {
     if (is.null(box))
-        ext <- extent(-180, 180, -90, 90)
+        ext <- mfExtent('gfs')
     else ext <- extent(box)
 
     ## GFS uses 0..360 for longitude. However, box is defined inside
     ## -180..180. Therefore, we have to divide `box` into the east and
-    ## west hemispheres, and download separate rasters for each of them.
+    ## west hemispheres, and download separate rasters for each of them
     east <- extent(0, 180, -90, 90)
     eastExt <- intersect(ext, east)
     if (!is.null(eastExt)) {
@@ -33,7 +33,8 @@ rasterGFS <- function(var, day = Sys.Date(), run = '00',
     }
     ## Final: merge the east and west rasters, using `rotate` to
     ## change the longitudes of `westRaster` to -180..0.
-    if (is.null(eastExt) & is.null(westExt)) stop(' incorrect box definition.')
+    if (is.null(eastExt) & is.null(westExt))
+        stop(' incorrect box definition.')
     if (is.null(eastExt)) {
         b <- rotate(westRaster)
     } else if (is.null(westExt)) {
