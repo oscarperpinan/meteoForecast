@@ -14,12 +14,12 @@ pointMG <- function(lon, lat, vars,
     resChoices <- c(4, 12, 36)
     idxRes <- match(resolution, resChoices)
     if (is.na(idxRes)) idxRes <- 2
-    extMG <- get("extents", envir = .mfEnv)[[
+    ## Check if point is inside bounding box
+    extMG <- get("extents", envir = .mfEnv)[
                                 c('meteogalicia4',
                                   'meteogalicia12',
-                                  'meteogalicia3')]]
-    
-    if (!isInside(lon, lat, extMG[idxRes]))
+                                  'meteogalicia36')]
+    if (!isInside(lon, lat, extMG[[idxRes]]))
         stop('Point outside Meteogalicia region.')
 
     tmpfile <- tempfile(fileext='.csv')
