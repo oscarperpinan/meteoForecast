@@ -114,8 +114,12 @@ temporary folder (as defined by \code{tempdir()}).  }
   tempC <- tempK - 273
 
   library(lattice)
-  xyplot(tempC)
+  ## Beware: the x-axis labels display time using your local timezone.
+  Sys.timezone()
 
+  ## Use Sys.setenv(TZ = 'UTC') to produce graphics with the timezone
+  ## of the objects provided by meteoForecast.
+  xyplot(tempC)
 
   ## Multiple variables
   vars <- getPoint(c(0, 40), vars = c('swflx', 'temp'))
