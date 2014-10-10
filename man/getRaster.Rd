@@ -38,7 +38,9 @@ checkDays(start, end, vars, remote = FALSE,
     \code{\link{grepVar}} to know what variables are available in each
     service.}
   
-  \item{day}{Date or character}
+  \item{day}{Date or character. In \code{getRaster} it defines the day
+  when the forecast was produced. In \code{getRasterDay} it defines the
+  day to be forecast.}
   
   \item{run}{Character. For example, the meteogalicia service executes
     the model at OOUTC and 12UTC. Therefore \code{run} can be '00' or
@@ -166,6 +168,28 @@ wrf <- getRaster('temp', '2014-01-25', '00', remote=TRUE)
 levelplot(wrf, layers = 10:19)
 
 hovmoller(wrf)
+
+## Using box and frames specification
+mfExtent('gfs')
+cloudGFS <- getRaster('Total_cloud_cover',
+                      day = '2014-10-01',
+                      box = c(-10, 10, -10, 10),
+                      service = 'gfs')
+
+mfExtent('nam')
+cloudNAM <- getRaster('Total_cloud_cover',
+                      day = '2014-10-01',
+                      box = c(-100, -80, 30, 50),
+                      frames = 10,
+                      service = 'nam')
+mfExtent('rap')
+cloudRAP <- getRaster('Total_cloud_cover',
+                      day = '2014-10-01',
+                      box = c(-100, -80, 30, 50),
+                      frames = 10,
+                      service = 'rap')
+
+
 ## Day sequence of cloud cover
 wrfDays <- getRasterDays('cft',
                          start = '2014-01-01',
@@ -179,6 +203,13 @@ levelplot(wrfDays, layout = c(1, 1), par.settings = BTCTheme)
 
 ## Hövmoller graphic
 hovmoller(wrfDays, par.settings = BTCTheme, contour = TRUE, cuts = 10)
+
+NAMDays <- getRasterDays('Total_cloud_cover',
+                         start = '2014-01-01',
+                         end = '2014-01-03',
+                         box = c(-100, -80, 30, 50),
+                         service = 'nam')
+
 ## Extract data at some locations
 
 st <- data.frame(name=c('Almeria','Granada','Huelva','Malaga','Caceres'),

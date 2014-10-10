@@ -40,10 +40,19 @@ rasterGFS <- function(var, day = Sys.Date(), run = '00',
     } else if (is.null(westExt)) {
         b <- eastRaster
     } else {
-        b <- merge(eastRaster, shift(westRaster, -360))
+        ## Sometimes NOMADS produces 503 Service Unavailable so the
+        ## eastRaster and westRaster may contain different layers. On
+        ## the other hand, the `merge` function does not check the
+        ## z-slot when joining layers. Thus, we have to use only the
+        ## layers that intersect.
+        EiW <- which(getZ(eastRaster) %in% getZ(westRaster))
+        WiE <- which(getZ(westRaster) %in% getZ(eastRaster))
+        
+        b <- merge(eastRaster[[EiW]],
+                   shift(westRaster[[WiE]], -360))
         ## `merge` drops the z-slot and the names
-        b <- setZ(b, getZ(eastRaster))
-        names(b) <- names(eastRaster)
+        b <- setZ(b, getZ(eastRaster)[EiW])
+        names(b) <- names(eastRaster)[EiW]
     }
     b
 }
