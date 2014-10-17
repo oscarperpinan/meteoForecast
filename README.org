@@ -1,6 +1,6 @@
 * meteoForecast
 
-[[http://dx.doi.org/10.5281/zenodo.10781][https://zenodo.org/badge/1928/oscarperpinan/meteoForecast.png]]
+[[http://dx.doi.org/10.5281/zenodo.12282][https://zenodo.org/badge/1928/oscarperpinan/meteoForecast.png]]
 
   =meteoForecast= is a package to access outputs from Numerical Weather Prediction models both in raster format and as a time series for a location.
   The current version works with these services:
