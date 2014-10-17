@@ -1,0 +1,15 @@
+citHeader("To cite package 'meteoForecast' in publications use:")
+     
+citEntry(entry="Manual",
+         title ="{meteoForecast}",
+         author = personList(as.person("Oscar Perpi{\\~n}{\\'a}n"), as.person("Marcelo Pinho Almeida")),
+         doi = "10.5281/zenodo.12282",
+         year = "2014",
+         month = "Oct",
+         url ="https://github.com/oscarperpinan/meteoForecast/",
+         note = "R package version 0.43",
+         textVersion = "Oscar Perpinan Lamigueiro and Marcelo Pinho Almeida (2014), meteoForecast. R package version 0.43. doi:10.5281/zenodo.12282"
+         )
+
+
+

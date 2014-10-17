@@ -1,0 +1,108 @@
+Commits in HEAD
+6626a4f * HEAD origin/master origin/HEAD master Improve rasterGFS to cope with Service Unavailable. New examples.
+98d66a6 * Remove travis icon
+3df318a * Note about timezone in graphics
+6d105e3 * Fix extents indexing in pointMeteogalicia
+d3652a1 * shift instead of rotate, improves #4
+d0dc0b4 * Options and internal variables in environment.
+0b79049 * Fix alias in grepVars help page
+eb360f4 * Fix some modifications in GFS between recent commits
+03698d4 *   Merge branch 'developTomorrow'
+        |\  
+e3eeb9f | * Unification of definitions for NCDC. New grepVar function.
+4227e1e | * Some comments in getRasterDay
+8f4becf | * getRasterDay works!, and getRasterDays relies on it.
+dbdc538 | * More flexibility in start and end in getPointRuns
+d4ab9d3 | * Functions adapted to return (Sys.Date()+1)
+b2d0937 * | In rasterGFS merge drops the z-slot and names
+384158f * | Corrects GFS projection in getPoint, related to #4
+5383de4 * | Correct GFS projection, fixes #4
+        |/  
+8b1683e * Fix progress bar in getRasterdays
+ab6c1ae * end and start can be the same in getPointRuns
+d8b8e28 * New grepVar function
+3887e33 * getPoint* functions have a new argument to choose spatial resolution, fixes #6
+21a058e * Spatial resolution can be chosen (only meteogalicia), fixes #5
+857c550 * rasterMeteogalicia needs dots to work with use00H (not used)
+c536649 * Issues url, and new title in DESCRIPTION
+3b6c058 * Do not include LICENSE file when building
+847c224 * Trying this solution https://github.com/ropensci/RNeXML/issues/61
+7e444fb * One more attempt to install ncdf in travis
+aae6b54 * Fix name of package for gdal and travis
+461015f * gdal dependencies in travis
+8f35090 * New attempt to install ncdf with travis
+f13d9ce * netcdf in travis
+a5c65d9 * Travis icon
+d6dbb42 * origin/travis enable continuous integration via craigcitro/r-travis
+842477c *   Merge pull request #3 from hzambran/master
+        |\  
+5a30a15 | * small reordering of references for meteo services
+        |/  
+9be1f2a * DRY: raster* for NCDC rewritten. New arg, use00H.
+02476ad * vars help page: URLs in references fixed
+1e20513 * raster* didn't manage absent files
+d4ec4ed * NAM and RAP have their own variables
+374506e * Assign UTC time zone. Fixes #1
+fd6246a * README: pvcrops
+0edf1eb * README: New services are available
+4547797 * Improved checking of point inside area
+74e3565 * progress bar in rasterMG
+6beb500 * progress bar in getRasterDays
+aab9030 * getPoint functions for NAM and RAP
+7b53eb3 * capture.output to trap CRS message. Progress bar.
+16c9355 * New services: NAM and RAP
+bc65c87 * origin/gfs varsGFS; code with XML to extract variable info
+3010588 * getPoint modified to use new smaller functions
+db20a11 * Smaller functions to ease new services
+f386956 * Initial support for GFS service
+b809946 *   Merge branch 'master' of github.com:oscarperpinan/meteoForecast
+        |\  
+9e94df5 | * Fix surname of Marcelo
+e60b65b | * end = start to get 1 day with getRasterDays
+9f0b31e * | MDS-WIKI link in README
+        |/  
+a9c8f96 * wrf figure has more panels
+b8c191a * Figures in README
+e1315bd * Use orgmode instead of markdown in README
+55bd807 * README improved with examples (using orgmode)
+b94e4fd * Update DOI after release
+9b3a703 * v0.31 lat and lon are incorrectly parsed
+8fb5741 * getPoint provided character instead of numeric
+b154195 * DOI from Zenodo
+f41c48b * v0.30 Final fixes after R CMD check
+ee16255 * getRaster help page completed
+cf0feda * Examples in getPoint* page
+b025190 * Add documentation link of NetCDF Subset Service
+dd64066 * Additional content in varsMG help page
+e5aee53 * Fixes after R CMD check
+f05ae59 * Some help pages are not needed anymore
+6311aa4 * First version of help pages
+3299521 * Only 1 variable is allowed in getPointRuns
+0e6922e * Coordinates were not extracted when point was projected
+d43413d * small comment about start of historic MG
+32bb65d * New function checkDays
+803b8b3 * Export new functions
+d06ed31 * Fix doc
+416e266 * Fix DESCRIPTION
+a0d7261 * Docs of new functions
+1f61017 * Update date and add Marcelo
+d790452 * New functions (thanks to Marcelo Almeida)
+b54a364 * Use try in getPointDays
+364e334 * getRasterDays: end cannot be higher than today
+09fa29c * getPointDays: end cannot be higher than today
+734781d * Manage file error in getRasterDays
+40e13e2 * gitignore
+c2e9e60 * New getRasterDays and getPointDays functions
+d664e07 * tzone attribute set to UTC in getRaster
+4824f99 * composeURL moved to an independent file
+0b40855 * getPoint uses now composeURL (it can access historical data)
+5dbe719 * Fix docs and DESCRIPTION
+ae09cd1 * getRaster reads historical data from MG
+3af27f0 * small fix in README
+58353bd * name changed from meteo to meteoForecast
+ca537e2 * Fixed lon/lat format for openmeteo in getPoint
+0849673 * rgdal is suggested for using box with local files
+2ed552f * Maximum frames depends on run
+6c9649b * README fixed (more)
+1d54e70 * README fixed
+type "e" to show more history
