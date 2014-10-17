@@ -76,11 +76,13 @@ head(varsRAP)
 
 \dontrun{
 ## This information has been extracted using this code
-
 library(XML)
 
 ## MeteoGalicia
-wcs <- xmlParse('http://mandeo.meteogalicia.es/thredds/wcs/modelos/WRF_HIST/d02/2014/07/wrf_arw_det_history_d02_20140721_0000.nc4?service=WCS&version=1.0.0&request=GetCapabilities')
+wcs <- xmlParse(paste0(
+    'http://mandeo.meteogalicia.es/thredds/wcs/modelos/WRF_HIST/d02/',
+    '2014/07/wrf_arw_det_history_d02_20140721_0000.nc4',
+    '?service=WCS&version=1.0.0&request=GetCapabilities'))
 doc <- xmlRoot(wcs)
 content <- xmlChildren(doc)
 meta <- content[["ContentMetadata"]]
@@ -89,7 +91,10 @@ xmlSize(meta)
 varsMG <- xmlToDataFrame(meta)[, c('description', 'name', 'label')]
 
 ## GFS
-wcs <- xmlParse('http://nomads.ncdc.noaa.gov/thredds/wcs/gfs-004/201407/20140715/gfs_4_20140715_1200_165.grb2?service=WCS&version=1.0.0&request=GetCapabilities')
+wcs <- xmlParse(paste0(
+    'http://nomads.ncdc.noaa.gov/thredds/wcs/gfs-004/',
+    '201407/20140715/gfs_4_20140715_1200_165.grb2',
+    '?service=WCS&version=1.0.0&request=GetCapabilities'))
 doc <- xmlRoot(wcs)
 content <- xmlChildren(doc)
 meta <- content[["ContentMetadata"]]
@@ -98,7 +103,10 @@ xmlSize(meta)
 varsGFS <- xmlToDataFrame(meta)[, c('description', 'name', 'label')]
 
 ## NAM
-wcs <- xmlParse('http://nomads.ncdc.noaa.gov/thredds/wcs/nam218/201408/20140802/nam_218_20140802_0000_001.grb?service=WCS&version=1.0.0&request=GetCapabilities')
+wcs <- xmlParse(paste0(
+    'http://nomads.ncdc.noaa.gov/thredds/wcs/nam218/',
+    '201408/20140802/nam_218_20140802_0000_001.grb',
+    '?service=WCS&version=1.0.0&request=GetCapabilities'))
 doc <- xmlRoot(wcs)
 content <- xmlChildren(doc)
 meta <- content[["ContentMetadata"]]
@@ -107,13 +115,17 @@ xmlSize(meta)
 varsNAM <- xmlToDataFrame(meta)[, c('description', 'name', 'label')]
 
 ## RAP
-wcs <- xmlParse('http://nomads.ncdc.noaa.gov/thredds/wcs/rap130/201408/20140802/rap_130_20140802_0000_001.grb2?service=WCS&version=1.0.0&request=GetCapabilities')
+wcs <- xmlParse(paste0(
+    'http://nomads.ncdc.noaa.gov/thredds/wcs/rap130/',
+    '201408/20140802/rap_130_20140802_0000_001.grb2',
+    '?service=WCS&version=1.0.0&request=GetCapabilities'))
 doc <- xmlRoot(wcs)
 content <- xmlChildren(doc)
 meta <- content[["ContentMetadata"]]
 xmlSize(meta)
 
 varsRAP <- xmlToDataFrame(meta)[, c('description', 'name', 'label')]
+
 }
 }
 
