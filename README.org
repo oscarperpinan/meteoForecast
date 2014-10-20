@@ -9,6 +9,8 @@
   - [[https://openmeteoforecast.org/][OpenMeteo]]
   - [[http://www.ncdc.noaa.gov/data-access/model-data/model-datasets/north-american-mesoscale-forecast-system-nam][NAM]]
   - [[http://www.ncdc.noaa.gov/data-access/model-data/model-datasets/rapid-refresh-rap][RAP]]
+
+[[file:figs/mapaServices.png]]
   
   New services will be added gradually, using [[https://github.com/oscarperpinan/mds/wiki][this collection]] of
   meteorological data sources as reference.
@@ -47,6 +49,77 @@ data(varsGFS)
 head(varsGFS)
 #+end_src
 
+=grepVar= will help you to find the variable you need.
+
+#+begin_src R
+grepVar('cloud', service = 'gfs')
+#+end_src
+
+#+begin_example
+ [1] "Temperature_low_cloud_top"           "Pressure_middle_cloud_top"          
+ [3] "Temperature_middle_cloud_top"        "Total_cloud_cover_middle_cloud"     
+ [5] "Cloud_Work_Function"                 "Pressure_low_cloud_bottom"          
+ [7] "Pressure_convective_cloud_top"       "Pressure_convective_cloud_bottom"   
+ [9] "Total_cloud_cover_high_cloud"        "Total_cloud_cover"                  
+[11] "Pressure_low_cloud_top"              "Pressure_high_cloud_top"            
+[13] "Pressure_middle_cloud_bottom"        "Cloud_mixing_ratio"                 
+[15] "Pressure_high_cloud_bottom"          "Total_cloud_cover_convective_cloud" 
+[17] "Cloud_water"                         "Total_cloud_cover_entire_atmosphere"
+[19] "Total_cloud_cover_low_cloud"         "Temperature_high_cloud_top"
+#+end_example
+
+** Services
+
+Each function admits an argument named =service= to choose the
+service. After loading =meteoForecast= the default service is
+Meteogalicia as reported with:
+
+#+begin_src R
+mfService()
+#+end_src
+
+#+RESULTS:
+: [1] "meteogalicia"
+
+You can choose a different service (for the running session) using
+  =mfService= with the name of the service.
+#+begin_src R
+mfService('gfs')
+#+end_src
+
+#+RESULTS:
+: Option service changed to gfs
+
+#+begin_src R
+mfService('meteogalicia')
+#+end_src
+
+#+RESULTS:
+: Option service changed to meteogalicia
+
+** Basic information about services
+
+- =mfProj4= provides the projection of a service:
+#+begin_src R
+mfProj4('nam')
+#+end_src
+
+#+RESULTS:
+: [1] "+proj=lcc +lat_1=25 +lat_0=25 +lon_0=-95 +k_0=1 +x_0=0 +y_0=0 +a=6367470.21484375 +b=6367470.21484375 +units=km +no_defs "
+
+- =mfExtent= provides the extent of a service (using the class
+  =Extent= defined by the package =raster=):
+#+begin_src R
+mfExtent('meteogalicia', resolution = 36)
+#+end_src
+
+#+RESULTS:
+: class       : Extent 
+: xmin        : -49.18259 
+: xmax        : 18.789 
+: ymin        : 24.03791 
+: ymax        : 56.06608
+
 
 *** Raster Data
 
@@ -55,7 +128,7 @@ head(varsGFS)
   defined in the package =raster=.
 
   #+begin_src R
-    wrf <- getRaster('temp', '2014-01-25', '00', remote=TRUE)
+    wrf <- getRaster(var = 'temp', day = '2014-01-25', run = '00')
   #+end_src
 
   #+RESULTS:
