@@ -10,7 +10,7 @@
   - [[http://www.ncdc.noaa.gov/data-access/model-data/model-datasets/north-american-mesoscale-forecast-system-nam][NAM]]
   - [[http://www.ncdc.noaa.gov/data-access/model-data/model-datasets/rapid-refresh-rap][RAP]]
 
-[[file:figs/mapaServices.png]]
+[[file:figs/servicesMap.png]]
   
   New services will be added gradually, using [[https://github.com/oscarperpinan/mds/wiki][this collection]] of
   meteorological data sources as reference.
