@@ -78,8 +78,9 @@ Meteogalicia as reported with:
 mfService()
 #+end_src
 
-#+RESULTS:
-: [1] "meteogalicia"
+#+BEGIN_EXAMPLE
+[1] "meteogalicia"
+#+END_EXAMPLE
 
 You can choose a different service (for the running session) using
   =mfService= with the name of the service.
@@ -87,15 +88,17 @@ You can choose a different service (for the running session) using
 mfService('gfs')
 #+end_src
 
-#+RESULTS:
-: Option service changed to gfs
+#+BEGIN_EXAMPLE
+Option service changed to gfs
+#+END_EXAMPLE
 
 #+begin_src R
 mfService('meteogalicia')
 #+end_src
 
-#+RESULTS:
-: Option service changed to meteogalicia
+#+BEGIN_EXAMPLE
+Option service changed to meteogalicia
+#+END_EXAMPLE
 
 ** Basic information about services
 
@@ -104,8 +107,10 @@ mfService('meteogalicia')
 mfProj4('nam')
 #+end_src
 
-#+RESULTS:
-: [1] "+proj=lcc +lat_1=25 +lat_0=25 +lon_0=-95 +k_0=1 +x_0=0 +y_0=0 +a=6367470.21484375 +b=6367470.21484375 +units=km +no_defs "
+
+#+BEGIN_EXAMPLE
+[1] "+proj=lcc +lat_1=25 +lat_0=25 +lon_0=-95 +k_0=1 +x_0=0 +y_0=0 +a=6367470.21484375 +b=6367470.21484375 +units=km +no_defs "
+#+END_EXAMPLE
 
 - =mfExtent= provides the extent of a service (using the class
   =Extent= defined by the package =raster=):
@@ -113,13 +118,14 @@ mfProj4('nam')
 mfExtent('meteogalicia', resolution = 36)
 #+end_src
 
-#+RESULTS:
-: class       : Extent 
-: xmin        : -49.18259 
-: xmax        : 18.789 
-: ymin        : 24.03791 
-: ymax        : 56.06608
+#+BEGIN_EXAMPLE
+class       : Extent 
+xmin        : -49.18259 
+xmax        : 18.789 
+ymin        : 24.03791 
+ymax        : 56.06608
 
+#+END_EXAMPLE
 
 *** Raster Data
 
