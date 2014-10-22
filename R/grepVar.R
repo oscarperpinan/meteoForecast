@@ -6,7 +6,9 @@ grepVar <- function(x, service, complete = FALSE){
                    nam = 'varsNAM',
                    rap = 'varsRAP',
                        stop('Unknown service.'))
-    do.call(data, list(varsFile))
+    ## Load the corresponding file
+    data(list = varsFile)
+    ## Read it
     vars <- eval(parse(text = varsFile))
     idx <- grep(x, vars$label, ignore.case=TRUE)
     if (isTRUE(complete)) vars[idx,]
