@@ -9,8 +9,8 @@ checkDays <- function(start, end, vars,
     start <- as.Date(start)
     end <- as.Date(end)
  
-    stopifnot(start < end)
-    stopifnot(end <= Sys.Date())
+    stopifnot(start <= end)
+    stopifnot(end <= Sys.Date()+1)
     
     seqDays <- seq(start, end, by='day')
   
