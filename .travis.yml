@@ -2,6 +2,7 @@ language: r
 
 apt_packages:
  - libnetcdf-dev
+ - netcdf-bin
  
 notifications:
   email:
