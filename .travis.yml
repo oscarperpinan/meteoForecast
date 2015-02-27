@@ -3,7 +3,9 @@ language: r
 apt_packages:
  - libnetcdf-dev
  - netcdf-bin
- - libgdal-dev
+ - gdal-bin
+ - libgdal1
+ - libgdal1-dev
  - libproj-dev
  
 notifications:
