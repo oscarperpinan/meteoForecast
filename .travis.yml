@@ -1,5 +1,8 @@
 language: r
 
+apt_packages:
+ - libnetcdf-dev
+ 
 notifications:
   email:
     on_success: change
