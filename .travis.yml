@@ -1,11 +1,14 @@
 language: r
 
+before_install:
+ - sudo rm /etc/apt/sources.list.d/ubuntugis-stable-source.list
+ - sudo apt-get update -qq
+
 apt_packages:
  - libnetcdf-dev
  - netcdf-bin
  - gdal-bin
- - libgdal1
- - libgdal1-dev
+ - libgdal-dev
  - libproj-dev
  
 notifications:
