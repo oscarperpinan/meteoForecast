@@ -65,7 +65,7 @@ projectBrick <- function(b, proj4, box, remote){
     projection(b) <- proj4
     ## Use box specification with local files
     if (!is.null(box) & remote==FALSE){
-        if (require(rgdal, quietly=TRUE)) {
+        if (requireNamespace('rgdal', quietly=TRUE)) {
             extPol <- as(extent(box), 'SpatialPolygons')
             proj4string(extPol) <- '+proj=longlat +ellps=WGS84'
             extPol <- spTransform(extPol, CRS(projection(b)))
