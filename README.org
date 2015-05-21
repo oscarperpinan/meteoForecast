@@ -6,7 +6,6 @@
   The current version works with these services:
   - [[http://www.emc.ncep.noaa.gov/index.php?branch=GFS][GFS]]
   - [[http://www.meteogalicia.es/web/modelos/threddsIndex.action][MeteoGalicia]]
-  - [[https://openmeteoforecast.org/][OpenMeteo]]
   - [[http://www.ncdc.noaa.gov/data-access/model-data/model-datasets/north-american-mesoscale-forecast-system-nam][NAM]]
   - [[http://www.ncdc.noaa.gov/data-access/model-data/model-datasets/rapid-refresh-rap][RAP]]
 
@@ -37,16 +36,14 @@ The stable version is available at [[http://cran.r-project.org/web/packages/mete
   library(meteoForecast)
 #+end_src
 
-Load =varsMG=, =varsOM= and =varsGFS= to know about the variables available in
-each service:
-
 #+begin_src R
-data(varsMG)
 head(varsMG)
-data(varsOM)
-head(varsOM)
-data(varsGFS)
+
 head(varsGFS)
+
+head(varsNAM)
+
+head(varsRAP)
 #+end_src
 
 =grepVar= will help you to find the variable you need.
