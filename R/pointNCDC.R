@@ -32,7 +32,7 @@ pointNCDC <- function(lon, lat, vars, day, run, service, ...){
         completeURL <- composeURL(vars, day, run,
                                   c(lon, lat), tt, 
                                   service = service,
-                                  point=TRUE)
+                                  point=TRUE, ...)
         tmpfile <- tempfile(fileext='.csv')
         success <- try(suppressWarnings(
             download.file(completeURL,
@@ -45,7 +45,17 @@ pointNCDC <- function(lon, lat, vars, day, run, service, ...){
     if (is.null(files)) {
         stop(' no data could be retrieved. Check date, coordinates and variable(s).')
     } else {
-        z <- do.call("rbind", lapply(files, read.csv, header = TRUE))
+        readNCDC <- function(x){
+            ## Only the first row is needed (variables with several
+            ## vertical layers produce files with multiple rows,
+            ## although this is solved with the `vertical` argument)
+            vals <- read.csv(x, header = TRUE, nrows = 1)
+            ## Ídem, but now with columns: first column is the
+            ## timestamp, second and third coordinates, and last
+            ## column is the variable.
+            vals[1, c(1:3, ncol(vals))]
+        }
+        z <- do.call("rbind", lapply(files, readNCDC))
         idx <- as.POSIXct(z[,1], format='%Y-%m-%dT%H:%M:%SZ', tz = 'UTC')
         lat <- as.numeric(as.character(z[1, 2]))
         lon <- as.numeric(as.character(z[1, 3]))

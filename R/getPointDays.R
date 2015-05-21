@@ -1,11 +1,10 @@
 getPointDays <- function(point,
                          vars = 'swflx',
                          start = Sys.Date(), end,
-                         resolution = NULL,
-                         service = mfService()){
+                         service = mfService(), ...){
     start <- as.Date(start)
     if (missing(end)) {
-        getPoint(point, vars, day = start, run='00', service=service)
+        getPoint(point, vars, day = start, run = '00', service = service, ...)
     } else {
         end <- as.Date(end)
         stopifnot(end > start)
@@ -19,8 +18,8 @@ getPointDays <- function(point,
             try(suppressMessages(
                 getPoint(point, vars,
                          day = d, run = '00',
-                         resolution = resolution,
-                         service=service)[1:24])
+                         service = service, ...)[1:24]
+                )
                 )
         })
         close(pb)

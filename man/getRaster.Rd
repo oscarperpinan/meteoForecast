@@ -133,8 +133,8 @@ cloudRAP <- getRaster('Total_cloud_cover',
 
 ## Day sequence of cloud cover
 wrfDays <- getRasterDays('cft',
-                         start = '2014-01-01',
-                         end = '2014-01-05',
+                         start = '2015-01-01',
+                         end = '2015-01-05',
                          box = c(-2, 35, 2, 40))
 
 levelplot(wrfDays, layers = 10:19)
@@ -146,8 +146,8 @@ levelplot(wrfDays, layout = c(1, 1), par.settings = BTCTheme)
 hovmoller(wrfDays, par.settings = BTCTheme, contour = TRUE, cuts = 10)
 
 NAMDays <- getRasterDays('Total_cloud_cover',
-                         start = '2014-01-01',
-                         end = '2014-01-03',
+                         start = '2015-01-01',
+                         end = '2015-01-03',
                          box = c(-100, -80, 30, 50),
                          service = 'nam')
 

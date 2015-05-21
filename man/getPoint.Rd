@@ -15,14 +15,14 @@
 
 \usage{
 getPoint(point, vars = "swflx", day = Sys.Date(), run = "00",
-         resolution = NULL, service = mfService())
+         resolution = NULL, vertical = NA, service = mfService())
 
 getPointDays(point, vars = "swflx", start = Sys.Date(), end,
-             resolution = NULL, service = mfService())
+             service = mfService(), ...)
 
 getPointRuns(point, var = "swflx",
              start = Sys.Date() - 1, end = Sys.Date(),
-             resolution = NULL, service = mfService()) 
+             service = mfService(), ...) 
 
 
 }
@@ -42,7 +42,11 @@ getPointRuns(point, var = "swflx",
 
   \item{resolution}{Numeric. Resolution in kilometers of the raster. Valid choices are 4, 12, and 36. It is only used with \code{service = 'meteogalicia'}.}
 
+  \item{vertical}{Numeric. Vertical coordinate for variables with several levels. Its default value is \code{NA}, meaning that only the first level will be retained.}
+  
   \item{service}{Character, which service to use, 'meteogalicia', 'gfs', 'nam', or 'rap'.}
+  
+  \item{...}{Additional arguments for \code{\link{getPoint}}}
 
 }
 
@@ -100,15 +104,19 @@ These functions download data from the MeteoGalicia and NCEP (GFS, RAP, NAM) ser
   vars <- getPoint(c(0, 40), vars = c('swflx', 'temp'))
   xyplot(vars)
 
+  ## Vertical coordinates
+  tempK1000 <- getPoint(c(101,6), vars = "Temperature", day = "2014-10-22",
+                         service ="gfs", vertical = 1000)
+
   ## Time sequence
-  radDays <- getPointDays(c(0, 40), start = '2013-01-01',
-                          end = '2013-01-15')
+  radDays <- getPointDays(c(0, 40), start = '2015-01-01',
+                          end = '2015-01-15')
   
   xyplot(radDays)
 
   ## Variability between runs
-  radRuns <- getPointRuns(c(0, 40), start = '2013-01-01',
-                          end = '2013-01-15')
+  radRuns <- getPointRuns(c(0, 40), start = '2015-01-01',
+                          end = '2015-01-15')
   xyplot(radRuns, superpose = TRUE)
   
   ## variability around the average

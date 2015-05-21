@@ -1,6 +1,6 @@
 pointMG <- function(lon, lat, vars,
                     day=Sys.Date(), run='00',
-                    resolution = 12){
+                    resolution = 12, ...){
     
 
     completeURL <- composeURL(vars, day, run,

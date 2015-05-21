@@ -3,7 +3,8 @@
 ##################################################################
 ## Main Function
 ##################################################################
-composeURL <- function(var, day, run, spatial, timeFrame, resolution = NULL,
+composeURL <- function(var, day, run, spatial, timeFrame,
+                       resolution = NULL, vertical = NA,
                        service, point = FALSE){
 
     if (!is.null(spatial)) {
@@ -23,7 +24,10 @@ composeURL <- function(var, day, run, spatial, timeFrame, resolution = NULL,
     } else spatial <- ''
     ## Multiple variables are allowed if point=TRUE
     if (point) var <- paste(var, collapse=',') else var <- var[1]
-    
+
+    if (!is.na(vertical)) vertical <- paste0('&vertCoord=', vertical)
+        else vertical <- ''
+
     fun <- switch(service,
                   meteogalicia = 'urlMG',
                   gfs = 'urlGFS',
@@ -34,7 +38,8 @@ composeURL <- function(var, day, run, spatial, timeFrame, resolution = NULL,
     do.call(fun, list(var = var, day = day, run = run,
                       spatial = spatial,
                       timeFrame = timeFrame,
-                      resolution = resolution))
+                      resolution = resolution,
+                      vertical = vertical))
 
 }
 
@@ -87,38 +92,38 @@ urlMG <- function(var, day, run, spatial, timeFrame, resolution, ...){
 ##################################################################
 ## Global Forecast
 ##################################################################
-urlGFS <- function(var, day, run, spatial, timeFrame, ...) {
+urlGFS <- function(var, day, run, spatial, timeFrame, vertical, ...) {
     Ym <- format(day, format='%Y%m')
     mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/gfs-004/'
     run <- paste0(run, '00')
     timeFrame <- sprintf('%03d', timeFrame)
     paste0(mainURL, Ym, '/', ymd(day), '/',
            'gfs_4_', ymd(day), '_', run, '_', timeFrame,
-           '.grb2?var=', var, spatial)
+           '.grb2?var=', var, vertical, spatial)
 }
 
 ##################################################################
 ## North American Mesoscale Forecast System (NAM) 
 ##################################################################
-urlNAM <- function(var, day, run, spatial, timeFrame, ...) {
+urlNAM <- function(var, day, run, spatial, timeFrame, vertical, ...) {
     Ym <- format(day, format='%Y%m')
     mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/nam218/'
     run <- paste0(run, '00')
     timeFrame <- sprintf('%03d', timeFrame)
     paste0(mainURL, Ym, '/', ymd(day), '/',
            'nam_218_', ymd(day), '_', run, '_', timeFrame,
-           '.grb?var=', var, spatial)
+           '.grb?var=', var, vertical, spatial)
 }
 ##################################################################
 ## Rapid Refresh (RAP) 
 ##################################################################
-urlRAP <- function(var, day, run, spatial, timeFrame, ...) {
+urlRAP <- function(var, day, run, spatial, timeFrame, vertical, ...) {
     Ym <- format(day, format='%Y%m')
     mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/rap130/'
     run <- paste0(run, '00')
     timeFrame <- sprintf('%03d', timeFrame)
     paste0(mainURL, Ym, '/', ymd(day), '/',
            'rap_130_', ymd(day), '_', run, '_', timeFrame,
-           '.grb2?var=', var, spatial)
+           '.grb2?var=', var, vertical, spatial)
 }
 

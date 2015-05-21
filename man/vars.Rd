@@ -83,6 +83,7 @@ meta <- content[["ContentMetadata"]]
 xmlSize(meta)
 
 varsGFS <- xmlToDataFrame(meta)[, c('description', 'name', 'label')]
+varsGFS
 
 ## NAM
 wcs <- xmlParse(paste0(
@@ -95,6 +96,7 @@ meta <- content[["ContentMetadata"]]
 xmlSize(meta)
 
 varsNAM <- xmlToDataFrame(meta)[, c('description', 'name', 'label')]
+varsNAM
 
 ## RAP
 wcs <- xmlParse(paste0(
@@ -107,7 +109,7 @@ meta <- content[["ContentMetadata"]]
 xmlSize(meta)
 
 varsRAP <- xmlToDataFrame(meta)[, c('description', 'name', 'label')]
-
+varsRAP
 }
 }
 

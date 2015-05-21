@@ -1,6 +1,6 @@
 getPoint <- function(point, vars = 'swflx',
                      day = Sys.Date(), run = '00',
-                     resolution = NULL,
+                     resolution = NULL, vertical = NA,
                      service = mfService()){
 
     
@@ -30,5 +30,6 @@ getPoint <- function(point, vars = 'swflx',
                            vars = vars,
                            day = as.Date(day),
                            run = run,
-                           resolution = resolution))
+                           resolution = resolution,
+                           vertical = vertical))
 }

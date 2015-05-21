@@ -31,6 +31,7 @@ getRasterDays <- function(var = 'swflx',
         })
         if (havePB) close(pb)
         isOK <- sapply(lr, FUN = function(x) class(x)!='try-error')
+        if (!any(isOK)) stop('No data could be downloaded.')
         s <- stack(lr[isOK])
         tt <- do.call(c, lapply(lr[isOK], getZ))
         attr(tt, 'tzone') <- 'UTC'

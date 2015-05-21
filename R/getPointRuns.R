@@ -1,8 +1,8 @@
 getPointRuns <- function(point, var = 'swflx',
                          start = Sys.Date() - 1,
                          end = Sys.Date(),
-                         resolution = NULL,
-                         service = mfService()){
+                         service = mfService(),
+                         ...){
 
     start <- as.Date(start)
     end <- as.Date(end)
@@ -34,8 +34,9 @@ getPointRuns <- function(point, var = 'swflx',
         day <- as.Date(rd[i, 'Day'])
         ## Only one variable is allowed
         vals <- try(getPoint(point, vars = var[1], day = day,
-                             run = run, resolution = resolution,
-                             service = service),
+                             run = run, 
+                             service = service,
+                             ...),
                     silent = FALSE)
     })
     
