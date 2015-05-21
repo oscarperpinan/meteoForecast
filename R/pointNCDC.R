@@ -50,7 +50,7 @@ pointNCDC <- function(lon, lat, vars, day, run, service, ...){
             ## vertical layers produce files with multiple rows,
             ## although this is solved with the `vertical` argument)
             vals <- read.csv(x, header = TRUE, nrows = 1)
-            ## Ídem, but now with columns: first column is the
+            ## Idem, but now with columns: first column is the
             ## timestamp, second and third coordinates, and last
             ## column is the variable.
             vals[1, c(1:3, ncol(vals))]
