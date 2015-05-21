@@ -22,7 +22,6 @@ getPoint <- function(point, vars = 'swflx',
     ## Which function to use?
     fun <- switch(service,
                   meteogalicia = 'pointMG',
-                  openmeteo = 'pointOM',
                   gfs = 'pointGFS',
                   nam = 'pointNAM',
                   rap = 'pointRAP')

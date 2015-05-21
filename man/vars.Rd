@@ -1,6 +1,5 @@
 \name{Forecast variables}
 \alias{varsMG}
-\alias{varsOM}
 \alias{varsGFS}
 \alias{varsNAM}
 \alias{varsRAP}
@@ -10,14 +9,12 @@
 \title{
 Forecast Variables available in each model.
 }
-\description{
-Variables available in each model. The \code{grepVar} function is a
-wrapper around \code{grep} to search for variables.}
+
+\description{ Variables available in each model. The \code{grepVar} function is a wrapper around \code{grep} to search for variables.}
 
 \usage{
 grepVar(x, service, complete = FALSE)
 data(varsMG)
-data(varsOM)
 data(varsGFS)
 data(varsNAM)
 data(varsRAP)
@@ -25,28 +22,16 @@ data(varsRAP)
 
 \arguments{
 
+  \item{x}{character string to be matched in the \code{description} column of the corresponding \code{vars*} file.}
 
-\item{x}{character string to be matched in the \code{description} column
-  of the corresponding \code{vars*} file.}
-\item{service}{Character, to choose from 'meteogalicia', 'openmeteo',
-  'gfs', 'nam', and 'rap'}
+\item{service}{Character, to choose from 'meteogalicia', 'gfs', 'nam', and 'rap'}
 
-\item{complete}{Logical, if \code{FALSE} (default) only the \code{name}
-  column is returned. If \code{TRUE} the three columns are provided.}
-}
+\item{complete}{Logical, if \code{FALSE} (default) only the \code{name} column is returned. If \code{TRUE} the three columns are provided.}  }
 
-\format{
-  Each \code{data.frame} contains three columns, \code{name},
-  \code{label}, and \code{description}, with the information
-  about the variables available in each service. Use the elements of the
-  \code{name} column to choose a variable with the argument \code{var}
-  of \code{\link{getRaster}} and \code{\link{getPoint}}.
-}
+\format{ Each \code{data.frame} contains three columns, \code{name}, \code{label}, and \code{description}, with the information about the variables available in each service. Use the elements of the \code{name} column to choose a variable with the argument \code{var} of \code{\link{getRaster}} and \code{\link{getPoint}}.  }
 
 \source{
   varsMG: \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
-
-  varsOM: \url{https://openmeteoforecast.org/wiki/Main_Page}
 
   varsGFS: \url{http://nomads.ncdc.noaa.gov/thredds/catalog/gfs-004/catalog.html}
 
@@ -61,9 +46,6 @@ grepVar('cloud', service = 'gfs', complete = TRUE)
 
 data(varsMG)
 head(varsMG)
-
-data(varsOM)
-head(varsOM)
 
 data(varsGFS)
 head(varsGFS)

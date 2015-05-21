@@ -22,7 +22,6 @@ getRaster <- function(var = 'swflx',
     ## Which function to use
     fun <- switch(service,
                   meteogalicia = 'rasterMG',
-                  openmeteo = 'rasterOM',
                   gfs = 'rasterGFS',
                   nam = 'rasterNAM',
                   rap = 'rasterRAP')

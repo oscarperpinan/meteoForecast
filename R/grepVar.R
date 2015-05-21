@@ -1,7 +1,6 @@
 grepVar <- function(x, service, complete = FALSE){
     varsFile <- switch(service,
                    meteogalicia = 'varsMG',
-                   openmeteo = 'varsOM',
                    gfs = 'varsGFS',
                    nam = 'varsNAM',
                    rap = 'varsRAP',

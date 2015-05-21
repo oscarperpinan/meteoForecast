@@ -26,7 +26,6 @@ composeURL <- function(var, day, run, spatial, timeFrame, resolution = NULL,
     
     fun <- switch(service,
                   meteogalicia = 'urlMG',
-                  openmeteo = 'urlOM',
                   gfs = 'urlGFS',
                   nam = 'urlNAM',
                   rap = 'urlRAP',
@@ -121,16 +120,5 @@ urlRAP <- function(var, day, run, spatial, timeFrame, ...) {
     paste0(mainURL, Ym, '/', ymd(day), '/',
            'rap_130_', ymd(day), '_', run, '_', timeFrame,
            '.grb2?var=', var, spatial)
-}
-
-##################################################################
-## OpenMeteo
-##################################################################
-urlOM <- function(var, day, run, spatial, timeFrame, ...) {
-    mainURL <- 'http://dap.ometfn.net/eu12-pp_'
-    paste0(mainURL,
-           ymd(day), run,
-           paste0('_', timeFrame),
-           '.nc.nc?',var)
 }
 

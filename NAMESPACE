@@ -7,9 +7,6 @@ importFrom(ncdf,
            close.ncdf,
            att.get.ncdf)
 
-importFrom(rjson,
-           fromJSON)
-
 export('getPoint', 'getRaster',
        'getRasterDays', 'getRasterDay',
        'getPointDays', 'getPointRuns',
