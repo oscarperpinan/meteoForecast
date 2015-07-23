@@ -106,14 +106,31 @@ urlGFS <- function(var, day, run, spatial, timeFrame, vertical, ...) {
 ## North American Mesoscale Forecast System (NAM) 
 ##################################################################
 urlNAM <- function(var, day, run, spatial, timeFrame, vertical, ...) {
+    today <- Sys.Date()
     Ym <- format(day, format='%Y%m')
-    mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/nam218/'
+    ## NAM stores the last year results under the category "Near Real-Time"
+    if (today - day < 365) {
+        mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/nam218/'
+        servId <- 'nam_218'
+    } else {
+        ## Previous results can be found under "Analysis only"
+        mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/namanl/'
+        servId <- 'namanl_218'
+    }
+
     run <- paste0(run, '00')
     timeFrame <- sprintf('%03d', timeFrame)
+    
     paste0(mainURL, Ym, '/', ymd(day), '/',
-           'nam_218_', ymd(day), '_', run, '_', timeFrame,
-           '.grb?var=', var, vertical, spatial)
+           servId, '_',
+           ymd(day), '_',
+           run, '_',
+           timeFrame,
+           '.grb?var=', var,
+           vertical,
+           spatial)
 }
+
 ##################################################################
 ## Rapid Refresh (RAP) 
 ##################################################################
