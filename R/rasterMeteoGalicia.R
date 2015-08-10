@@ -13,7 +13,7 @@ rasterMG <- function(var='swflx',
     if (remote) {
         ## MeteoGalicia implements netCDF Time Subset. Therefore,
         ## `frames` is a character.
-        if (frames == 'complete') frames <- ''
+        if (frames == 'complete') frames <- '&temporal=all'
         else {
             present <- as.POSIXct(paste0(as.character(day),
                                          as.numeric(run),
