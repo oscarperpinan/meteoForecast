@@ -30,7 +30,7 @@ getPointRuns(point, var = "swflx",
 
   \item{point}{Coordinates of the location. It can be a \code{SpatialPoints} or a \code{numeric} of length 2.}
 
-  \item{var, vars}{Character. The name of the variables to retrieve. Inspect \code{\link{varsMG}}, \code{\link{varsNAM}}, \code{\link{varsRAP}}, and \code{\link{varsGFS}} to know what variables are available in each service. \code{getPointRuns} only works with one variable.}
+  \item{var, vars}{Character. The name of the variables to retrieve. Use \code{\link{grepVar}} to know what variables are available in each service. \code{getPointRuns} only works with one variable.}
 
   \item{day}{Date or character}
   
@@ -72,14 +72,6 @@ These functions download data from the MeteoGalicia and NCEP (GFS, RAP, NAM) ser
 
 \seealso{
   \code{\link{getRaster}}
-
-  \code{\link{varsMG}}
-
-  \code{\link{varsNAM}}
-
-  \code{\link{varsRAP}}
-
-  \code{\link{varsGFS}}
 }
 
 \examples{

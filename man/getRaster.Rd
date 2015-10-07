@@ -32,7 +32,7 @@ checkDays(start, end, vars, remote = FALSE,
 
 \arguments{
   
-  \item{var, vars}{Character. The name of the variable (or variables in \code{checkDays}) to retrieve. Inspect the help page of \code{\link{grepVar}} to know what variables are available in each service.}
+  \item{var, vars}{Character. The name of the variable (or variables in \code{checkDays}) to retrieve. Use \code{\link{grepVar}} to know what variables are available in each service.}
   
   \item{day}{Date or character. In \code{getRaster} it defines the day when the forecast was produced. In \code{getRasterDay} it defines the day to be forecast.}
   

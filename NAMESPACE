@@ -9,6 +9,12 @@ importFrom("utils",
            "setTxtProgressBar",
            "txtProgressBar")
 
+importFrom("XML",
+           "xmlParse",
+           "xmlRoot",
+           "xmlChildren",
+           "xmlToDataFrame")
+
 import("raster")
 import("zoo")
 import("sp")

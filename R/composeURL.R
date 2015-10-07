@@ -63,29 +63,32 @@ urlMG <- function(var, day, run, spatial, timeFrame, resolution, ...){
     ## After 14 days the forecasts are moved to the WRF_HIST folder
     if (today - day <= 14) {
         mainURL <- 'http://mandeo.meteogalicia.es/thredds/ncss/grid/wrf_2d_'
-        paste0(mainURL,
-               resolution,
-               '/fmrc/files/', ymd(day),
-               '/wrf_arw_det_history_d0', idxRes,
-               '_', ymd(day),
-               '_', paste0(run, '00'),
-               '.nc4?var=', var,
-               spatial, timeFrame)
+        URL0 <- paste0(mainURL,
+                       resolution,
+                       '/fmrc/files/', ymd(day),
+                       '/wrf_arw_det_history_d0', idxRes,
+                       '_', ymd(day),
+                       '_', paste0(run, '00'),
+                       '.nc4')
     } else {
         ## Historical forecasts. Only run 0 is available
         mainURL <- paste0('http://mandeo.meteogalicia.es/thredds/ncss/grid/modelos/WRF_HIST/')
         year <- format(day, '%Y')
         month <- format(day, '%m')
-        paste0(mainURL,
-               paste0('d0', idxRes, '/'),
-               year, '/',
-               month, '/',
-               'wrf_arw_det_history_',
-               paste0('d0', idxRes, '_'),
-               ymd(day),
-               '_', '0000',
-               '.nc4?var=', var,
-               spatial, timeFrame)
+        URL0 <- paste0(mainURL,
+                       paste0('d0', idxRes, '/'),
+                       year, '/',
+                       month, '/',
+                       'wrf_arw_det_history_',
+                       paste0('d0', idxRes, '_'),
+                       ymd(day),
+                       '_', '0000',
+                       '.nc4')
+    }
+    if (!is.null(var)) {
+        paste0(URL0, '?var=', var, spatial, timeFrame)
+    } else {
+        URL0
     }
 }
 
@@ -97,9 +100,14 @@ urlGFS <- function(var, day, run, spatial, timeFrame, vertical, ...) {
     mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/gfs-004/'
     run <- paste0(run, '00')
     timeFrame <- sprintf('%03d', timeFrame)
-    paste0(mainURL, Ym, '/', ymd(day), '/',
-           'gfs_4_', ymd(day), '_', run, '_', timeFrame,
-           '.grb2?var=', var, vertical, spatial)
+    URL0 <- paste0(mainURL, Ym, '/', ymd(day), '/',
+                   'gfs_4_', ymd(day), '_', run, '_', timeFrame,
+                   '.grb2')
+    if (!is.null(var)) {
+        paste0(URL0, '?var=', var, vertical, spatial)
+    } else {
+        URL0
+    }
 }
 
 ##################################################################
@@ -121,14 +129,17 @@ urlNAM <- function(var, day, run, spatial, timeFrame, vertical, ...) {
     run <- paste0(run, '00')
     timeFrame <- sprintf('%03d', timeFrame)
     
-    paste0(mainURL, Ym, '/', ymd(day), '/',
-           servId, '_',
-           ymd(day), '_',
-           run, '_',
-           timeFrame,
-           '.grb?var=', var,
-           vertical,
-           spatial)
+    URL0 <- paste0(mainURL, Ym, '/', ymd(day), '/',
+                   servId, '_',
+                   ymd(day), '_',
+                   run, '_',
+                   timeFrame,
+                   '.grb')
+    if (!is.null(var)) {
+        paste0(URL0, '?var=', var, vertical, spatial)
+    } else {
+        URL0
+    }
 }
 
 ##################################################################
@@ -139,8 +150,13 @@ urlRAP <- function(var, day, run, spatial, timeFrame, vertical, ...) {
     mainURL <- 'http://nomads.ncdc.noaa.gov/thredds/ncss/grid/rap130/'
     run <- paste0(run, '00')
     timeFrame <- sprintf('%03d', timeFrame)
-    paste0(mainURL, Ym, '/', ymd(day), '/',
-           'rap_130_', ymd(day), '_', run, '_', timeFrame,
-           '.grb2?var=', var, vertical, spatial)
+    URL0 <- paste0(mainURL, Ym, '/', ymd(day), '/',
+                   'rap_130_', ymd(day), '_', run, '_', timeFrame,
+                   '.grb2')
+    if (!is.null(var)){
+        paste0(URL0, '?var=', var, vertical, spatial)
+    } else {
+        URL0
+    }
 }
 

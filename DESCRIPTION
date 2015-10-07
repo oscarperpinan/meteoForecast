@@ -1,8 +1,8 @@
 Package: meteoForecast
 Type: Package
 Title: Numerical Weather Predictions
-Version: 0.46
-Date: 2015-07-15
+Version: 0.47
+Date: 2015-10-07
 Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@gmail.com", role=c('cre', 'aut')), person("Marcelo", "Pinho Almeida", email= "marcelopa@iee.usp.br", role='ctb'))
 Description: Access to several Numerical Weather Prediction services both in raster format and as a time series for a location. Currenty it works with GFS, MeteoGalicia, NAM, and RAP.
 URL: http://github.com/oscarperpinan/meteoForecast
@@ -10,5 +10,5 @@ BugReports: https://github.com/oscarperpinan/meteoForecast/issues
 License: GPL-3
 LazyData: yes
 Depends: raster, sp, zoo
-Imports: ncdf, methods, stats, utils
+Imports: ncdf, methods, stats, utils, XML
 Suggests: ncdf4, rgdal, lattice, rasterVis
