@@ -1,10 +1,6 @@
 pointGFS <- function(lon, lat, vars, day = Sys.Date(), run = '00', ...){
-    ## We use longitudes in the range -180..180, but GFS needs 0..360
-    lon <- ifelse(lon > 0, lon, 360 + lon)
     pointNCDC(lon = lon, lat = lat, vars = vars,
               day = day, run = run, service = 'gfs', ...)
-    ## GFS returns longitude in the -180..180 range, no additional
-    ## conversion is needed.
 
 }
 
@@ -28,6 +24,14 @@ pointNCDC <- function(lon, lat, vars, day, run, service, ...){
         stop('Point outside ', toupper(service), ' region.')
     ## Ok, download data
     frames <- seq(0, horizon, by = tRes)
+    if (service == 'gfs')
+    {
+        ## We use longitudes in the range -180..180, but GFS needs 0..360
+        ## GFS returns longitude in the -180..180 range, no additional
+        ## conversion is needed.
+        lon <- ifelse(lon > 0, lon, 360 + lon)
+    }
+
     files <- lapply(frames, FUN = function(tt){
         completeURL <- composeURL(vars, day, run,
                                   c(lon, lat), tt, 
