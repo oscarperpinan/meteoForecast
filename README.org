@@ -36,34 +36,25 @@ The stable version is available at [[http://cran.r-project.org/web/packages/mete
   library(meteoForecast)
 #+end_src
 
-#+begin_src R
-head(varsMG)
-
-head(varsGFS)
-
-head(varsNAM)
-
-head(varsRAP)
-#+end_src
-
-=grepVar= will help you to find the variable you need.
+=grepVar= will help you to find the variable you need. If no day is defined, it will return the variables available in the current version of the service.
 
 #+begin_src R
 grepVar('cloud', service = 'gfs')
 #+end_src
 
 #+begin_example
- [1] "Temperature_low_cloud_top"           "Pressure_middle_cloud_top"          
- [3] "Temperature_middle_cloud_top"        "Total_cloud_cover_middle_cloud"     
- [5] "Cloud_Work_Function"                 "Pressure_low_cloud_bottom"          
- [7] "Pressure_convective_cloud_top"       "Pressure_convective_cloud_bottom"   
- [9] "Total_cloud_cover_high_cloud"        "Total_cloud_cover"                  
-[11] "Pressure_low_cloud_top"              "Pressure_high_cloud_top"            
-[13] "Pressure_middle_cloud_bottom"        "Cloud_mixing_ratio"                 
-[15] "Pressure_high_cloud_bottom"          "Total_cloud_cover_convective_cloud" 
-[17] "Cloud_water"                         "Total_cloud_cover_entire_atmosphere"
-[19] "Total_cloud_cover_low_cloud"         "Temperature_high_cloud_top"
+[1] "Cloud_water"        "Cloud_mixing_ratio"
 #+end_example
+
+However, you may be interested in the variables available in previous versions. It that is the case, choose a certain day to get this information:
+
+#+begin_src R
+grepVar('cloud', service = 'gfs', day = as.Date('2014-09-15'))
+#+end_src
+
+#+BEGIN_EXAMPLE
+[1] "Total_cloud_cover"  "Cloud_water"        "Cloud_mixing_ratio"
+#+END_EXAMPLE
 
 ** Services
 
