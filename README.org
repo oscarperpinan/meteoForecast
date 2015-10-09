@@ -1,6 +1,6 @@
 * meteoForecast
 
-[[http://dx.doi.org/10.5281/zenodo.17825][https://zenodo.org/badge/1928/oscarperpinan/meteoForecast.svg]]
+[[https://zenodo.org/badge/latestdoi/1928/oscarperpinan/meteoForecast][https://zenodo.org/badge/1928/oscarperpinan/meteoForecast.svg]]
 
  =meteoForecast= is a package to access outputs from Numerical Weather Prediction models both in raster format and as a time series for a location.
   The current version works with these services:
@@ -21,7 +21,7 @@
 The development version is available at GitHub:
 #+begin_src R
     ## install.packages("devtools")
-    devtools::install_github("meteoForecast", "oscarperpinan")
+    devtools::install_github("oscarperpinan/meteoForecast")
 #+end_src
 
 The stable version is available at [[http://cran.r-project.org/web/packages/meteoForecast/][CRAN]]:
