@@ -37,12 +37,15 @@ Each \code{data.frame} contains three columns, \code{name}, \code{label}, and \c
 
 \examples{
 
+\dontrun{
 ## Variables available recently
 grepVar('cloud', service = 'gfs', complete = TRUE)
+
 ## Variables available some time ago
 grepVar('cloud', service = 'gfs', day = as.Date('2014-07-15'),
         complete = TRUE)
 
+}
 }
 
 \keyword{datasets}
