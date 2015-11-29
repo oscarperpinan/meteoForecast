@@ -4,7 +4,7 @@ pointMG <- function(lon, lat, vars,
     
 
     completeURL <- composeURL(vars, day, run,
-                              c(lon, lat), '',
+                              c(lon, lat), '&temporal=all',
                               resolution = resolution,
                               service = 'meteogalicia',
                               point=TRUE)

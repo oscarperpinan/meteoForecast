@@ -10,7 +10,7 @@ composeURL <- function(var, day, run, spatial, timeFrame,
     if (!is.null(spatial)) {
         ## Bounding Box or Long-Lat
         if (point) {## getPoint
-            spatial <- paste0('&point=true',
+            spatial <- paste0('&accept=csv',
                               '&longitude=', spatial[1],
                               '&latitude=', spatial[2])
             
@@ -84,8 +84,8 @@ urlMG <- function(var, day, run, spatial, timeFrame, resolution, ...){
                        ymd(day),
                        '_', '0000',
                        '.nc4')
-    }
-    if (!is.null(var)) {
+    } 
+   if (!is.null(var)) {
         paste0(URL0, '?var=', var, spatial, timeFrame)
     } else {
         URL0
