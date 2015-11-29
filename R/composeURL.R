@@ -10,7 +10,7 @@ composeURL <- function(var, day, run, spatial, timeFrame,
     if (!is.null(spatial)) {
         ## Bounding Box or Long-Lat
         if (point) {## getPoint
-            spatial <- paste0('&accept=csv',
+            spatial <- paste0('&point=true&accept=csv',
                               '&longitude=', spatial[1],
                               '&latitude=', spatial[2])
             
@@ -35,12 +35,12 @@ composeURL <- function(var, day, run, spatial, timeFrame,
                   rap = 'urlRAP',
                   stop('Unknown service'))
 
-    do.call(fun, list(var = var, day = day, run = run,
-                      spatial = spatial,
-                      timeFrame = timeFrame,
-                      resolution = resolution,
-                      vertical = vertical))
-
+    completeURL <- do.call(fun, list(var = var, day = day, run = run,
+                                     spatial = spatial,
+                                     timeFrame = timeFrame,
+                                     resolution = resolution,
+                                     vertical = vertical))
+    completeURL
 }
 
 ##################################################################
