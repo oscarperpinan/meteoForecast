@@ -19,11 +19,6 @@ import("raster")
 import("zoo")
 import("sp")
 
-importFrom("ncdf",
-           "open.ncdf",
-           "close.ncdf",
-           "att.get.ncdf")
-
 export('getPoint',
        'getRaster',
        'getRasterDays',
