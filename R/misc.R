@@ -33,21 +33,40 @@ downloadRaster <- function(var, day, run, box,
                            frames, ncFile,
                            service){
     hasPB <- length(frames) > 1
-    if (hasPB) pb <- txtProgressBar(style = 3, max = length(frames))
-    success <- lapply(seq_along(frames), function(i) {
-        completeURL <- composeURL(var, day, run,
-                                  box, frames[i],
-                                  service = service)
+    if (hasPB) {
+        pb <- txtProgressBar(style = 3, max = length(frames))
+        on.exit(close(pb))
+    }
+    ## Compose URLs for every frame
+    URLs <- sapply(seq_along(frames), function(i) {
+        composeURL(var, day, run,
+                   box, frames[i],
+                   service = service)
+    })
+    ## Download data, and register errors
+    result <- lapply(seq_along(frames), function(i) {
         if (hasPB) setTxtProgressBar(pb, i)
-        try(download.file(completeURL, quiet = TRUE,
+        try(download.file(URLs[i], quiet = TRUE,
                           ncFile[i], mode='wb'), 
             silent=TRUE)
     })
-    if (hasPB) close(pb)
-    message('File(s) available at ', tempdir())
-    isOK <- sapply(success, function(x) !inherits(x, "try-error"))
-    if (!any(isOK)) stop('No data could be downloaded. Check variables, date, and service status.')
-    else isOK
+    ## Which URLs have failed?
+    fail <- sapply(result, function(x) inherits(x, "try-error"))
+    fileFailed <- tempfile('failedURL_')
+    if (all(fail)){
+        writeLines(URLs, fileFailed)
+        stop('No data could be downloaded. Check variables, date, and service status. List of URLs has been written to this file: ',
+             fileFailed)
+    }
+    else {
+        message('\nFile(s) available at ', tempdir())
+        if (any(fail)) {
+            writeLines(URLs[fail], fileFailed)
+            message('\nSome URLs did not work. Check this file for details: ', fileFailed)
+        }
+        ## Return a logical with the successful ones
+        return(!fail)
+    }
 }
 
 readFiles <- function(ncFile){
