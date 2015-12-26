@@ -1,4 +1,11 @@
-498e074 * master origin/master origin/HEAD Embed grepVar example inside a dontrun environment
+274b2ce * master origin/master origin/HEAD Improve error messages from downloadRaster
+0597d9f * Modify examples with Sys.Date instead a fixed date
+f5226a2 * Install rgdal and ncdf4 for travis
+53921cb * Remove ncdf dependency
+7ec970a * Use both point=true (GFS) and accept=csv (MG) #16
+eff100b * Fix composeURL and pointMG, see issue #16
+fa81efd * Update ChangeLog for CRAN
+498e074 * Embed grepVar example inside a dontrun environment
 390d5ab * Update 'grepVar' usage in README
 6e57e8c * Update DOI badge
 3c47569 * v0.47 Modify grepVar because variables change over time
@@ -49,7 +56,7 @@ d0dc0b4 * Options and internal variables in environment.
 eb360f4 * Fix some modifications in GFS between recent commits
 03698d4 *   Merge branch 'developTomorrow'
         |\  
-e3eeb9f | * origin/developTomorrow developTomorrow Unification of definitions for NCDC. New grepVar function.
+e3eeb9f | * Unification of definitions for NCDC. New grepVar function.
 4227e1e | * Some comments in getRasterDay
 8f4becf | * getRasterDay works!, and getRasterDays relies on it.
 dbdc538 | * More flexibility in start and end in getPointRuns
@@ -73,7 +80,7 @@ aae6b54 * Fix name of package for gdal and travis
 8f35090 * New attempt to install ncdf with travis
 f13d9ce * netcdf in travis
 a5c65d9 * Travis icon
-d6dbb42 * enable continuous integration via craigcitro/r-travis
+d6dbb42 * origin/travis enable continuous integration via craigcitro/r-travis
 842477c *   Merge pull request #3 from hzambran/master
         |\  
 5a30a15 | * small reordering of references for meteo services
@@ -91,7 +98,7 @@ fd6246a * README: pvcrops
 aab9030 * getPoint functions for NAM and RAP
 7b53eb3 * capture.output to trap CRS message. Progress bar.
 16c9355 * New services: NAM and RAP
-bc65c87 * varsGFS; code with XML to extract variable info
+bc65c87 * origin/gfs varsGFS; code with XML to extract variable info
 3010588 * getPoint modified to use new smaller functions
 db20a11 * Smaller functions to ease new services
 f386956 * Initial support for GFS service
