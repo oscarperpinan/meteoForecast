@@ -101,10 +101,14 @@ checkDays(start, end, vars, remote = FALSE,
 
 \examples{
 \dontrun{
-library(rasterVis)
+today <- Sys.Date()
+testDay <- today - 7
 
 ## Retrieve raster data
-wrf <- getRaster('temp', '2014-01-25', '00', remote=TRUE)
+wrf <- getRaster('temp', day = testDay)
+
+## Display results with rasterVis
+library(rasterVis)
 
 levelplot(wrf, layers = 10:19)
 
@@ -113,19 +117,19 @@ hovmoller(wrf)
 ## Using box and frames specification
 mfExtent('gfs')
 cloudGFS <- getRaster('Total_cloud_cover',
-                      day = '2014-10-01',
+                      day = testDay,
                       box = c(-10, 10, -10, 10),
                       service = 'gfs')
 
 mfExtent('nam')
 cloudNAM <- getRaster('Total_cloud_cover',
-                      day = '2014-10-01',
+                      day = testDay,
                       box = c(-100, -80, 30, 50),
                       frames = 10,
                       service = 'nam')
 mfExtent('rap')
 cloudRAP <- getRaster('Total_cloud_cover',
-                      day = '2014-10-01',
+                      day = testDay,
                       box = c(-100, -80, 30, 50),
                       frames = 10,
                       service = 'rap')
@@ -133,8 +137,8 @@ cloudRAP <- getRaster('Total_cloud_cover',
 
 ## Day sequence of cloud cover
 wrfDays <- getRasterDays('cft',
-                         start = '2015-01-01',
-                         end = '2015-01-05',
+                         start = testDay - 3,
+                         end = testDay + 2,
                          box = c(-2, 35, 2, 40))
 
 levelplot(wrfDays, layers = 10:19)
@@ -146,8 +150,8 @@ levelplot(wrfDays, layout = c(1, 1), par.settings = BTCTheme)
 hovmoller(wrfDays, par.settings = BTCTheme, contour = TRUE, cuts = 10)
 
 NAMDays <- getRasterDays('Total_cloud_cover',
-                         start = '2015-01-01',
-                         end = '2015-01-03',
+                         start = testDay - 3,
+                         end = testDay + 2,
                          box = c(-100, -80, 30, 50),
                          service = 'nam')
 

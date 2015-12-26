@@ -76,8 +76,11 @@ These functions download data from the MeteoGalicia and NCEP (GFS, RAP, NAM) ser
 
 \examples{
 \dontrun{
+  today <- Sys.Date()
+  testDay <- today - 7
+
   ## temperature (Kelvin) forecast from meteogalicia
-  tempK <- getPoint(c(0, 40), vars = 'temp')
+  tempK <- getPoint(c(0, 40), vars = 'temp', day = testDay)
   ## Cell does not coincide exactly with request
   attr(tempK, 'lat')
   attr(tempK, 'lon')
@@ -93,22 +96,26 @@ These functions download data from the MeteoGalicia and NCEP (GFS, RAP, NAM) ser
   xyplot(tempC)
 
   ## Multiple variables
-  vars <- getPoint(c(0, 40), vars = c('swflx', 'temp'))
+  vars <- getPoint(c(0, 40), vars = c('swflx', 'temp'), day = testDay)
   xyplot(vars)
 
   ## Vertical coordinates
-  tempK1000 <- getPoint(c(101,6), vars = "Temperature", day = "2014-10-22",
-                         service ="gfs", vertical = 1000)
+  tempK1000 <- getPoint(c(101,6),
+                        vars = "Temperature",
+                        day = testDay,
+                        service ="gfs", vertical = 1000)
 
   ## Time sequence
-  radDays <- getPointDays(c(0, 40), start = '2015-01-01',
-                          end = '2015-01-15')
+  radDays <- getPointDays(c(0, 40),
+                          start = testDay - 3,
+                          end = testDay + 2)
   
   xyplot(radDays)
 
   ## Variability between runs
-  radRuns <- getPointRuns(c(0, 40), start = '2015-01-01',
-                          end = '2015-01-15')
+  radRuns <- getPointRuns(c(0, 40),
+                          start = testDay - 3,
+                          end = testDay + 2)
   xyplot(radRuns, superpose = TRUE)
   
   ## variability around the average
