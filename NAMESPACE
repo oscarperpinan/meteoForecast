@@ -18,6 +18,7 @@ importFrom("XML",
 import("raster")
 import("zoo")
 import("sp")
+import("ncdf4")
 
 export('getPoint',
        'getRaster',
