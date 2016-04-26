@@ -28,7 +28,9 @@ assign('services',
 assign("projections",
        list(
            gfs = "+proj=longlat +datum=WGS84",
-           meteogalicia = "+proj=lcc +lat_1=43 +lat_2=43 +lat_0=34.82300186157227 +lon_0=-14.10000038146973 +x_0=536402.34 +y_0=-18558.61 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=km +no_defs",
+           meteogalicia12 = "+proj=lcc +lat_1=43 +lat_2=43 +lat_0=34.82300186157227 +lon_0=-14.10000038146973 +x_0=536402.34 +y_0=-18558.61 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=km +no_defs",
+           meteogalicia4 = "+proj=lcc +lat_1=43 +lat_2=43 +lat_0=40.71900177001953 +lon_0=-14.10000038146973 +x_0=-241449.51 +y_0=-4104.47 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=km +no_defs",
+           meteogalicia36 = "+proj=lcc +lat_1=43 +lat_2=43 +lat_0=24.22800064086914 +lon_0=-14.10000038146973 +x_0=2182629.35 +y_0=-269655.97 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=km +no_defs",
            nam = '+proj=lcc +lat_1=25 +lat_0=25 +lon_0=-95 +k_0=1 +x_0=0 +y_0=0 +a=6367470.21484375 +b=6367470.21484375 +units=km +no_defs ',
            rap = '+proj=lcc +lat_1=25 +lat_0=25 +lon_0=265 +k_0=1 +x_0=0 +y_0=0 +a=6371229 +b=6371229 +units=km +no_defs'
            ),

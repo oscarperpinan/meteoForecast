@@ -37,8 +37,10 @@ mfExtent <- function(service, resolution = 12){
     extent(get('extents', envir = .mfEnv)[[service]])
 }
 ## Get proj4 string of a service
-mfProj4 <- function(service){
+mfProj4 <- function(service, resolution = 12){
     service <- matchService(service)
+    if (service == 'meteogalicia')
+        service <- paste0(service, resolution)
     get('projections', envir = .mfEnv)[[service]]
 }
 

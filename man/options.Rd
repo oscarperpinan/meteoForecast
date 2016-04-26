@@ -16,7 +16,7 @@ getMFOption(name = NULL)
 setMFOption(name, value)
 mfService(service = NULL)
 mfExtent(service, resolution = 12)
-mfProj4(service)
+mfProj4(service, resolution = 12)
 
 }
 

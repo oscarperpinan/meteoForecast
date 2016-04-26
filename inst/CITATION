@@ -1,14 +1,17 @@
 citHeader("To cite package 'meteoForecast' in publications use:")
-     
+
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
+vers <- paste("R package version", meta$Version)
+
 citEntry(entry="Manual",
          title ="{meteoForecast}",
-         author = personList(as.person("Oscar Perpi{\\~n}{\\'a}n"), as.person("Marcelo Pinho Almeida")),
-         doi = "10.5281/zenodo.13882",
-         year = "2015",
-         month = "Jan",
+         author = personList(as.person("Oscar Perpi{\\~n}{\\'a}n"),
+                             as.person("Marcelo Pinho Almeida")),
+         year = year,
          url ="https://github.com/oscarperpinan/meteoForecast/",
-         note = "R package version 0.44",
-         textVersion = "Oscar Perpinan Lamigueiro and Marcelo Pinho Almeida (2015), meteoForecast. R package version 0.44. doi:10.5281/zenodo.13882"
+         note = vers,
+         textVersion = paste0("Oscar Perpinan Lamigueiro and Marcelo Pinho Almeida (",
+                              year, "), meteoForecast. ", vers,'.')
          )
 
 

@@ -69,7 +69,7 @@ rasterMG <- function(var='swflx',
     ## Projection parameters are either not well defined in the
     ## NetCDF files or incorrectly read by raster.
     ## Provided by gdalsrsinfo
-    projection(b) <- mfProj4('meteogalicia')
+    projection(b) <- mfProj4('meteogalicia', resolution = resolution)
 
     ## Use box specification with local files
     if (!is.null(box) & remote==FALSE){
