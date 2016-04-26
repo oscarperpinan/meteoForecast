@@ -63,7 +63,8 @@ checkDays(start, end, vars, remote = FALSE,
 
 \details{
   
-  \code{getRaster} downloads data from the MeteoGalicia, NCDC (GFS, RAP, and NAM), or OpenMeteo servers using the NetCDF Subset Service. The result is returned as a \code{RasterBrick} object, with one or more NetCDF files stored in the temporary folder (as defined by \code{tempdir()}). Each frame or layer of the \code{RasterBrick} corresponds to a certain hour of the forecast.
+  \code{getRaster} downloads data from the MeteoGalicia and NCDC (GFS,
+  RAP, and NAM) servers using the NetCDF Subset Service. The result is returned as a \code{RasterBrick} object, with one or more NetCDF files stored in the temporary folder (as defined by \code{tempdir()}). Each frame or layer of the \code{RasterBrick} corresponds to a certain hour of the forecast.
 
   \code{getRasterDay} uses \code{getRaster} to download the results corresponding to a certain \code{day}. If the \code{day} is in the future, the most recent forecast is downloaded with \code{getRaster}, and the corresponding frames are extracted. If the \code{day} is in the past, \code{getRaster} is used to download the corresponding frames of the forecast produced that day.
   
