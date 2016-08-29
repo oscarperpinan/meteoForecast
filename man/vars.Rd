@@ -6,7 +6,9 @@
 Forecast Variables available in each model.
 }
 
-\description{ Variables available in each model. The \code{grepVar} function is a wrapper around \code{grep} to search for variables.}
+\description{The \code{grepVar} retrieves the XML file with the names,
+  description, and labels of each variable available in the service, and
+  searches for matches in the description field.}
 
 \usage{
 grepVar(x, service, day = Sys.Date() - 15, complete = FALSE)
@@ -14,16 +16,23 @@ grepVar(x, service, day = Sys.Date() - 15, complete = FALSE)
 
 \arguments{
 
-  \item{x}{character string to be matched in the \code{description} column of the corresponding \code{vars*} file.}
+  \item{x}{character string to be matched in the description field of
+  the set of variables. Try \code{x = ""} and \code{complete = TRUE} to
+  get the complete list of choices with the description field.}
 
   \item{service}{Character, to choose from 'meteogalicia', 'gfs', 'nam', and 'rap'}
 
   \item{day}{Date. Services change the variables availability over time.}
 
-  \item{complete}{Logical, if \code{FALSE} (default) only the \code{name} column is returned. If \code{TRUE} the three columns are provided.}  }
+  \item{complete}{Logical, if \code{FALSE} (default) only the
+  \code{name} of the variables is returned. If \code{TRUE} the name,
+  label, and description columns are provided.}  }
 
-\value{ 
-Each \code{data.frame} contains three columns, \code{name}, \code{label}, and \code{description}, with the information about the variables available in each service. Use the elements of the \code{name} column to choose a variable with the argument \code{var} of \code{\link{getRaster}} and \code{\link{getPoint}}.  }
+\value{ If \code{complete = TRUE} this function provides a
+\code{data.frame} with three columns, \code{name}, \code{label}, and
+\code{description}. Use the elements of the \code{name} column to choose
+a variable with the argument \code{var} of \code{\link{getRaster}} and
+\code{\link{getPoint}}.  }
 
 \source{
   MeteoGalicia: \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
@@ -45,6 +54,9 @@ grepVar('cloud', service = 'gfs', complete = TRUE)
 grepVar('cloud', service = 'gfs',
         day = Sys.Date() - 500,
         complete = TRUE)
+
+## You can get the complete list with x = ""
+grepVar("", service = 'meteogalicia', complete = TRUE)
 }
 }
 
