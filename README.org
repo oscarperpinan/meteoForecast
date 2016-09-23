@@ -57,6 +57,11 @@ grepVar('cloud', service = 'gfs', day = as.Date('2014-09-15'))
 [1] "Total_cloud_cover"  "Cloud_water"        "Cloud_mixing_ratio"
 #+END_EXAMPLE
 
+You can use the empty string to retrieve the full list of variables provided by the service.
+#+begin_src R
+grepVar("", service = 'meteogalicia', complete = TRUE)
+#+end_src
+
 ** Services
 
 Each function admits an argument named =service= to choose the
