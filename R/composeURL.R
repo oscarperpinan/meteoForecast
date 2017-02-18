@@ -97,7 +97,7 @@ urlMG <- function(var, day, run, spatial, timeFrame, resolution, ...){
 ##################################################################
 urlGFS <- function(var, day, run, spatial, timeFrame, vertical, ...) {
     Ym <- format(day, format='%Y%m')
-    mainURL <- 'https://nomads.ncdc.noaa.gov/thredds/ncss/grid/gfs-004/'
+    mainURL <- 'https://nomads.ncdc.noaa.gov/thredds/wcs/gfs-004/'
     run <- paste0(run, '00')
     timeFrame <- sprintf('%03d', timeFrame)
     URL0 <- paste0(mainURL, Ym, '/', ymd(day), '/',
