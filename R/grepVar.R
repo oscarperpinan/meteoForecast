@@ -9,7 +9,6 @@ grepVar <- function(x, service, day = Sys.Date() - 15, complete = FALSE)
 
     xmlFile <- getURL(wcsURL)
     wcs <- xmlParse(xmlFile)
-    #wcs <- xmlParse(wcsURL)
     doc <- xmlRoot(wcs)
     content <- xmlChildren(doc)
     meta <- content[["ContentMetadata"]]
