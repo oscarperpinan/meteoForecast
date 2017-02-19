@@ -19,7 +19,7 @@ import("raster")
 import("zoo")
 import("sp")
 import("ncdf4")
-import("Rcurl")
+import("RCurl")
 
 export('getPoint',
        'getRaster',
