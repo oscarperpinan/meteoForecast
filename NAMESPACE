@@ -15,11 +15,12 @@ importFrom("XML",
            "xmlChildren",
            "xmlToDataFrame")
 
+importFrom("RCurl", "getURL")
+
 import("raster")
 import("zoo")
 import("sp")
 import("ncdf4")
-import("RCurl")
 
 export('getPoint',
        'getRaster',
