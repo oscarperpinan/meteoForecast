@@ -21,7 +21,6 @@ import("raster")
 import("zoo")
 import("sp")
 import("ncdf4")
-import("bitops")
 
 export('getPoint',
        'getRaster',
