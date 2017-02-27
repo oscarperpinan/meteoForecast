@@ -10,5 +10,5 @@ BugReports: https://github.com/oscarperpinan/meteoForecast/issues
 License: GPL-3
 LazyData: yes
 Depends: raster, sp, zoo, ncdf4
-Imports: methods, stats, utils, XML
+Imports: methods, stats, utils, XML, RCurl
 Suggests: rgdal, lattice, rasterVis
