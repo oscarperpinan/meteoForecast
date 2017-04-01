@@ -6,8 +6,9 @@ grepVar <- function(x, service, day = Sys.Date() - 15, complete = FALSE)
     
     wcsURL <- paste0(gsub('ncss/grid', 'wcs', serviceURL),
                      '?service=WCS&version=1.0.0&request=GetCapabilities')
-
-    wcs <- xmlParse(wcsURL)
+    xmlFile <- tempfile()
+    download.file(wcsURL, xmlFile)
+    wcs <- xmlParse(xmlFile)
     doc <- xmlRoot(wcs)
     content <- xmlChildren(doc)
     meta <- content[["ContentMetadata"]]
