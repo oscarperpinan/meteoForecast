@@ -134,7 +134,7 @@ urlNAM <- function(var, day, run, spatial, timeFrame, vertical, ...) {
                    ymd(day), '_',
                    run, '_',
                    timeFrame,
-                   '.grb')
+                   '.grb2')
     if (!is.null(var)) {
         paste0(URL0, '?var=', var, vertical, spatial)
     } else {

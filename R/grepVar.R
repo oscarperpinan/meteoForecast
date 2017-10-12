@@ -1,8 +1,14 @@
 
 grepVar <- function(x, service, day = Sys.Date() - 15, complete = FALSE)
 {
+    timeFrame <- switch(service,
+                        nam = 1,
+                        rap = 1,
+                        gfs = 0,
+                        meteogalicia = 0)
+    
     serviceURL <- composeURL(var = NULL, day = day, service = service, 
-                             run = '00', spatial = NULL, timeFrame = 0)
+                             run = '00', spatial = NULL, timeFrame = timeFrame)
     
     wcsURL <- paste0(gsub('ncss/grid', 'wcs', serviceURL),
                      '?service=WCS&version=1.0.0&request=GetCapabilities')
