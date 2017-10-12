@@ -21,8 +21,8 @@
 
 The development version is available at GitHub:
 #+begin_src R
-    ## install.packages("devtools")
-    devtools::install_github("oscarperpinan/meteoForecast")
+    ## install.packages("remotes")
+    remotes::install_github("oscarperpinan/meteoForecast")
 #+end_src
 
 The stable version is available at [[http://cran.r-project.org/web/packages/meteoForecast/][CRAN]]:
