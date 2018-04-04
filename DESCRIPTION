@@ -2,7 +2,7 @@ Package: meteoForecast
 Type: Package
 Title: Numerical Weather Predictions
 Version: 0.52
-Date: 2017-10-02
+Date: 2018-04-05
 Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@gmail.com", role=c('cre', 'aut')), person("Marcelo", "Pinho Almeida", email= "marcelopa@iee.usp.br", role='ctb'))
 Description: Access to several Numerical Weather Prediction services both in raster format and as a time series for a location. Currently it works with GFS, MeteoGalicia, NAM, and RAP.
 URL: http://github.com/oscarperpinan/meteoForecast

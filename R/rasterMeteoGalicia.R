@@ -2,13 +2,14 @@ rasterMG <- function(var='swflx',
                      day=Sys.Date(), run='00',
                      frames='complete',
                      box = NULL,
-                     resolution = 12,
+                     resolution = NULL,
                      names = NULL,
                      remote=TRUE, ...) {
 
     ## Model initialization time
     run <- match.arg(run, mfRuns('meteogalicia'))
-                     
+    ## Resolution default value 
+    if (is.null(resolution)) resolution <- 12
     ## Time Frames
     if (remote) {
         ## MeteoGalicia implements netCDF Time Subset. Therefore,
