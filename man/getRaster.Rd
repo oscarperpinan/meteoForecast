@@ -85,11 +85,11 @@ checkDays(start, end, vars, remote = FALSE,
 \references{
   \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
 
-  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/gfs-004/catalog.html}
+  \url{https://www.ncei.noaa.gov/thredds/catalog/gfs-004-files/catalog.html}
 
-  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/rap130/catalog.html}
+  \url{https://www.ncei.noaa.gov/thredds/catalog/rap130/catalog.html}
 
-  \url{http://nomads.ncdc.noaa.gov/thredds/catalog/nam218/catalog.html}
+  \url{https://www.ncei.noaa.gov/thredds/catalog/nam218/catalog.html}
 
 }
 
@@ -117,19 +117,19 @@ hovmoller(wrf)
 
 ## Using box and frames specification
 mfExtent('gfs')
-cloudGFS <- getRaster('Total_cloud_cover',
+cloudGFS <- getRaster('Temperature_surface',
                       day = testDay,
                       box = c(-10, 10, -10, 10),
                       service = 'gfs')
 
 mfExtent('nam')
-cloudNAM <- getRaster('Total_cloud_cover',
+cloudNAM <- getRaster('Temperature_surface',
                       day = testDay,
                       box = c(-100, -80, 30, 50),
                       frames = 10,
                       service = 'nam')
 mfExtent('rap')
-cloudRAP <- getRaster('Total_cloud_cover',
+cloudRAP <- getRaster('Temperature_surface',
                       day = testDay,
                       box = c(-100, -80, 30, 50),
                       frames = 10,
@@ -150,7 +150,7 @@ levelplot(wrfDays, layout = c(1, 1), par.settings = BTCTheme)
 ## Hövmoller graphic
 hovmoller(wrfDays, par.settings = BTCTheme, contour = TRUE, cuts = 10)
 
-NAMDays <- getRasterDays('Total_cloud_cover',
+NAMDays <- getRasterDays('Temperature_surface',
                          start = testDay - 3,
                          end = testDay + 2,
                          box = c(-100, -80, 30, 50),

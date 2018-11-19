@@ -101,7 +101,7 @@ These functions download data from the MeteoGalicia and NCEP (GFS, RAP, NAM) ser
 
   ## Vertical coordinates
   tempK1000 <- getPoint(c(101,6),
-                        vars = "Temperature",
+                        vars = "Temperature_surface",
                         day = testDay,
                         service ="gfs", vertical = 1000)
 

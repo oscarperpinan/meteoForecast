@@ -95,9 +95,11 @@ urlMG <- function(var, day, run, spatial, timeFrame, resolution, ...){
 ##################################################################
 ## Global Forecast
 ##################################################################
+urlNOAA <- 'https://www.ncei.noaa.gov/thredds/ncss/grid'
+
 urlGFS <- function(var, day, run, spatial, timeFrame, vertical, ...) {
     Ym <- format(day, format='%Y%m')
-    mainURL <- 'https://nomads.ncdc.noaa.gov/thredds/ncss/grid/gfs-004/'
+    mainURL <- paste0(urlNOAA, '/gfs-004-files/')
     run <- paste0(run, '00')
     timeFrame <- sprintf('%03d', timeFrame)
     URL0 <- paste0(mainURL, Ym, '/', ymd(day), '/',
@@ -118,11 +120,11 @@ urlNAM <- function(var, day, run, spatial, timeFrame, vertical, ...) {
     Ym <- format(day, format='%Y%m')
     ## NAM stores the last year results under the category "Near Real-Time"
     if (today - day < 365) {
-        mainURL <- 'https://nomads.ncdc.noaa.gov/thredds/ncss/grid/nam218/'
+        mainURL <- paste0(urlNOAA, '/nam218/')
         servId <- 'nam_218'
     } else {
         ## Previous results can be found under "Analysis only"
-        mainURL <- 'https://nomads.ncdc.noaa.gov/thredds/ncss/grid/namanl/'
+        mainURL <- paste0(urlNOAA, '/namanl/')
         servId <- 'namanl_218'
     }
 
@@ -147,7 +149,7 @@ urlNAM <- function(var, day, run, spatial, timeFrame, vertical, ...) {
 ##################################################################
 urlRAP <- function(var, day, run, spatial, timeFrame, vertical, ...) {
     Ym <- format(day, format='%Y%m')
-    mainURL <- 'https://nomads.ncdc.noaa.gov/thredds/ncss/grid/rap130/'
+    mainURL <- paste0(urlNOAA, '/rap130/')
     run <- paste0(run, '00')
     timeFrame <- sprintf('%03d', timeFrame)
     URL0 <- paste0(mainURL, Ym, '/', ymd(day), '/',

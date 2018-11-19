@@ -37,11 +37,11 @@ a variable with the argument \code{var} of \code{\link{getRaster}} and
 \source{
   MeteoGalicia: \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
 
-  GFS: \url{http://nomads.ncdc.noaa.gov/thredds/catalog/gfs-004/catalog.html}
+  GFS: \url{https://www.ncei.noaa.gov/thredds/catalog/gfs-004-files/catalog.html}
 
-  NAM: \url{http://nomads.ncdc.noaa.gov/thredds/catalog/nam218/catalog.html}
+  NAM: \url{http://www.ncei.noaa.gov/thredds/catalog/nam218/catalog.html}
 
-  RAP: \url{http://nomads.ncdc.noaa.gov/thredds/catalog/rap130/catalog.html}
+  RAP: \url{http://www.ncei.noaa.gov/thredds/catalog/rap130/catalog.html}
 }
 
 \examples{

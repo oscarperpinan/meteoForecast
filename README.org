@@ -44,17 +44,18 @@ grepVar('cloud', service = 'gfs')
 #+end_src
 
 #+begin_example
-[1] "Cloud_water"        "Cloud_mixing_ratio"
+[1] "Cloud_water_entire_atmosphere_single_layer"
+[2] "Cloud_mixing_ratio_isobaric"               
 #+end_example
 
 However, you may be interested in the variables available in previous versions. It that is the case, choose a certain day to get this information:
 
 #+begin_src R
-grepVar('cloud', service = 'gfs', day = as.Date('2014-09-15'))
+grepVar('cloud', service = 'meteogalicia', day = as.Date('2016-09-15'))
 #+end_src
 
 #+BEGIN_EXAMPLE
-[1] "Total_cloud_cover"  "Cloud_water"        "Cloud_mixing_ratio"
+[1] "cft" "cfm" "cfl" "cfh"
 #+END_EXAMPLE
 
 You can use the empty string to retrieve the full list of variables provided by the service.
