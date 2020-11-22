@@ -2,4 +2,4 @@ LICENSE
 .projectile
 figs
 README.org
-^\.travis\.yml$
+.github
