@@ -1,9 +1,7 @@
 # meteoForecast
 
-[![img][http://www.r-pkg.org/badges/version/meteoForecast]](https://www.r-pkg.org/pkg/meteoForecast)
-
-[![img][http://cranlogs.r-pkg.org/badges/meteoForecast]](https://cran.r-project.org/package=meteoForecast)
-
+[![img](http://www.r-pkg.org/badges/version/meteoForecast)](https://www.r-pkg.org/pkg/meteoForecast)
+[![img](http://cranlogs.r-pkg.org/badges/meteoForecast)](https://cran.r-project.org/package=meteoForecast)
 [![img](https://github.com/oscarperpinan/meteoForecast/workflows/R-CMD-check/badge.svg)](https://github.com/oscarperpinan/meteoForecast/actions)
 
 `meteoForecast` is a package to access outputs from Numerical Weather Prediction models both in raster format and as a time series for a location.
