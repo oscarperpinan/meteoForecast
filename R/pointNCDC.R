@@ -1,9 +1,3 @@
-pointGFS <- function(lon, lat, vars, day = Sys.Date(), run = '00', ...){
-    pointNCDC(lon = lon, lat = lat, vars = vars,
-              day = day, run = run, service = 'gfs', ...)
-
-}
-
 pointNAM <- function(lon, lat, vars, day = Sys.Date(), run = '00', ...){
     pointNCDC(lon = lon, lat = lat, vars = vars,
               day = day, run = run, service = 'nam', ...)

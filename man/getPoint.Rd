@@ -28,7 +28,8 @@ getPointRuns(point, var = "swflx",
 }
 \arguments{
 
-  \item{point}{Coordinates of the location. It can be a \code{SpatialPoints} or a \code{numeric} of length 2.}
+  \item{point}{Coordinates of the location. It can be a
+  \code{SpatialPoints} or a \code{numeric} of length 2 (lon, lat).}
 
   \item{var, vars}{Character. The name of the variables to retrieve. Use \code{\link{grepVar}} to know what variables are available in each service. \code{getPointRuns} only works with one variable.}
 
@@ -76,8 +77,7 @@ These functions download data from the MeteoGalicia and NCEP (GFS, RAP, NAM) ser
 
 \examples{
 \dontrun{
-  today <- Sys.Date()
-  testDay <- today - 7
+  testDay <- Sys.Date() - 1
 
   ## temperature (Kelvin) forecast from meteogalicia
   tempK <- getPoint(c(0, 40), vars = 'temp', day = testDay)
@@ -100,7 +100,7 @@ These functions download data from the MeteoGalicia and NCEP (GFS, RAP, NAM) ser
   xyplot(vars)
 
   ## Vertical coordinates
-  tempK1000 <- getPoint(c(101,6),
+  tempK1000 <- getPoint(c(0,40),
                         vars = "Temperature_surface",
                         day = testDay,
                         service ="gfs", vertical = 1000)
@@ -108,14 +108,14 @@ These functions download data from the MeteoGalicia and NCEP (GFS, RAP, NAM) ser
   ## Time sequence
   radDays <- getPointDays(c(0, 40),
                           start = testDay - 3,
-                          end = testDay + 2)
+                          end = testDay)
   
   xyplot(radDays)
 
   ## Variability between runs
   radRuns <- getPointRuns(c(0, 40),
                           start = testDay - 3,
-                          end = testDay + 2)
+                          end = testDay)
   xyplot(radRuns, superpose = TRUE)
   
   ## variability around the average

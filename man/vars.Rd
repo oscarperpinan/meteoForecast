@@ -11,7 +11,7 @@ Forecast Variables available in each model.
   searches for matches in the description field.}
 
 \usage{
-grepVar(x, service, day = Sys.Date() - 15, complete = FALSE)
+grepVar(x, service, day = Sys.Date() - 1, complete = FALSE)
 }
 
 \arguments{
@@ -50,9 +50,9 @@ a variable with the argument \code{var} of \code{\link{getRaster}} and
 ## Variables available recently
 grepVar('cloud', service = 'gfs', complete = TRUE)
 
-## Variables available some time ago
-grepVar('cloud', service = 'gfs',
-        day = Sys.Date() - 500,
+## Variables available some days ago
+grepVar('cloud', service = 'meteogalicia',
+        day = Sys.Date() - 10,
         complete = TRUE)
 
 ## You can get the complete list with x = ""

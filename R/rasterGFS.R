@@ -1,59 +1,93 @@
-rasterGFS <- function(var, day = Sys.Date(), run = '00',
-                      frames = 'complete',
-                      box = NULL, names = NULL, remote = TRUE,
-                      use00H = FALSE, ...) {
-    if (is.null(box))
-        ext <- mfExtent('gfs')
-    else ext <- extent(box)
+rasterGFS <- function(var,
+                     day=Sys.Date(), run='00',
+                     frames='complete',
+                     box = NULL,
+                     resolution = NULL,
+                     names = NULL,
+                     remote=TRUE, use00H = FALSE, ...) {
 
-    ## GFS uses 0..360 for longitude. However, box is defined inside
-    ## -180..180. Therefore, we have to divide `box` into the east and
-    ## west hemispheres, and download separate rasters for each of them
-    east <- extent(0, 180, -90, 90)
-    eastExt <- intersect(ext, east)
-    if (!is.null(eastExt)) {
-        eastRaster <- rasterGFSBasic(var = var, day = day, run = run,
-                                     frames = frames,
-                                     box = eastExt,
-                                     names = names, remote = remote,
-                                     use00H = use00H, ...)
+    ## Model initialization time
+    run <- match.arg(run, mfRuns('gfs'))
+    ## Time Frames
+    if (remote) {
+        ## MeteoGalicia implements netCDF Time Subset. Therefore,
+        ## `frames` is a character.
+        if (frames == 'complete') frames <- '&temporal=all'
+        else {
+            present <- as.POSIXct(paste0(as.character(day),
+                                         as.numeric(run),
+                                         ':00:00Z'))
+            ff <- present
+            lf <- present + (as.integer(frames) - 1) * 3600
+            frames <- paste0('&time_start=',
+                             format(ff,
+                                    '%Y-%m-%dT%H:%M:%SZ'),
+                             '&time_end=',
+                             format(lf,
+                                    '%Y-%m-%dT%H:%M:%SZ')
+                             )
+        }
+    } else { ## remote=FALSE
+        maxFrames <- mfHorizon("gfs") / mfTRes("gfs") + 1
+        if (frames == 'complete') {
+            frames <- seq(1, maxFrames, 1)
+        } else {
+            frames <- seq(1, min(frames, maxFrames), by=1)
+        }
     }
-    west <- extent(-180, 0, -90, 90)    
-    westExt <- intersect(ext, west)
-    if (!is.null(westExt)){
-        ## The west hemisphere longitudes have to be adapted to the
-        ## GFS requirements.
-        westExt@xmin <- 360 + westExt@xmin
-        westExt@xmax <- 360 + westExt@xmax
-        westRaster <- rasterGFSBasic(var = var, day = day, run = run,
-                                     frames = frames,
-                                     box = westExt,
-                                     names = names, remote = remote,
-                                     use00H = use00H, ...)
-    }
-    ## Final: merge the east and west rasters, using `rotate` to
-    ## change the longitudes of `westRaster` to -180..0.
-    if (is.null(eastExt) & is.null(westExt))
-        stop(' incorrect box definition.')
-    if (is.null(eastExt)) {
-        b <- shift(westRaster, -360)
-    } else if (is.null(westExt)) {
-        b <- eastRaster
-    } else {
-        ## Sometimes NOMADS produces 503 Service Unavailable so the
-        ## eastRaster and westRaster may contain different layers. On
-        ## the other hand, the `merge` function does not check the
-        ## z-slot when joining layers. Thus, we have to use only the
-        ## layers that intersect.
-        EiW <- which(getZ(eastRaster) %in% getZ(westRaster))
-        WiE <- which(getZ(westRaster) %in% getZ(eastRaster))
         
-        b <- merge(eastRaster[[EiW]],
-                   shift(westRaster[[WiE]], -360))
-        ## `merge` drops the z-slot and the names
-        b <- setZ(b, getZ(eastRaster)[EiW])
-        names(b) <- names(eastRaster)[EiW]
+    ## Name of files to be read/stored
+    ncFile <- paste0(paste(var, ymd(day), run, 
+                           sep='_'), '.nc')
+        
+    if (remote) {
+        ## Meteogalicia provides a multilayer
+        ## file with all the time frames
+        completeURL <- composeURL(var, day, run,
+                                  box, frames, resolution,
+                                  service = 'gfs')
+        message('Downloading data from ', completeURL)
+        success <- try(download.file(completeURL, ncFile,
+                                     mode='wb', quiet = TRUE),
+                       silent=TRUE)
+        if (class(success) == 'try-error') {
+            stop('Data not found. Check the date and variables name')
+        } else { ## Download Successful!
+            message('File(s) available at ', tempdir())
+        } ## End of Remote
+    } else {}
+    ## Read files
+    suppressWarnings(capture.output(bNC <- stack(ncFile)))
+    ## Use frames with local files
+    if (remote==FALSE) bNC <- bNC[[frames]]
+    ## Convert into a RasterBrick
+    b <- brick(bNC)
+    ## Get values in memory to avoid problems with time index and
+    ## projection
+    b[] <- getValues(bNC)
+    ## Projection parameters are either not well defined in the
+    ## NetCDF files or incorrectly read by raster.
+    projection(b) <- mfProj4('gfs')
+
+    ## Use box specification with local files
+    if (!is.null(box) & remote==FALSE){
+        if (requireNamespace('rgdal', quietly=TRUE)) {
+            extPol <- as(extent(box), 'SpatialPolygons')
+            proj4string(extPol) <- '+proj=longlat +ellps=WGS84'
+            extPol <- spTransform(extPol, CRS(projection(b)))
+            b <- crop(b, extent(extPol))
+        } else {
+            warning("you need package 'rgdal' to use 'box' with local files")
+        }
     }
+    ## Time index
+    hours <- seq(0, nlayers(b) - 1) * 3600 * mfTRes("gfs")
+    tt <- hours + as.numeric(run)*3600 + as.POSIXct(day, tz='UTC')
+    attr(tt, 'tzone') <- 'UTC'
+    b <- setZ(b, tt)
+    ## Names
+    if (is.null(names)) names(b) <- format(tt, 'd%Y-%m-%d.h%H')
+    ## Here it goes!
     b
 }
 

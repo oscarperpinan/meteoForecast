@@ -43,7 +43,7 @@ assign("projections",
 
 assign("extents",
        list(
-           gfs = c(-180, 180, -90, 90),
+           gfs = c(-100, 80, 10, 90),
            nam = c(-153.03033819796906, -49.27221021871827,
                12.11335916285993, 57.369653102840736),
            rap = c(-139.96990801797577, -57.26853769473695,
@@ -64,7 +64,7 @@ assign("extents",
        
 assign("runs",
        list(
-           gfs = c('00', '06', '12', '18'),
+           gfs = c('00', '12'),
            meteogalicia = c('00', '12'),
            nam = c('00', '06', '12', '18'),
            rap = sprintf('%02d', 0:23)
@@ -81,7 +81,7 @@ assign("tRes",
 
 assign("horizon",
        list(
-           gfs = 192,
+           gfs = 240,
            meteogalicia = 96, ## run 00
            nam = 84,
            rap = 18),

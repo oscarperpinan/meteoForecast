@@ -102,8 +102,7 @@ checkDays(start, end, vars, remote = FALSE,
 
 \examples{
 \dontrun{
-today <- Sys.Date()
-testDay <- today - 7
+testDay <- Sys.Date() - 1
 
 ## Retrieve raster data
 wrf <- getRaster('temp', day = testDay)
@@ -117,10 +116,13 @@ hovmoller(wrf)
 
 ## Using box and frames specification
 mfExtent('gfs')
+
 cloudGFS <- getRaster('Temperature_surface',
                       day = testDay,
-                      box = c(-10, 10, -10, 10),
+                      box = c(-30, 30, 30, 50),
                       service = 'gfs')
+
+levelplot(cloudGFS, layout = c(1, 1))
 
 mfExtent('nam')
 cloudNAM <- getRaster('Temperature_surface',
@@ -152,7 +154,7 @@ hovmoller(wrfDays, par.settings = BTCTheme, contour = TRUE, cuts = 10)
 
 NAMDays <- getRasterDays('Temperature_surface',
                          start = testDay - 3,
-                         end = testDay + 2,
+                         end = testDay,
                          box = c(-100, -80, 30, 50),
                          service = 'nam')
 
