@@ -35,13 +35,13 @@ a variable with the argument \code{var} of \code{\link{getRaster}} and
 \code{\link{getPoint}}.  }
 
 \source{
-  MeteoGalicia: \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
+  \url{http://mandeo.meteogalicia.es/thredds/catalogos/WRF_2D/catalog.html}
 
-  GFS: \url{https://www.ncei.noaa.gov/thredds/catalog/gfs-004-files/catalog.html}
+  \url{http://mandeo.meteogalicia.es/thredds/catalog/gfs_0p25/fmrc/catalog.html}
 
-  NAM: \url{http://www.ncei.noaa.gov/thredds/catalog/nam218/catalog.html}
+  \url{https://www.ncei.noaa.gov/thredds/catalog/model-nam218/catalog.html}
 
-  RAP: \url{http://www.ncei.noaa.gov/thredds/catalog/rap130/catalog.html}
+  \url{https://www.ncei.noaa.gov/thredds/catalog/model-rap130/catalog.html}
 }
 
 \examples{
