@@ -51,7 +51,7 @@ a variable with the argument \code{var} of \code{\link{getRaster}} and
 grepVar('cloud', service = 'gfs', complete = TRUE)
 
 ## Variables available some days ago
-grepVar('cloud', service = 'meteogalicia',
+grepVar('cloud', service = 'nam',
         day = Sys.Date() - 10,
         complete = TRUE)
 

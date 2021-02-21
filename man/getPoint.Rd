@@ -77,6 +77,9 @@ These functions download data from the MeteoGalicia and NCEP (GFS, RAP, NAM) ser
 
 \examples{
 \dontrun{
+  ## If some of the next examples do not work, try using a different
+  ## date. Check availability for each service with the links included in
+  ## the references section.
   testDay <- Sys.Date() - 1
 
   ## temperature (Kelvin) forecast from meteogalicia

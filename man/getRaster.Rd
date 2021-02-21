@@ -83,13 +83,13 @@ checkDays(start, end, vars, remote = FALSE,
 }
 
 \references{
-  \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
+  \url{http://mandeo.meteogalicia.es/thredds/catalogos/WRF_2D/catalog.html}
 
-  \url{https://www.ncei.noaa.gov/thredds/catalog/gfs-004-files/catalog.html}
+  \url{http://mandeo.meteogalicia.es/thredds/catalog/gfs_0p25/fmrc/catalog.html}
 
-  \url{https://www.ncei.noaa.gov/thredds/catalog/rap130/catalog.html}
+  \url{https://www.ncei.noaa.gov/thredds/catalog/model-nam218/catalog.html}
 
-  \url{https://www.ncei.noaa.gov/thredds/catalog/nam218/catalog.html}
+  \url{https://www.ncei.noaa.gov/thredds/catalog/model-rap130/catalog.html}
 
 }
 
@@ -102,6 +102,11 @@ checkDays(start, end, vars, remote = FALSE,
 
 \examples{
 \dontrun{
+
+## If some of the next examples do not work, try using a different
+## date. Check availability for each service with the links included in
+## the references section.
+
 testDay <- Sys.Date() - 1
 
 ## Retrieve raster data
