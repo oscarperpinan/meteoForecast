@@ -27,10 +27,11 @@
 \references{
 \url{http://www.meteogalicia.es/web/modelos/threddsIndex.action}
 
-\url{http://www.ncei.noaa.gov/thredds/catalog/gfs-004-files/catalog.html}
-\url{http://www.ncei.noaa.gov/thredds/catalog/nam218/catalog.html}
+\url{https://www.ncei.noaa.gov/thredds/catalog/model-gfs-003-files/catalog.html}
 
-\url{http://www.ncei.noaa.gov/thredds/catalog/rap130/catalog.html}
+\url{https://www.ncei.noaa.gov/thredds/catalog/model-nam218/catalog.html}
+
+\url{https://www.ncei.noaa.gov/thredds/catalog/model-rap130/catalog.html}
 
 }
 

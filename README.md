@@ -7,17 +7,17 @@
 `meteoForecast` is a package to access outputs from Numerical Weather Prediction models both in raster format and as a time series for a location.
  The current version works with these services:
 
--   [GFS](http://www.emc.ncep.noaa.gov/index.php?branch=GFS)
--   [MeteoGalicia](http://www.meteogalicia.es/web/modelos/threddsIndex.action)
--   [NAM](http://www.ncdc.noaa.gov/data-access/model-data/model-datasets/north-american-mesoscale-forecast-system-nam)
--   [RAP](http://www.ncdc.noaa.gov/data-access/model-data/model-datasets/rapid-refresh-rap)
+-   [GFS](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/global-forcast-system-gfs)
+-   [MeteoGalicia](https://www.meteogalicia.gal/web/modelos/threddsIndex.action)
+-   [NAM](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/north-american-mesoscale-forecast-system-nam)
+-   [RAP](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/rapid-refresh-rap)
 
 ![img](figs/servicesMap.png)
 
 New services will be added gradually, using [this collection](https://github.com/oscarperpinan/mds/wiki) of
 meteorological data sources as reference.
 
-This package has been developed in the framework of the European Project [PVCROPS](http://www.pvcrops.eu/project-deliverables).
+This package has been developed in the framework of the European Project [PVCROPS](https://cordis.europa.eu/project/id/308468).
 
 ## Installation
 
@@ -26,7 +26,7 @@ The development version is available at GitHub:
     ## install.packages("remotes")
     remotes::install_github("oscarperpinan/meteoForecast")
 
-The stable version is available at [CRAN](http://cran.r-project.org/web/packages/meteoForecast/):
+The stable version is available at [CRAN](https://CRAN.R-project.org/package=meteoForecast/):
 
     install.packages('meteoForecast')
 
