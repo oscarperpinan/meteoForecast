@@ -25,7 +25,7 @@
 }
 
 \references{
-\url{https://www.meteogalicia.es/web/modelos/threddsIndex.action}
+\url{https://www.meteogalicia.gal/web/modelos/threddsIndex.action?request_locale=es}
 
 \url{https://www.ncei.noaa.gov/thredds/catalog/model-gfs-003-files/catalog.html}
 

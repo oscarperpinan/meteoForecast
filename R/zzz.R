@@ -87,6 +87,3 @@ assign("horizon",
            rap = 18),
        envir = .mfEnv)
 }
-
-
-    

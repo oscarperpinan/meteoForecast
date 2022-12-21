@@ -7,10 +7,10 @@
 `meteoForecast` is a package to access outputs from Numerical Weather Prediction models both in raster format and as a time series for a location.
  The current version works with these services:
 
--   [GFS](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/global-forcast-system-gfs)
+-   [GFS](https://www.ncei.noaa.gov/products/weather-climate-models/global-forecast)
 -   [MeteoGalicia](https://www.meteogalicia.gal/web/modelos/threddsIndex.action)
--   [NAM](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/north-american-mesoscale-forecast-system-nam)
--   [RAP](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/rapid-refresh-rap)
+-   [NAM](https://www.ncei.noaa.gov/products/model-data/model-datasets/north-american-mesoscale-forecast-system-nam)
+-   [RAP](https://www.ncei.noaa.gov/products/model-data/model-datasets/rapid-refresh-rap)
 
 ![img](figs/servicesMap.png)
 

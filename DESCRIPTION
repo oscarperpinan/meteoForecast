@@ -1,13 +1,12 @@
 Package: meteoForecast
 Type: Package
 Title: Numerical Weather Predictions
-Version: 0.54
+Version: 0.55
 Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@upm.es", role=c('cre', 'aut')), person("Marcelo", "Pinho Almeida", email= "marcelopa@iee.usp.br", role='ctb'))
-Description: Access to several Numerical Weather Prediction services both in raster format and as a time series for a location. Currently it works with GFS <https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/global-forcast-system-gfs>, MeteoGalicia <https://www.meteogalicia.gal/web/modelos/threddsIndex.action>, NAM <https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/north-american-mesoscale-forecast-system-nam>, and RAP <https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/rapid-refresh-rap>.
+Description: Access to several Numerical Weather Prediction services both in raster format and as a time series for a location. Currently it works with GFS <https://www.ncei.noaa.gov/products/weather-climate-models/global-forecast>, MeteoGalicia <https://www.meteogalicia.gal/web/modelos/threddsIndex.action>, NAM <https://www.ncei.noaa.gov/products/model-data/model-datasets/north-american-mesoscale-forecast-system-nam>, and RAP <https://www.ncei.noaa.gov/products/model-data/model-datasets/rapid-refresh-rap>.
 URL: https://github.com/oscarperpinan/meteoForecast
 BugReports: https://github.com/oscarperpinan/meteoForecast/issues
 License: GPL-3
-LazyData: yes
 Depends: raster, sp, zoo, ncdf4
 Imports: methods, stats, utils, XML
-Suggests: rgdal, lattice, rasterVis
+Suggests: sf, lattice, rasterVis

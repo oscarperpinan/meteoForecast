@@ -9,10 +9,14 @@ getPoint <- function(point, vars = 'swflx',
     ## Extract longitude-latitude
     if (is(point, 'SpatialPoints')) {
         if (!isLonLat(point)) {
-            if (requireNamespace('rgdal', quietly=TRUE)) 
-            point <- spTransform(point, CRS('+proj=longlat +ellps=WGS84'))
-            else stop('`rgdal` is needed if `point` is projected.')
+            if (requireNamespace('sf', quietly=TRUE)) 
+                point <- as(sf::st_transform(
+                                    sf::st_as_sf(point),
+                                    sf::st_crs(CRS('+proj=longlat +ellps=WGS84'))),
+                            "Spatial")
+            else stop('`sf` is needed if `point` is projected.')
         }
+
         lat <- coordinates(point)[2]
         lon <- coordinates(point)[1]
     } else { ## point is a numeric of length 2
