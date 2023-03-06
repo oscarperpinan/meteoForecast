@@ -72,9 +72,9 @@ These functions download data from the MeteoGalicia and NCEP (GFS, RAP, NAM) ser
 \author{Oscar Perpiñán Lamigueiro with contributions from Marcelo Almeida}
 
 \references{
-  \url{http://mandeo.meteogalicia.es/thredds/catalogos/WRF_2D/catalog.html}
+  \url{https://mandeo.meteogalicia.es/thredds/catalogos/WRF_2D/catalog.html}
 
-  \url{http://mandeo.meteogalicia.es/thredds/catalog/gfs_0p25/fmrc/catalog.html}
+  \url{https://mandeo.meteogalicia.es/thredds/catalog/gfs_0p25/fmrc/catalog.html}
 
   \url{https://www.ncei.noaa.gov/thredds/catalog/model-nam218/catalog.html}
 

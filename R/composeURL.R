@@ -62,7 +62,7 @@ urlMG <- function(var, day, run, spatial, timeFrame, resolution, ...){
     ## meteogalicia stores 14 days of operational forecasts
     ## After 14 days the forecasts are moved to the WRF_HIST folder
     if (today - day <= 14) {
-        mainURL <- 'http://mandeo.meteogalicia.es/thredds/ncss/grid/wrf_2d_'
+        mainURL <- 'https://mandeo.meteogalicia.es/thredds/ncss/grid/wrf_2d_'
         URL0 <- paste0(mainURL,
                        resolution,
                        '/fmrc/files/', ymd(day),
@@ -72,7 +72,7 @@ urlMG <- function(var, day, run, spatial, timeFrame, resolution, ...){
                        '.nc4')
     } else {
         ## Historical forecasts. Only run 0 is available
-        mainURL <- paste0('http://mandeo.meteogalicia.es/thredds/ncss/grid/modelos/WRF_HIST/')
+        mainURL <- paste0('https://mandeo.meteogalicia.es/thredds/ncss/grid/modelos/WRF_HIST/')
         year <- format(day, '%Y')
         month <- format(day, '%m')
         URL0 <- paste0(mainURL,
@@ -114,7 +114,7 @@ urlGFS <- function(var, day, run, spatial, timeFrame, resolution, ...){
      ## meteogalicia stores 14 days of operational forecasts
     ## After 14 days the forecasts are moved to the WRF_HIST folder
     ## if (today - day <= 14) {
-    mainURL <- 'http://mandeo.meteogalicia.es/thredds/ncss/gfs_'
+    mainURL <- 'https://mandeo.meteogalicia.es/thredds/ncss/gfs_'
     resolution <- "0p25"
         URL0 <- paste0(mainURL,
                        resolution,
@@ -126,7 +126,7 @@ urlGFS <- function(var, day, run, spatial, timeFrame, resolution, ...){
                        '.grib2')
     ## } else {
     ##     ## Historical forecasts. Only run 0 is available
-    ##     mainURL <- paste0('http://mandeo.meteogalicia.es/thredds/ncss/grid/modelos/WRF_HIST/')
+    ##     mainURL <- paste0('https://mandeo.meteogalicia.es/thredds/ncss/grid/modelos/WRF_HIST/')
     ##     year <- format(day, '%Y')
     ##     month <- format(day, '%m')
     ##     URL0 <- paste0(mainURL,
