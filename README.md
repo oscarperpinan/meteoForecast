@@ -9,8 +9,8 @@
 
 -   [GFS](https://www.ncei.noaa.gov/products/weather-climate-models/global-forecast)
 -   [MeteoGalicia](https://www.meteogalicia.gal/web/modelos/threddsIndex.action)
--   [NAM](https://www.ncei.noaa.gov/products/model-data/model-datasets/north-american-mesoscale-forecast-system-nam)
--   [RAP](https://www.ncei.noaa.gov/products/model-data/model-datasets/rapid-refresh-rap)
+-   [NAM](https://www.ncei.noaa.gov/products/weather-climate-models/north-american-mesoscale)
+-   [RAP](https://www.ncei.noaa.gov/products/weather-climate-models/rapid-refresh-update)
 
 ![img](figs/servicesMap.png)
 

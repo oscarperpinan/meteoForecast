@@ -3,10 +3,10 @@ citHeader("To cite package 'meteoForecast' in publications use:")
 year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
 vers <- paste("R package version", meta$Version)
 
-citEntry(entry="Manual",
+bibentry(bibtype ="Manual",
          title ="{meteoForecast}",
-         author = personList(as.person("Oscar Perpi{\\~n}{\\'a}n"),
-                             as.person("Marcelo Pinho Almeida")),
+         author = c(as.person("Oscar Perpi{\\~n}{\\'a}n"),
+                    as.person("Marcelo Pinho Almeida")),
          year = year,
          url ="https://github.com/oscarperpinan/meteoForecast/",
          note = vers,

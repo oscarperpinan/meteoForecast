@@ -36,7 +36,7 @@ pointNCDC <- function(lon, lat, vars, day, run, service, ...){
             download.file(completeURL,
                           tmpfile, quiet=TRUE)),
                        silent=TRUE)
-        if (class(success) == 'try-error') NULL else tmpfile
+        if (inherits(success, "try-error")) NULL else tmpfile
     })
     ## remove NULL elements
     files <- do.call(c, files)

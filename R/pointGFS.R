@@ -19,7 +19,7 @@ pointGFS <- function(lon, lat, vars,
                       tmpfile, quiet=TRUE)),
                    silent=TRUE)
 
-    if (class(success) == 'try-error')
+    if (inherits(success, "try-error"))
     stop('Data not found. Check the date and variables name.\nURL: ',
          completeURL)
 

@@ -52,7 +52,7 @@ rasterMG <- function(var='swflx',
         success <- try(download.file(completeURL, ncFile,
                                      mode='wb', quiet = TRUE),
                        silent=TRUE)
-        if (class(success) == 'try-error') {
+        if (inherits(success, "try-error")) {
             stop('Data not found. Check the date and variables name')
         } else { ## Download Successful!
             message('File(s) available at ', tempdir())
