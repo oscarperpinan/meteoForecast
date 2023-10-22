@@ -98,68 +98,26 @@ urlMG <- function(var, day, run, spatial, timeFrame, resolution, ...){
 urlNOAA <- 'https://www.ncei.noaa.gov/thredds/ncss'
 
 
-urlGFS <- function(var, day, run, spatial, timeFrame, resolution, ...){
+urlGFS <- function(var, day, run, spatial, timeFrame, vertical, resolution, ...){
     today <- Sys.Date()
-    ## ## Resolution default value 
-    ## if (is.null(resolution)) resolution <- 12
-    ## ## Valid choices in Meteogalicia
-    ## resChoices <- c(36, 12, 4)
-    ## idxRes <- match(resolution, resChoices)
-    ## if (is.na(idxRes)) {
-    ##     resolution <- 12
-    ##     idxRes <- 2
-    ##     message('Valid choices for `resolution` are 4, 12 and 36. Resorting to default value, 12.')
-    ## }
-    ## resolution <- sprintf('%02dkm', resolution)
-     ## meteogalicia stores 14 days of operational forecasts
-    ## After 14 days the forecasts are moved to the WRF_HIST folder
-    ## if (today - day <= 14) {
+
     mainURL <- 'https://mandeo.meteogalicia.es/thredds/ncss/gfs_'
     resolution <- "0p25"
-        URL0 <- paste0(mainURL,
-                       resolution,
-                       '/fmrc/', ymd(day),
-                       '/gfs_', resolution,
-                       '_', 'f000_f240',
-                       '_', ymd(day),
-                       '_', paste0(run, '00'),
-                       '.grib2')
-    ## } else {
-    ##     ## Historical forecasts. Only run 0 is available
-    ##     mainURL <- paste0('https://mandeo.meteogalicia.es/thredds/ncss/grid/modelos/WRF_HIST/')
-    ##     year <- format(day, '%Y')
-    ##     month <- format(day, '%m')
-    ##     URL0 <- paste0(mainURL,
-    ##                    paste0('d0', idxRes, '/'),
-    ##                    year, '/',
-    ##                    month, '/',
-    ##                    'wrf_arw_det_history_',
-    ##                    paste0('d0', idxRes, '_'),
-    ##                    ymd(day),
-    ##                    '_', '0000',
-    ##                    '.nc4')
-    ## } 
+    URL0 <- paste0(mainURL,
+                   resolution,
+                   '/fmrc/', ymd(day),
+                   '/gfs_', resolution,
+                   '_', 'f000_f240',
+                   '_', ymd(day),
+                   '_', paste0(run, '00'),
+                   '.grib2')
+
    if (!is.null(var)) {
-        paste0(URL0, '?var=', var, spatial, timeFrame)
+        paste0(URL0, '?var=', var, vertical, spatial, timeFrame)
     } else {
         URL0
     }
 }
-
-## urlGFS <- function(var, day, run, spatial, timeFrame, vertical, ...) {
-##     Ym <- format(day, format='%Y%m')
-##     mainURL <- paste0(urlNOAA, '/model-gfs-004-files/')
-##     run <- paste0(run, '00')
-##     timeFrame <- sprintf('%03d', timeFrame)
-##     URL0 <- paste0(mainURL, Ym, '/', ymd(day), '/',
-##                    'gfs_3_', ymd(day), '_', run, '_', timeFrame,
-##                    '.grb2')
-##     if (!is.null(var)) {
-##         paste0(URL0, '?var=', var, vertical, spatial)
-##     } else {
-##         URL0
-##     }
-## }
 
 ##################################################################
 ## North American Mesoscale Forecast System (NAM) 
